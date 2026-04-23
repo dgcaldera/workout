@@ -34,7 +34,7 @@
     }
 
     .wrap {
-      padding: 0 0 80px
+      padding: 0 0 60px
     }
 
     .hero {
@@ -42,14 +42,13 @@
       color: #fff;
       padding: 16px;
       border-radius: var(--border-radius-lg);
-      margin-bottom: 14px
+      margin-bottom: 12px
     }
 
     .hero-tag {
-      font-family: 'Barlow Condensed', sans-serif;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       color: var(--red);
       text-transform: uppercase;
       margin-bottom: 4px
@@ -57,11 +56,11 @@
 
     .hero h1 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2rem;
+      font-size: 30px;
       font-weight: 900;
       line-height: 1.05;
       text-transform: uppercase;
-      margin-bottom: 6px
+      margin-bottom: 5px
     }
 
     .hero h1 span {
@@ -69,9 +68,9 @@
     }
 
     .hero p {
-      font-size: 0.95rem;
+      font-size: 13px;
       opacity: 0.65;
-      line-height: 1.5
+      line-height: 1.4
     }
 
     .hero-badge {
@@ -80,9 +79,9 @@
       gap: 5px;
       background: rgba(226, 75, 74, 0.15);
       color: var(--red);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 20px;
       border: 1px solid rgba(226, 75, 74, 0.3);
       margin-top: 8px
@@ -91,24 +90,23 @@
     .tab-bar {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      margin-bottom: 14px
+      gap: 5px;
+      margin-bottom: 12px
     }
 
     .tab-bar button {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.5px;
       text-transform: uppercase;
-      padding: 10px 4px;
+      padding: 12px 4px;
       border-radius: var(--border-radius-md);
       border: 1px solid var(--bd);
       background: var(--card);
       color: var(--muted);
       cursor: pointer;
-      line-height: 1.2;
-      min-height: 44px
+      min-height: 48px;
+      line-height: 1.1
     }
 
     .tab-bar button.active {
@@ -127,11 +125,11 @@
 
     .ph {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem;
+      font-size: 22px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 12px
+      margin-bottom: 10px
     }
 
     .ph span {
@@ -139,17 +137,17 @@
     }
 
     .sub {
-      font-size: 0.95rem;
+      font-size: 13px;
       color: var(--muted);
       line-height: 1.5;
-      margin-bottom: 14px
+      margin-bottom: 12px
     }
 
     .muscle-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 14px
+      margin-bottom: 12px
     }
 
     .muscle-section {
@@ -161,26 +159,23 @@
 
     .muscle-hdr {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--red);
-      padding: 12px 14px;
-      border-bottom: 0.5px solid var(--bd);
-      display: flex;
-      align-items: center;
-      gap: 6px
+      padding: 11px 14px;
+      border-bottom: 0.5px solid var(--bd)
     }
 
     .ex-row {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 13px 14px;
       border-bottom: 0.5px solid var(--bd);
       cursor: pointer;
-      min-height: 54px
+      gap: 10px;
+      min-height: 60px
     }
 
     .ex-row:last-child {
@@ -191,38 +186,37 @@
       background: var(--surf)
     }
 
+    .ex-left {
+      flex: 1;
+      min-width: 0
+    }
+
     .ex-name {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 16px;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px
+      gap: 7px;
+      margin-bottom: 5px
     }
 
     .vdot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--red);
       flex-shrink: 0
     }
 
-    .ex-arrow {
-      color: var(--muted);
-      font-size: 16px;
-      flex-shrink: 0
-    }
-
     .mods {
       display: flex;
-      gap: 3px;
-      margin-top: 3px
+      gap: 4px
     }
 
     .mod {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 8px;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
       font-weight: 600
     }
 
@@ -241,6 +235,13 @@
       color: #A32D2D
     }
 
+    .ex-arrow {
+      color: var(--muted);
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1
+    }
+
     .day-card {
       background: var(--card);
       border: 0.5px solid var(--bd);
@@ -250,27 +251,26 @@
     }
 
     .day-hdr {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
       padding: 12px 14px;
-      border-bottom: 0.5px solid var(--bd)
+      border-bottom: 0.5px solid var(--bd);
+      background: var(--surf)
     }
 
     .day-label {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.3rem;
+      font-size: 19px;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px
     }
 
     .day-focus {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.5px
+      letter-spacing: 0.5px;
+      margin-top: 1px
     }
 
     .w-row {
@@ -279,8 +279,8 @@
       padding: 12px 14px;
       border-bottom: 0.5px solid var(--bd);
       cursor: pointer;
-      gap: 8px;
-      min-height: 54px
+      gap: 10px;
+      min-height: 58px
     }
 
     .w-row:last-child {
@@ -291,49 +291,43 @@
       background: var(--surf)
     }
 
-    .w-info {
-      flex: 1;
-      min-width: 0
-    }
-
     .w-name {
-      font-size: 14px;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.2
     }
 
     .w-detail {
-      font-size: 0.95rem;
+      font-size: 12px;
       color: var(--muted);
-      margin-top: 1px
+      margin-top: 3px
     }
 
-    .w-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
-      flex-shrink: 0
+    .w-right {
+      flex-shrink: 0;
+      text-align: right;
+      min-width: 70px
     }
 
     .w-sets {
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1
     }
 
     .w-rest {
-      font-size: 0.95rem;
-      color: var(--muted)
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px
     }
 
     .tech-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 14px
+      margin-bottom: 16px
     }
 
     .tech-card {
@@ -343,34 +337,41 @@
       padding: 14px
     }
 
+    .tech-top {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px
+    }
+
     .tech-num {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 900;
-      color: var(--red)
+      color: var(--red);
+      line-height: 1
     }
 
     .tech-name {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 6px
+      letter-spacing: 0.5px
     }
 
     .tech-desc {
-      font-size: 0.95rem;
+      font-size: 14px;
       color: var(--muted);
       line-height: 1.6;
       margin-bottom: 8px
     }
 
     .tech-ex {
-      font-size: 0.95rem;
+      font-size: 13px;
       background: var(--surf);
       border-radius: var(--border-radius-md);
-      padding: 9px 11px;
+      padding: 10px 12px;
       border-left: 3px solid var(--red);
       line-height: 1.5
     }
@@ -389,9 +390,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 16px 16px;
+      padding: 14px;
       cursor: pointer;
-      min-height: 60px
+      min-height: 62px
     }
 
     .core-row:active {
@@ -400,12 +401,13 @@
 
     .core-time {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 900;
       color: var(--red);
-      width: 48px;
+      width: 52px;
       flex-shrink: 0;
-      text-align: center
+      text-align: center;
+      line-height: 1
     }
 
     .core-info {
@@ -413,17 +415,17 @@
     }
 
     .core-name {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 16px;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 5px
+      gap: 6px
     }
 
     .core-tip {
-      font-size: 0.95rem;
+      font-size: 12px;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 3px;
       line-height: 1.4
     }
 
@@ -431,12 +433,13 @@
       background: var(--card);
       border: 0.5px solid var(--bd);
       border-radius: var(--border-radius-lg);
-      padding: 14px
+      padding: 14px;
+      margin-bottom: 16px
     }
 
     .jeff-lbl {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -447,7 +450,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 14px
+      margin-bottom: 16px
     }
 
     .gear-card {
@@ -459,15 +462,15 @@
 
     .gear-name {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 3px
+      letter-spacing: 0.5px;
+      margin-bottom: 2px
     }
 
     .gear-price {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--red);
       margin-bottom: 10px
@@ -478,9 +481,9 @@
     }
 
     .gear-uses li {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
-      padding: 5px 0;
+      padding: 6px 0;
       border-bottom: 0.5px solid var(--bd);
       display: flex;
       align-items: center;
@@ -493,8 +496,8 @@
 
     .gear-uses li::before {
       content: '';
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--red);
       flex-shrink: 0
@@ -504,14 +507,14 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      margin-bottom: 14px
+      margin-bottom: 16px
     }
 
     .ms-card {
       background: var(--card);
       border: 0.5px solid var(--bd);
       border-radius: var(--border-radius-lg);
-      padding: 16px;
+      padding: 14px;
       display: flex;
       align-items: center;
       gap: 12px
@@ -519,12 +522,13 @@
 
     .ms-num {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 900;
       color: var(--red);
-      width: 44px;
+      width: 46px;
       text-align: center;
-      flex-shrink: 0
+      flex-shrink: 0;
+      line-height: 1
     }
 
     .ms-info {
@@ -533,23 +537,24 @@
     }
 
     .ms-name {
-      font-size: 0.95rem;
-      font-weight: 500
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3
     }
 
     .ms-why {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 3px;
       line-height: 1.4
     }
 
     .ms-tag {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding: 3px 8px;
+      padding: 4px 9px;
       border-radius: 12px;
       white-space: nowrap;
       flex-shrink: 0
@@ -570,7 +575,7 @@
       color: #A32D2D
     }
 
-    .timer-wrap {
+    .timer-card {
       background: var(--card);
       border: 0.5px solid var(--bd);
       border-radius: var(--border-radius-lg);
@@ -580,65 +585,67 @@
 
     .t-phase {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--muted)
+      color: var(--muted);
+      margin-bottom: 4px
     }
 
     .t-display {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 72px;
+      font-size: 80px;
       font-weight: 900;
       line-height: 1;
       color: var(--red);
-      margin: 8px 0
+      margin-bottom: 8px
     }
 
     .t-bar-wrap {
       width: 100%;
-      height: 6px;
+      height: 8px;
       background: var(--surf);
-      border-radius: 3px;
-      margin: 8px 0
+      border-radius: 4px;
+      margin-bottom: 8px
     }
 
     .t-bar {
-      height: 6px;
-      border-radius: 3px;
+      height: 8px;
+      border-radius: 4px;
       background: var(--red)
     }
 
     .t-info {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
-      margin-bottom: 12px
+      margin-bottom: 14px
     }
 
     .t-presets {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      margin-bottom: 14px
+      gap: 8px;
+      margin-bottom: 16px
     }
 
     .t-preset {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
-      padding: 10px 8px;
+      padding: 12px 8px;
       border-radius: var(--border-radius-md);
       border: 1px solid var(--bd);
       background: var(--card);
       cursor: pointer;
       color: var(--muted);
-      min-height: 44px
+      min-height: 50px;
+      line-height: 1.3
     }
 
-    .t-preset.active,
-    .t-preset:active {
+    .t-preset.active {
       border-color: var(--red);
-      color: var(--red)
+      color: var(--red);
+      font-weight: 700
     }
 
     .t-btns {
@@ -649,17 +656,17 @@
 
     .t-btn {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      padding: 14px 8px;
+      padding: 16px 8px;
       border-radius: var(--border-radius-md);
       border: 1px solid var(--bd);
       background: var(--card);
       color: var(--txt);
       cursor: pointer;
-      min-height: 50px
+      min-height: 54px
     }
 
     .t-btn.primary {
@@ -669,76 +676,75 @@
     }
 
     .t-stats {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
-      margin-top: 14px;
-      padding-top: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
       border-top: 0.5px solid var(--bd)
     }
 
+    .t-stats span {
+      font-weight: 700;
+      color: var(--red)
+    }
+
     .modal-wrap {
-      display: none;
-      min-height: 300px
+      display: none
     }
 
     .modal-wrap.open {
-      display: block
-    }
-
-    .modal-backdrop {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 12px;
-      border-radius: var(--border-radius-lg);
+      display: block;
       margin-bottom: 14px
     }
 
     .modal-inner {
       background: var(--card);
+      border: 0.5px solid var(--bd);
       border-radius: var(--border-radius-lg);
       overflow: hidden
     }
 
     .modal-hdr {
-      padding: 14px 14px 0;
+      padding: 14px;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start
+      align-items: flex-start;
+      border-bottom: 0.5px solid var(--bd)
     }
 
     .modal-muscle {
-      font-family: 'Barlow Condensed', sans-serif;
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 2px;
       color: var(--red);
-      text-transform: uppercase
+      text-transform: uppercase;
+      margin-bottom: 3px
     }
 
     .modal-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 900;
-      margin-top: 2px;
       line-height: 1
     }
 
     .modal-close-btn {
       background: none;
       border: none;
-      font-size: 22px;
+      font-size: 26px;
       cursor: pointer;
       color: var(--muted);
       padding: 0;
-      line-height: 1;
       min-width: 44px;
       min-height: 44px;
       display: flex;
       align-items: center;
-      justify-content: center
+      justify-content: center;
+      flex-shrink: 0
     }
 
     .modal-body {
-      padding: 12px 14px 20px
+      padding: 14px
     }
 
     .yt-thumb {
@@ -762,42 +768,42 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.35)
+      background: rgba(0, 0, 0, 0.38)
     }
 
     .yt-play {
-      width: 56px;
-      height: 40px;
+      width: 60px;
+      height: 44px;
       background: #ff0000;
-      border-radius: 8px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center
     }
 
     .yt-play svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       fill: #fff;
-      margin-left: 3px
+      margin-left: 4px
     }
 
     .yt-lbl {
       color: #fff;
-      font-size: 11px;
-      margin-top: 7px;
+      font-size: 12px;
+      margin-top: 8px;
       font-weight: 500;
-      opacity: 0.9;
       text-align: center;
-      padding: 0 12px
+      padding: 0 10px;
+      line-height: 1.4
     }
 
     .tip-box {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
       background: var(--surf);
       border-radius: var(--border-radius-md);
-      padding: 10px 12px;
+      padding: 12px;
       margin-bottom: 12px;
       border-left: 3px solid var(--red);
       line-height: 1.6
@@ -813,7 +819,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 12px;
+      padding: 12px;
       border-bottom: 0.5px solid var(--bd)
     }
 
@@ -822,40 +828,36 @@
     }
 
     .prog-text {
-      font-size: 13px;
-      flex: 1
+      font-size: 14px;
+      flex: 1;
+      line-height: 1.3
     }
 
-    html {
-      font-size: 16px;
-      /* base size */
+    .plan-toggle {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 12px
     }
 
-    body {
-      font-size: 1rem;
-      line-height: 1.6;
+    .plan-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 13px 8px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--bd);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      min-height: 48px
     }
 
-    @media (min-width: 600px) {
-      html {
-        font-size: 18px;
-      }
-    }
-
-    @media (min-width: 900px) {
-      html {
-        font-size: 20px;
-      }
-    }
-
-    body {
-      letter-spacing: 0.2px;
-    }
-
-    .ex-name,
-    .w-name,
-    .core-name {
-      font-size: 1rem;
+    .plan-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff
     }
   </style>
 </head>

@@ -1,582 +1,1317 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Workout App</title>
+  <title>Alex Workout App</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-:root{--red:#E24B4A;--dark:#1a1a1a;--card:var(--color-background-primary);--bd:var(--color-border-tertiary);--muted:var(--color-text-secondary);--txt:var(--color-text-primary);--surf:var(--color-background-secondary)}
-body,html{font-family:'Barlow',sans-serif;color:var(--txt)}
-.wrap{padding:0 0 80px}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap');
 
-.hero{background:var(--dark);color:#fff;padding:16px;border-radius:var(--border-radius-lg);margin-bottom:14px}
-.hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:4px}
-.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;line-height:1.05;text-transform:uppercase;margin-bottom:6px}
-.hero h1 span{color:var(--red)}
-.hero p{font-size:0.95rem;opacity:0.65;line-height:1.5}
-.hero-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(226,75,74,0.15);color:var(--red);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid rgba(226,75,74,0.3);margin-top:8px}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent
+    }
 
-.tab-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:14px}
-.tab-bar button{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;padding:10px 4px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--card);color:var(--muted);cursor:pointer;line-height:1.2;min-height:44px}
-.tab-bar button.active{background:var(--red);border-color:var(--red);color:#fff}
+    :root {
+      --red: #E24B4A;
+      --dark: #1a1a1a;
+      --card: var(--color-background-primary);
+      --bd: var(--color-border-tertiary);
+      --muted: var(--color-text-secondary);
+      --txt: var(--color-text-primary);
+      --surf: var(--color-background-secondary)
+    }
 
-.page{display:none}.page.active{display:block}
-.ph{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
-.ph span{color:var(--red)}
-.sub{font-size:0.95rem;color:var(--muted);line-height:1.5;margin-bottom:14px}
+    body,
+    html {
+      font-family: 'Barlow', sans-serif;
+      color: var(--txt)
+    }
 
-.muscle-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
-.muscle-section{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);overflow:hidden}
-.muscle-hdr{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);padding:12px 14px;border-bottom:0.5px solid var(--bd);display:flex;align-items:center;gap:6px}
-.ex-row{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-bottom:0.5px solid var(--bd);cursor:pointer;min-height:54px}
-.ex-row:last-child{border-bottom:none}
-.ex-row:active{background:var(--surf)}
-.ex-name{font-size:14px;font-weight:500;display:flex;align-items:center;gap:6px}
-.vdot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0}
-.ex-arrow{color:var(--muted);font-size:16px;flex-shrink:0}
-.mods{display:flex;gap:3px;margin-top:3px}
-.mod{font-size:10px;padding:2px 6px;border-radius:8px;font-weight:600}
-.mod-b{background:#E1F5EE;color:#0F6E56}
-.mod-i{background:#E6F1FB;color:#185FA5}
-.mod-a{background:#FCEBEB;color:#A32D2D}
+    .wrap {
+      padding: 0 0 80px
+    }
 
-.day-card{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);margin-bottom:10px;overflow:hidden}
-.day-hdr{display:flex;align-items:baseline;justify-content:space-between;padding:12px 14px;border-bottom:0.5px solid var(--bd)}
-.day-label{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;text-transform:uppercase;letter-spacing:1px}
-.day-focus{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px}
-.w-row{display:flex;align-items:center;padding:12px 14px;border-bottom:0.5px solid var(--bd);cursor:pointer;gap:8px;min-height:54px}
-.w-row:last-child{border-bottom:none}
-.w-row:active{background:var(--surf)}
-.w-info{flex:1;min-width:0}
-.w-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.w-detail{font-size:0.95rem;color:var(--muted);margin-top:1px}
-.w-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
-.w-sets{font-size:13px;font-weight:600;white-space:nowrap}
-.w-rest{font-size:0.95rem;color:var(--muted)}
+    .hero {
+      background: var(--dark);
+      color: #fff;
+      padding: 16px;
+      border-radius: var(--border-radius-lg);
+      margin-bottom: 14px
+    }
 
-.tech-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
-.tech-card{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);padding:14px}
-.tech-num{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:var(--red)}
-.tech-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.tech-desc{font-size:0.95rem;color:var(--muted);line-height:1.6;margin-bottom:8px}
-.tech-ex{font-size:0.95rem;background:var(--surf);border-radius:var(--border-radius-md);padding:9px 11px;border-left:3px solid var(--red);line-height:1.5}
+    .hero-tag {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 4px
+    }
 
-.core-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.core-row{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);display:flex;align-items:center;gap:12px;padding:16px 16px;cursor:pointer;min-height:60px}
-.core-row:active{background:var(--surf)}
-.core-time{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--red);width:48px;flex-shrink:0;text-align:center}
-.core-info{flex:1}
-.core-name{font-size:14px;font-weight:500;display:flex;align-items:center;gap:5px}
-.core-tip{font-size:0.95rem;color:var(--muted);margin-top:2px;line-height:1.4}
-.jeff-box{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);padding:14px}
-.jeff-lbl{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1.05;
+      text-transform: uppercase;
+      margin-bottom: 6px
+    }
 
-.gear-list{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
-.gear-card{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);padding:14px}
-.gear-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
-.gear-price{font-size:12px;font-weight:600;color:var(--red);margin-bottom:10px}
-.gear-uses{list-style:none}
-.gear-uses li{font-size:13px;color:var(--muted);padding:5px 0;border-bottom:0.5px solid var(--bd);display:flex;align-items:center;gap:8px}
-.gear-uses li:last-child{border-bottom:none}
-.gear-uses li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0}
+    .hero h1 span {
+      color: var(--red)
+    }
 
-.ms-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
-.ms-card{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);padding:16px;display:flex;align-items:center;gap:12px}
-.ms-num{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:var(--red);width:44px;text-align:center;flex-shrink:0}
-.ms-info{flex:1;min-width:0}
-.ms-name{font-size:0.95rem;font-weight:500}
-.ms-why{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
-.ms-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 8px;border-radius:12px;white-space:nowrap;flex-shrink:0}
-.lv1{background:#E1F5EE;color:#0F6E56}.lv2{background:#E6F1FB;color:#185FA5}.lv3{background:#FCEBEB;color:#A32D2D}
+    .hero p {
+      font-size: 0.95rem;
+      opacity: 0.65;
+      line-height: 1.5
+    }
 
-.timer-wrap{background:var(--card);border:0.5px solid var(--bd);border-radius:var(--border-radius-lg);padding:20px;text-align:center}
-.t-phase{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted)}
-.t-display{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;line-height:1;color:var(--red);margin:8px 0}
-.t-bar-wrap{width:100%;height:6px;background:var(--surf);border-radius:3px;margin:8px 0}
-.t-bar{height:6px;border-radius:3px;background:var(--red)}
-.t-info{font-size:12px;color:var(--muted);margin-bottom:12px}
-.t-presets{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:14px}
-.t-preset{font-size:12px;font-weight:600;padding:10px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--card);cursor:pointer;color:var(--muted);min-height:44px}
-.t-preset.active,.t-preset:active{border-color:var(--red);color:var(--red)}
-.t-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.t-btn{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:14px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--card);color:var(--txt);cursor:pointer;min-height:50px}
-.t-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
-.t-stats{font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:0.5px solid var(--bd)}
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(226, 75, 74, 0.15);
+      color: var(--red);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      border: 1px solid rgba(226, 75, 74, 0.3);
+      margin-top: 8px
+    }
 
-.modal-wrap{display:none;min-height:300px}
-.modal-wrap.open{display:block}
-.modal-backdrop{background:rgba(0,0,0,0.5);padding:12px;border-radius:var(--border-radius-lg);margin-bottom:14px}
-.modal-inner{background:var(--card);border-radius:var(--border-radius-lg);overflow:hidden}
-.modal-hdr{padding:14px 14px 0;display:flex;justify-content:space-between;align-items:flex-start}
-.modal-muscle{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--red);text-transform:uppercase}
-.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;margin-top:2px;line-height:1}
-.modal-close-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);padding:0;line-height:1;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
-.modal-body{padding:12px 14px 20px}
-.yt-thumb{display:block;position:relative;border-radius:var(--border-radius-md);overflow:hidden;margin-bottom:12px;text-decoration:none}
-.yt-thumb img{width:100%;display:block}
-.yt-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.35)}
-.yt-play{width:56px;height:40px;background:#ff0000;border-radius:8px;display:flex;align-items:center;justify-content:center}
-.yt-play svg{width:18px;height:18px;fill:#fff;margin-left:3px}
-.yt-lbl{color:#fff;font-size:11px;margin-top:7px;font-weight:500;opacity:0.9;text-align:center;padding:0 12px}
-.tip-box{font-size:12px;color:var(--muted);background:var(--surf);border-radius:var(--border-radius-md);padding:10px 12px;margin-bottom:12px;border-left:3px solid var(--red);line-height:1.6}
-.prog-rows{border:0.5px solid var(--bd);border-radius:var(--border-radius-md);overflow:hidden}
-.prog-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:0.5px solid var(--bd)}
-.prog-row:last-child{border-bottom:none}
-.prog-text{font-size:13px;flex:1}
+    .tab-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-bottom: 14px
+    }
 
-html {
-  font-size: 16px; /* base size */
-}
+    .tab-bar button {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 10px 4px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--bd);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1.2;
+      min-height: 44px
+    }
 
-body {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-@media (min-width: 600px) {
-  html {
-    font-size: 18px;
-  }
-}
+    .tab-bar button.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff
+    }
 
-@media (min-width: 900px) {
-  html {
-    font-size: 20px;
-  }
-}
-body {
-  letter-spacing: 0.2px;
-}
+    .page {
+      display: none
+    }
 
-.ex-name,
-.w-name,
-.core-name {
-  font-size: 1rem;
-}
-</style>
+    .page.active {
+      display: block
+    }
+
+    .ph {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px
+    }
+
+    .ph span {
+      color: var(--red)
+    }
+
+    .sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px
+    }
+
+    .muscle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .muscle-section {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden
+    }
+
+    .muscle-hdr {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--red);
+      padding: 12px 14px;
+      border-bottom: 0.5px solid var(--bd);
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .ex-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 14px;
+      border-bottom: 0.5px solid var(--bd);
+      cursor: pointer;
+      min-height: 54px
+    }
+
+    .ex-row:last-child {
+      border-bottom: none
+    }
+
+    .ex-row:active {
+      background: var(--surf)
+    }
+
+    .ex-name {
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .vdot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0
+    }
+
+    .ex-arrow {
+      color: var(--muted);
+      font-size: 16px;
+      flex-shrink: 0
+    }
+
+    .mods {
+      display: flex;
+      gap: 3px;
+      margin-top: 3px
+    }
+
+    .mod {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 600
+    }
+
+    .mod-b {
+      background: #E1F5EE;
+      color: #0F6E56
+    }
+
+    .mod-i {
+      background: #E6F1FB;
+      color: #185FA5
+    }
+
+    .mod-a {
+      background: #FCEBEB;
+      color: #A32D2D
+    }
+
+    .day-card {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      margin-bottom: 10px;
+      overflow: hidden
+    }
+
+    .day-hdr {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-bottom: 0.5px solid var(--bd)
+    }
+
+    .day-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px
+    }
+
+    .day-focus {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px
+    }
+
+    .w-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 0.5px solid var(--bd);
+      cursor: pointer;
+      gap: 8px;
+      min-height: 54px
+    }
+
+    .w-row:last-child {
+      border-bottom: none
+    }
+
+    .w-row:active {
+      background: var(--surf)
+    }
+
+    .w-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .w-name {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .w-detail {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 1px
+    }
+
+    .w-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      flex-shrink: 0
+    }
+
+    .w-sets {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap
+    }
+
+    .w-rest {
+      font-size: 0.95rem;
+      color: var(--muted)
+    }
+
+    .tech-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .tech-card {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      padding: 14px
+    }
+
+    .tech-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--red)
+    }
+
+    .tech-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px
+    }
+
+    .tech-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 8px
+    }
+
+    .tech-ex {
+      font-size: 0.95rem;
+      background: var(--surf);
+      border-radius: var(--border-radius-md);
+      padding: 9px 11px;
+      border-left: 3px solid var(--red);
+      line-height: 1.5
+    }
+
+    .core-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px
+    }
+
+    .core-row {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 16px;
+      cursor: pointer;
+      min-height: 60px
+    }
+
+    .core-row:active {
+      background: var(--surf)
+    }
+
+    .core-time {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--red);
+      width: 48px;
+      flex-shrink: 0;
+      text-align: center
+    }
+
+    .core-info {
+      flex: 1
+    }
+
+    .core-name {
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .core-tip {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.4
+    }
+
+    .jeff-box {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      padding: 14px
+    }
+
+    .jeff-lbl {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px
+    }
+
+    .gear-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .gear-card {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      padding: 14px
+    }
+
+    .gear-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 3px
+    }
+
+    .gear-price {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--red);
+      margin-bottom: 10px
+    }
+
+    .gear-uses {
+      list-style: none
+    }
+
+    .gear-uses li {
+      font-size: 13px;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 0.5px solid var(--bd);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .gear-uses li:last-child {
+      border-bottom: none
+    }
+
+    .gear-uses li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0
+    }
+
+    .ms-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px
+    }
+
+    .ms-card {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .ms-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--red);
+      width: 44px;
+      text-align: center;
+      flex-shrink: 0
+    }
+
+    .ms-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .ms-name {
+      font-size: 0.95rem;
+      font-weight: 500
+    }
+
+    .ms-why {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.4
+    }
+
+    .ms-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      white-space: nowrap;
+      flex-shrink: 0
+    }
+
+    .lv1 {
+      background: #E1F5EE;
+      color: #0F6E56
+    }
+
+    .lv2 {
+      background: #E6F1FB;
+      color: #185FA5
+    }
+
+    .lv3 {
+      background: #FCEBEB;
+      color: #A32D2D
+    }
+
+    .timer-wrap {
+      background: var(--card);
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-lg);
+      padding: 20px;
+      text-align: center
+    }
+
+    .t-phase {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted)
+    }
+
+    .t-display {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--red);
+      margin: 8px 0
+    }
+
+    .t-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: var(--surf);
+      border-radius: 3px;
+      margin: 8px 0
+    }
+
+    .t-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: var(--red)
+    }
+
+    .t-info {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 12px
+    }
+
+    .t-presets {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 14px
+    }
+
+    .t-preset {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--bd);
+      background: var(--card);
+      cursor: pointer;
+      color: var(--muted);
+      min-height: 44px
+    }
+
+    .t-preset.active,
+    .t-preset:active {
+      border-color: var(--red);
+      color: var(--red)
+    }
+
+    .t-btns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px
+    }
+
+    .t-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 14px 8px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--bd);
+      background: var(--card);
+      color: var(--txt);
+      cursor: pointer;
+      min-height: 50px
+    }
+
+    .t-btn.primary {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff
+    }
+
+    .t-stats {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 0.5px solid var(--bd)
+    }
+
+    .modal-wrap {
+      display: none;
+      min-height: 300px
+    }
+
+    .modal-wrap.open {
+      display: block
+    }
+
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 12px;
+      border-radius: var(--border-radius-lg);
+      margin-bottom: 14px
+    }
+
+    .modal-inner {
+      background: var(--card);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden
+    }
+
+    .modal-hdr {
+      padding: 14px 14px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start
+    }
+
+    .modal-muscle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--red);
+      text-transform: uppercase
+    }
+
+    .modal-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      margin-top: 2px;
+      line-height: 1
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 0;
+      line-height: 1;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .modal-body {
+      padding: 12px 14px 20px
+    }
+
+    .yt-thumb {
+      display: block;
+      position: relative;
+      border-radius: var(--border-radius-md);
+      overflow: hidden;
+      margin-bottom: 12px;
+      text-decoration: none
+    }
+
+    .yt-thumb img {
+      width: 100%;
+      display: block
+    }
+
+    .yt-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.35)
+    }
+
+    .yt-play {
+      width: 56px;
+      height: 40px;
+      background: #ff0000;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .yt-play svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+      margin-left: 3px
+    }
+
+    .yt-lbl {
+      color: #fff;
+      font-size: 11px;
+      margin-top: 7px;
+      font-weight: 500;
+      opacity: 0.9;
+      text-align: center;
+      padding: 0 12px
+    }
+
+    .tip-box {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--surf);
+      border-radius: var(--border-radius-md);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--red);
+      line-height: 1.6
+    }
+
+    .prog-rows {
+      border: 0.5px solid var(--bd);
+      border-radius: var(--border-radius-md);
+      overflow: hidden
+    }
+
+    .prog-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 0.5px solid var(--bd)
+    }
+
+    .prog-row:last-child {
+      border-bottom: none
+    }
+
+    .prog-text {
+      font-size: 13px;
+      flex: 1
+    }
+
+    html {
+      font-size: 16px;
+      /* base size */
+    }
+
+    body {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    @media (min-width: 600px) {
+      html {
+        font-size: 18px;
+      }
+    }
+
+    @media (min-width: 900px) {
+      html {
+        font-size: 20px;
+      }
+    }
+
+    body {
+      letter-spacing: 0.2px;
+    }
+
+    .ex-name,
+    .w-name,
+    .core-name {
+      font-size: 1rem;
+    }
+  </style>
 </head>
+
 <body>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<div class="wrap">
-  <div class="hero">
-    <div class="hero-tag">Athlean-X Program</div>
-    <h1>Zero Equipment.<br><span>Real Muscle.</span></h1>
-    <p>Elastic band · slim build · beginner · muscle building</p>
-    <div class="hero-badge">▶ Tap any exercise for YouTube tutorial</div>
-  </div>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-tag">Athlean-X Program</div>
+      <h1>Zero Equipment.<br><span>Real Muscle.</span></h1>
+      <p>Elastic band · slim build · beginner · muscle building</p>
+      <div class="hero-badge">▶ Tap any exercise for YouTube tutorial</div>
+    </div>
 
-  <div class="tab-bar">
-    <button class="active" onclick="showPage('library',this)">Library</button>
-    <button onclick="showPage('plans',this)">Plans</button>
-    <button onclick="showPage('tools',this)">Tools</button>
-    <button onclick="showPage('timer',this)">Timer</button>
-  </div>
+    <div class="tab-bar">
+      <button class="active" onclick="showPage('library',this)">Library</button>
+      <button onclick="showPage('plans',this)">Plans</button>
+      <button onclick="showPage('tools',this)">Tools</button>
+      <button onclick="showPage('timer',this)">Timer</button>
+    </div>
 
-  <div id="modal-wrap" class="modal-wrap">
-    <div class="modal-backdrop">
-      <div class="modal-inner">
-        <div class="modal-hdr">
-          <div>
-            <div class="modal-muscle" id="m-muscle"></div>
-            <div class="modal-title" id="m-title"></div>
+    <div id="modal-wrap" class="modal-wrap">
+      <div class="modal-backdrop">
+        <div class="modal-inner">
+          <div class="modal-hdr">
+            <div>
+              <div class="modal-muscle" id="m-muscle"></div>
+              <div class="modal-title" id="m-title"></div>
+            </div>
+            <button class="modal-close-btn" onclick="closeModal()">✕</button>
           </div>
-          <button class="modal-close-btn" onclick="closeModal()">✕</button>
-        </div>
-        <div class="modal-body">
-          <div id="m-video"></div>
-          <div class="tip-box" id="m-tip"></div>
-          <div class="prog-rows">
-            <div class="prog-row"><span class="mod mod-b">Beginner</span><span class="prog-text" id="m-beg"></span></div>
-            <div class="prog-row"><span class="mod mod-i">Inter.</span><span class="prog-text" id="m-int"></span></div>
-            <div class="prog-row"><span class="mod mod-a">Advanced</span><span class="prog-text" id="m-adv"></span></div>
+          <div class="modal-body">
+            <div id="m-video"></div>
+            <div class="tip-box" id="m-tip"></div>
+            <div class="prog-rows">
+              <div class="prog-row"><span class="mod mod-b">Beginner</span><span class="prog-text" id="m-beg"></span>
+              </div>
+              <div class="prog-row"><span class="mod mod-i">Inter.</span><span class="prog-text" id="m-int"></span>
+              </div>
+              <div class="prog-row"><span class="mod mod-a">Advanced</span><span class="prog-text" id="m-adv"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="library" class="page active">
-    <div class="ph">Exercise <span>Library</span></div>
-    <p class="sub">Red dot = YouTube tutorial. Tap any exercise to view.</p>
-    <div class="muscle-list" id="muscle-list"></div>
-  </div>
-
-  <div id="plans" class="page">
-    <div class="ph">Training <span>Plans</span></div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:14px">
-      <button style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--red);border-color:var(--red);color:#fff;cursor:pointer;min-height:44px" id="plan-fb-btn" onclick="switchPlan('fb')">Full-Body 3×</button>
-      <button style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--card);color:var(--muted);cursor:pointer;min-height:44px" id="plan-sp-btn" onclick="switchPlan('sp')">4-Day Split</button>
+    <div id="library" class="page active">
+      <div class="ph">Exercise <span>Library</span></div>
+      <p class="sub">Red dot = YouTube tutorial. Tap any exercise to view.</p>
+      <div class="muscle-list" id="muscle-list"></div>
     </div>
-    <div id="plan-fb"><p class="sub">Mon / Wed / Fri · ~60 min. Tap any row for tutorial.</p><div id="fb-days"></div></div>
-    <div id="plan-sp" style="display:none"><p class="sub">Push / Pull / Legs / Arms+Core. Tap any row for tutorial.</p><div id="sp-days"></div></div>
-  </div>
 
-  <div id="tools" class="page">
-    <div class="ph">Intensity <span>Techniques</span></div>
-    <div class="tech-list" id="tech-list"></div>
-    <div class="ph">Daily Core <span>10 Min</span></div>
-    <p class="sub">Every day. Tap for tutorial.</p>
-    <div class="core-list" id="core-list"></div>
-    <div class="jeff-box" style="margin-bottom:14px">
-      <div class="jeff-lbl">Jeff's Rule</div>
-      <p style="font-size:13px;color:var(--muted);line-height:1.7">Abs are revealed in the kitchen. As a slim person you're halfway there. Eat 200–300 cal surplus, 1.8g protein/kg bodyweight, hit this circuit daily — real definition in 8–10 weeks.</p>
-    </div>
-    <div class="ph">Gear <span>Upgrades</span></div>
-    <p class="sub">You have the band — that's #1 done.</p>
-    <div class="gear-list" id="gear-list"></div>
-    <div class="ph">Strength <span>Milestones</span></div>
-    <p class="sub">Track monthly. You'll progress fast.</p>
-    <div class="ms-list" id="ms-list"></div>
-  </div>
-
-  <div id="timer" class="page">
-    <div class="ph">Workout <span>Timer</span></div>
-    <div class="timer-wrap">
-      <div class="t-phase" id="t-phase">Ready</div>
-      <div class="t-display" id="t-display">00:00</div>
-      <div class="t-bar-wrap"><div class="t-bar" id="t-bar" style="width:100%"></div></div>
-      <div class="t-info" id="t-info">Select a preset below</div>
-      <div class="t-presets">
-        <div class="t-preset active" onclick="setPreset(this,45,90,'Hypertrophy')">45s work<br>90s rest</div>
-        <div class="t-preset" onclick="setPreset(this,60,60,'Strength')">60s work<br>60s rest</div>
-        <div class="t-preset" onclick="setPreset(this,30,30,'HIIT')">30s work<br>30s rest</div>
-        <div class="t-preset" onclick="setPreset(this,0,90,'Rest Only')">Rest only<br>90s</div>
+    <div id="plans" class="page">
+      <div class="ph">Training <span>Plans</span></div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:14px">
+        <button
+          style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--red);border-color:var(--red);color:#fff;cursor:pointer;min-height:44px"
+          id="plan-fb-btn" onclick="switchPlan('fb')">Full-Body 3×</button>
+        <button
+          style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--card);color:var(--muted);cursor:pointer;min-height:44px"
+          id="plan-sp-btn" onclick="switchPlan('sp')">4-Day Split</button>
       </div>
-      <div class="t-btns">
-        <button class="t-btn" onclick="resetTimer()">Reset</button>
-        <button class="t-btn primary" id="start-btn" onclick="toggleTimer()">Start</button>
-        <button class="t-btn" onclick="skipPhase()">Skip</button>
+      <div id="plan-fb">
+        <p class="sub">Mon / Wed / Fri · ~60 min. Tap any row for tutorial.</p>
+        <div id="fb-days"></div>
       </div>
-      <div class="t-stats">Set <span id="t-setnum">1</span> of 4 · Done: <span id="t-done" style="font-weight:600;color:var(--red)">0</span></div>
+      <div id="plan-sp" style="display:none">
+        <p class="sub">Push / Pull / Legs / Arms+Core. Tap any row for tutorial.</p>
+        <div id="sp-days"></div>
+      </div>
+    </div>
+
+    <div id="tools" class="page">
+      <div class="ph">Intensity <span>Techniques</span></div>
+      <div class="tech-list" id="tech-list"></div>
+      <div class="ph">Daily Core <span>10 Min</span></div>
+      <p class="sub">Every day. Tap for tutorial.</p>
+      <div class="core-list" id="core-list"></div>
+      <div class="jeff-box" style="margin-bottom:14px">
+        <div class="jeff-lbl">Jeff's Rule</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">Abs are revealed in the kitchen. As a slim person
+          you're halfway there. Eat 200–300 cal surplus, 1.8g protein/kg bodyweight, hit this circuit daily — real
+          definition in 8–10 weeks.</p>
+      </div>
+      <div class="ph">Gear <span>Upgrades</span></div>
+      <p class="sub">You have the band — that's #1 done.</p>
+      <div class="gear-list" id="gear-list"></div>
+      <div class="ph">Strength <span>Milestones</span></div>
+      <p class="sub">Track monthly. You'll progress fast.</p>
+      <div class="ms-list" id="ms-list"></div>
+    </div>
+
+    <div id="timer" class="page">
+      <div class="ph">Workout <span>Timer</span></div>
+      <div class="timer-wrap">
+        <div class="t-phase" id="t-phase">Ready</div>
+        <div class="t-display" id="t-display">00:00</div>
+        <div class="t-bar-wrap">
+          <div class="t-bar" id="t-bar" style="width:100%"></div>
+        </div>
+        <div class="t-info" id="t-info">Select a preset below</div>
+        <div class="t-presets">
+          <div class="t-preset active" onclick="setPreset(this,45,90,'Hypertrophy')">45s work<br>90s rest</div>
+          <div class="t-preset" onclick="setPreset(this,60,60,'Strength')">60s work<br>60s rest</div>
+          <div class="t-preset" onclick="setPreset(this,30,30,'HIIT')">30s work<br>30s rest</div>
+          <div class="t-preset" onclick="setPreset(this,0,90,'Rest Only')">Rest only<br>90s</div>
+        </div>
+        <div class="t-btns">
+          <button class="t-btn" onclick="resetTimer()">Reset</button>
+          <button class="t-btn primary" id="start-btn" onclick="toggleTimer()">Start</button>
+          <button class="t-btn" onclick="skipPhase()">Skip</button>
+        </div>
+        <div class="t-stats">Set <span id="t-setnum">1</span> of 4 · Done: <span id="t-done"
+            style="font-weight:600;color:var(--red)">0</span></div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-const EX={
-  chest:[
-    {n:"Push-Up",b:"Knee Push-Up",i:"Standard Push-Up",a:"Archer Push-Up",tip:"Elbows at 45°, not flared. Core tight throughout.",vid:"IODxDxX7oi4",vt:"Athlean-X: Perfect Push-Up"},
-    {n:"Wide Push-Up",b:"Incline Wide Push-Up",i:"Wide Push-Up",a:"Wide Deficit Push-Up",tip:"Wider grip hits outer chest more.",vid:"6dZ71O7BzVQ",vt:"Athlean-X: Push-Up Variations"},
-    {n:"Diamond Push-Up",b:"Diamond Knee Push-Up",i:"Diamond Push-Up",a:"Diamond Deficit Push-Up",tip:"Elbows tucked tight. Huge tricep + inner chest.",vid:"J0DXl4pr-3E",vt:"Athlean-X: Diamond Push-Up"},
-    {n:"Decline Push-Up",b:"Incline Push-Up",i:"Decline Push-Up",a:"Pike to Decline",tip:"Feet on chair — upper chest focus. Most neglected angle.",vid:"SKPab2YC8BE",vt:"Athlean-X: Decline Push-Up"},
-    {n:"Pseudo Planche",b:"Forward Lean Push-Up",i:"Pseudo Planche Push-Up",a:"Tuck Planche Hold",tip:"Hands by hips, lean forward. Incredible chest + delt hit.",vid:"4nFiKFBVaXM",vt:"Athlean-X: Pseudo Planche"},
-  ],
-  back:[
-    {n:"Superman Hold",b:"Superman Pulses",i:"Full Superman (3s hold)",a:"Band-Resisted Superman",tip:"Squeeze glutes AND back at top.",vid:"ZNVWTVdJW5s",vt:"Athlean-X: Superman"},
-    {n:"Band Row",b:"Seated Band Row",i:"Bent-Over Band Row",a:"Single-Arm Band Row",tip:"Primary back builder with your band. Retract scapula first.",vid:"lHuGxZZ09nY",vt:"Athlean-X: Band Back Workout"},
-    {n:"Doorframe Row",b:"Bent-Knee Row",i:"Straight-Body Row",a:"Feet-Elevated Row",tip:"Use any doorframe or table edge. Pull chest to surface.",vid:"8YoIDUKCG2A",vt:"Athlean-X: No Bar Row"},
-    {n:"Reverse Snow Angel",b:"Slow Floor Angel",i:"Tempo Snow Angel",a:"Band-Resisted Fly",tip:"Prone, arms trace full arc. Pure rear delt work.",vid:"b3e9rENJGCE",vt:"Athlean-X: Rear Delt"},
-    {n:"Band Pull-Apart",b:"Wide Grip",i:"Shoulder-Width",a:"Overhead Pull-Apart",tip:"Arms straight. Feel rear delts — not traps.",vid:"3OYSIWaJJk4",vt:"Athlean-X: Band Pull-Apart"},
-  ],
-  shoulders:[
-    {n:"Pike Push-Up",b:"Elevated Pike",i:"Pike Push-Up",a:"Wall Headstand Push-Up",tip:"Hips high. Head toward floor. The bodyweight overhead press.",vid:"x7_I5SUAd00",vt:"Athlean-X: Pike Push-Up"},
-    {n:"Band Lateral Raise",b:"Two-Hand Lateral",i:"Band Lateral Raise",a:"5s Eccentric Lateral",tip:"Anchor under foot. Raise to shoulder height only.",vid:"jsjmzVMs_Kk",vt:"Athlean-X: Band Laterals"},
-    {n:"Band Front Raise",b:"Two-Hand Front",i:"Alternating Front Raise",a:"Pause-Rep Front Raise",tip:"Stop at shoulder height. No swing.",vid:"xQNrFHEMhI4",vt:"Athlean-X: Band Front Raise"},
-    {n:"Shoulder Tap Plank",b:"Knee Plank Tap",i:"Plank Shoulder Tap",a:"Pike Position Tap",tip:"Keep hips level. Anti-rotation core too.",vid:"LEZq7QeKtEw",vt:"Athlean-X: Shoulder Tap"},
-    {n:"Hindu Push-Up",b:"Modified Hindu",i:"Hindu Push-Up",a:"Hindu + Hold at Top",tip:"Flowing dive movement. Great for mobility too.",vid:"kt_FRO3KBOA",vt:"Athlean-X: Hindu Push-Up"},
-  ],
-  biceps:[
-    {n:"Band Curl",b:"Two-Hand Band Curl",i:"Single-Arm Band Curl",a:"Band Curl 21s",tip:"Anchor under foot. No swinging.",vid:"3g-1J2KkX_8",vt:"Athlean-X: Band Curl"},
-    {n:"Band Hammer Curl",b:"Two-Hand Hammer",i:"Alternating Hammer",a:"Cross-Body Hammer",tip:"Neutral grip. Builds brachialis that pushes bicep peak up.",vid:"SniJo-6t7Gk",vt:"Athlean-X: Band Hammer Curl"},
-    {n:"Isometric Band Hold",b:"30s at 90°",i:"45s at 90°",a:"60s hold + pause reps",tip:"Hold the curl position at 90°. Bicep cramp = working.",vid:"9IWVWId_HiI",vt:"Athlean-X: Isometric Curl"},
-    {n:"Concentration Curl",b:"Light band on knee",i:"Band Concentration Curl",a:"4s eccentric + pause",tip:"Elbow braced on inner thigh. Full ROM. Hits the peak.",vid:"xQNrFHEMhI4",vt:"Athlean-X: Concentration Curl"},
-    {n:"Negative Chin-Up",b:"Jump up, 5s lower",i:"Negative (8s lower)",a:"Full Chin-Up",tip:"Best bicep exercise. Worth getting a pull-up bar for.",vid:"brhRXlOhsAM",vt:"Athlean-X: Chin-Up Tutorial"},
-  ],
-  triceps:[
-    {n:"Tricep Dip",b:"Chair Dip (feet down)",i:"Chair Dip (feet out)",a:"Weighted Dip (backpack)",tip:"Use a chair. Dip until upper arms are parallel to floor.",vid:"6kALZikXxLc",vt:"Athlean-X: Tricep Dip"},
-    {n:"Diamond Push-Up",b:"Diamond Knee Push-Up",i:"Diamond Push-Up",a:"Diamond Deficit",tip:"Elbows tight to ribs. Most effective bodyweight tricep exercise.",vid:"J0DnG1_S92I",vt:"Athlean-X: Diamond Push-Up"},
-    {n:"Band Pushdown",b:"Two-Hand Pushdown",i:"Single-Arm Pushdown",a:"Pause at extension (2s)",tip:"Anchor band overhead in doorframe. Lock upper arm.",vid:"xQNrFHEMhI4",vt:"Athlean-X: Band Pushdown"},
-    {n:"Diamond ISO Hold",b:"Hold at bottom 5s",i:"Hold at midpoint 5s",a:"Alternating pause reps",tip:"Hold the lowest point of diamond push-up. Brutal.",vid:"J0DXl4pr-3E",vt:"Athlean-X: Tricep Isometric"},
-    {n:"Overhead Extension",b:"Two-hand overhead",i:"Single-arm overhead",a:"5s eccentric overhead",tip:"Full stretch hits the long head — biggest part of tricep.",vid:"Yi_zNoIsNcc",vt:"Athlean-X: Overhead Extension"},
-  ],
-  legs:[
-    {n:"Squat",b:"Box Squat (to chair)",i:"Bodyweight Squat",a:"Pause Squat (3s bottom)",tip:"Chest up, knees track toes. Thighs parallel minimum.",vid:"aclHkVaku9U",vt:"Athlean-X: Perfect Squat"},
-    {n:"Bulgarian Split Squat",b:"Rear-Foot Elevated Lunge",i:"Bulgarian Split Squat",a:"Bulgarian + 4s eccentric",tip:"Most brutal bodyweight leg exercise. Rear foot on chair.",vid:"2C-uNgKwPLE",vt:"Athlean-X: Bulgarian Split Squat"},
-    {n:"Single-Leg RDL",b:"Assisted Single-Leg RDL",i:"Single-Leg RDL",a:"Slow RDL (3s down)",tip:"Hinge at hips. Feel hamstring stretch. Balance challenge.",vid:"6G6bJ2bs2JA",vt:"Athlean-X: Single Leg RDL"},
-    {n:"Jump Squat",b:"Squat to calf raise",i:"Jump Squat",a:"Jump Squat + pause",tip:"Land softly through ankle, knee, hip. Full depth every rep.",vid:"CVaEhXotL7M",vt:"Athlean-X: Jump Squat"},
-    {n:"Wall Sit",b:"Wall Sit 30s",i:"Wall Sit 60s",a:"Wall Sit + band knees",tip:"Thighs parallel. Pure quad isometric. Don't slide up.",vid:"y-wV4Venusw",vt:"Athlean-X: Wall Sit"},
-    {n:"Glute Bridge",b:"Two-Leg Bridge",i:"Single-Leg Bridge",a:"Single-Leg + 2s hold",tip:"Drive hips up, squeeze hard at top.",vid:"OUgsJ8-Vi0E",vt:"Athlean-X: Glute Bridge"},
-    {n:"Pistol Squat",b:"Assisted Pistol",i:"Box Pistol Squat",a:"Full Pistol Squat",tip:"The ultimate milestone. Start assisted. Takes months.",vid:"vq5-vdgJc0I",vt:"Athlean-X: Pistol Squat"},
-  ],
-  core:[
-    {n:"Plank",b:"Knee Plank 30s",i:"Plank 60s",a:"Plank + shoulder taps",tip:"Hollow body — squeeze glutes AND abs. Don't sag.",vid:"pSHjTRCQxIw",vt:"Athlean-X: Perfect Plank"},
-    {n:"Hollow Body Hold",b:"Bent-Knee Hollow",i:"Hollow Body Hold",a:"Hollow Body Rock",tip:"Lower back STAYS pressed to floor.",vid:"LlDNef_Ztsc",vt:"Athlean-X: Hollow Body"},
-    {n:"V-Up",b:"Bent-Knee V-Up",i:"V-Up",a:"Weighted V-Up",tip:"Controlled. No momentum. Meet hands at top.",vid:"iP2fjvG0g3w",vt:"Athlean-X: V-Up"},
-    {n:"Dead Bug",b:"One limb at a time",i:"Opposite arm + leg",a:"Dead Bug + band",tip:"Lower back flat to floor the ENTIRE time.",vid:"4XLEnwUr1d8",vt:"Athlean-X: Dead Bug"},
-    {n:"Mountain Climber",b:"Slow Mountain Climber",i:"Mountain Climber",a:"Cross-Body Climber",tip:"Hips level. Core stays braced.",vid:"nmwgirgXLYM",vt:"Athlean-X: Mountain Climber"},
-  ]
-};
+  <script>
+    const EX = {
+      chest: [
+        { n: "Push-Up", b: "Knee Push-Up", i: "Standard Push-Up", a: "Archer Push-Up", tip: "Elbows at 45°, not flared. Core tight throughout.", vid: "IODxDxX7oi4", vt: "Athlean-X: Perfect Push-Up" },
+        { n: "Wide Push-Up", b: "Incline Wide Push-Up", i: "Wide Push-Up", a: "Wide Deficit Push-Up", tip: "Wider grip hits outer chest more.", vid: "6dZ71O7BzVQ", vt: "Athlean-X: Push-Up Variations" },
+        { n: "Diamond Push-Up", b: "Diamond Knee Push-Up", i: "Diamond Push-Up", a: "Diamond Deficit Push-Up", tip: "Elbows tucked tight. Huge tricep + inner chest.", vid: "J0DXl4pr-3E", vt: "Athlean-X: Diamond Push-Up" },
+        { n: "Decline Push-Up", b: "Incline Push-Up", i: "Decline Push-Up", a: "Pike to Decline", tip: "Feet on chair — upper chest focus. Most neglected angle.", vid: "SKPab2YC8BE", vt: "Athlean-X: Decline Push-Up" },
+        { n: "Pseudo Planche", b: "Forward Lean Push-Up", i: "Pseudo Planche Push-Up", a: "Tuck Planche Hold", tip: "Hands by hips, lean forward. Incredible chest + delt hit.", vid: "4nFiKFBVaXM", vt: "Athlean-X: Pseudo Planche" },
+      ],
+      back: [
+        { n: "Superman Hold", b: "Superman Pulses", i: "Full Superman (3s hold)", a: "Band-Resisted Superman", tip: "Squeeze glutes AND back at top.", vid: "ZNVWTVdJW5s", vt: "Athlean-X: Superman" },
+        { n: "Band Row", b: "Seated Band Row", i: "Bent-Over Band Row", a: "Single-Arm Band Row", tip: "Primary back builder with your band. Retract scapula first.", vid: "lHuGxZZ09nY", vt: "Athlean-X: Band Back Workout" },
+        { n: "Doorframe Row", b: "Bent-Knee Row", i: "Straight-Body Row", a: "Feet-Elevated Row", tip: "Use any doorframe or table edge. Pull chest to surface.", vid: "8YoIDUKCG2A", vt: "Athlean-X: No Bar Row" },
+        { n: "Reverse Snow Angel", b: "Slow Floor Angel", i: "Tempo Snow Angel", a: "Band-Resisted Fly", tip: "Prone, arms trace full arc. Pure rear delt work.", vid: "b3e9rENJGCE", vt: "Athlean-X: Rear Delt" },
+        { n: "Band Pull-Apart", b: "Wide Grip", i: "Shoulder-Width", a: "Overhead Pull-Apart", tip: "Arms straight. Feel rear delts — not traps.", vid: "3OYSIWaJJk4", vt: "Athlean-X: Band Pull-Apart" },
+      ],
+      shoulders: [
+        { n: "Pike Push-Up", b: "Elevated Pike", i: "Pike Push-Up", a: "Wall Headstand Push-Up", tip: "Hips high. Head toward floor. The bodyweight overhead press.", vid: "x7_I5SUAd00", vt: "Athlean-X: Pike Push-Up" },
+        { n: "Band Lateral Raise", b: "Two-Hand Lateral", i: "Band Lateral Raise", a: "5s Eccentric Lateral", tip: "Anchor under foot. Raise to shoulder height only.", vid: "jsjmzVMs_Kk", vt: "Athlean-X: Band Laterals" },
+        { n: "Band Front Raise", b: "Two-Hand Front", i: "Alternating Front Raise", a: "Pause-Rep Front Raise", tip: "Stop at shoulder height. No swing.", vid: "xQNrFHEMhI4", vt: "Athlean-X: Band Front Raise" },
+        { n: "Shoulder Tap Plank", b: "Knee Plank Tap", i: "Plank Shoulder Tap", a: "Pike Position Tap", tip: "Keep hips level. Anti-rotation core too.", vid: "LEZq7QeKtEw", vt: "Athlean-X: Shoulder Tap" },
+        { n: "Hindu Push-Up", b: "Modified Hindu", i: "Hindu Push-Up", a: "Hindu + Hold at Top", tip: "Flowing dive movement. Great for mobility too.", vid: "kt_FRO3KBOA", vt: "Athlean-X: Hindu Push-Up" },
+      ],
+      biceps: [
+        { n: "Band Curl", b: "Two-Hand Band Curl", i: "Single-Arm Band Curl", a: "Band Curl 21s", tip: "Anchor under foot. No swinging.", vid: "3g-1J2KkX_8", vt: "Athlean-X: Band Curl" },
+        { n: "Band Hammer Curl", b: "Two-Hand Hammer", i: "Alternating Hammer", a: "Cross-Body Hammer", tip: "Neutral grip. Builds brachialis that pushes bicep peak up.", vid: "SniJo-6t7Gk", vt: "Athlean-X: Band Hammer Curl" },
+        { n: "Isometric Band Hold", b: "30s at 90°", i: "45s at 90°", a: "60s hold + pause reps", tip: "Hold the curl position at 90°. Bicep cramp = working.", vid: "9IWVWId_HiI", vt: "Athlean-X: Isometric Curl" },
+        { n: "Concentration Curl", b: "Light band on knee", i: "Band Concentration Curl", a: "4s eccentric + pause", tip: "Elbow braced on inner thigh. Full ROM. Hits the peak.", vid: "xQNrFHEMhI4", vt: "Athlean-X: Concentration Curl" },
+        { n: "Negative Chin-Up", b: "Jump up, 5s lower", i: "Negative (8s lower)", a: "Full Chin-Up", tip: "Best bicep exercise. Worth getting a pull-up bar for.", vid: "brhRXlOhsAM", vt: "Athlean-X: Chin-Up Tutorial" },
+      ],
+      triceps: [
+        { n: "Tricep Dip", b: "Chair Dip (feet down)", i: "Chair Dip (feet out)", a: "Weighted Dip (backpack)", tip: "Use a chair. Dip until upper arms are parallel to floor.", vid: "6kALZikXxLc", vt: "Athlean-X: Tricep Dip" },
+        { n: "Diamond Push-Up", b: "Diamond Knee Push-Up", i: "Diamond Push-Up", a: "Diamond Deficit", tip: "Elbows tight to ribs. Most effective bodyweight tricep exercise.", vid: "J0DnG1_S92I", vt: "Athlean-X: Diamond Push-Up" },
+        { n: "Band Pushdown", b: "Two-Hand Pushdown", i: "Single-Arm Pushdown", a: "Pause at extension (2s)", tip: "Anchor band overhead in doorframe. Lock upper arm.", vid: "xQNrFHEMhI4", vt: "Athlean-X: Band Pushdown" },
+        { n: "Diamond ISO Hold", b: "Hold at bottom 5s", i: "Hold at midpoint 5s", a: "Alternating pause reps", tip: "Hold the lowest point of diamond push-up. Brutal.", vid: "J0DXl4pr-3E", vt: "Athlean-X: Tricep Isometric" },
+        { n: "Overhead Extension", b: "Two-hand overhead", i: "Single-arm overhead", a: "5s eccentric overhead", tip: "Full stretch hits the long head — biggest part of tricep.", vid: "Yi_zNoIsNcc", vt: "Athlean-X: Overhead Extension" },
+      ],
+      legs: [
+        { n: "Squat", b: "Box Squat (to chair)", i: "Bodyweight Squat", a: "Pause Squat (3s bottom)", tip: "Chest up, knees track toes. Thighs parallel minimum.", vid: "aclHkVaku9U", vt: "Athlean-X: Perfect Squat" },
+        { n: "Bulgarian Split Squat", b: "Rear-Foot Elevated Lunge", i: "Bulgarian Split Squat", a: "Bulgarian + 4s eccentric", tip: "Most brutal bodyweight leg exercise. Rear foot on chair.", vid: "2C-uNgKwPLE", vt: "Athlean-X: Bulgarian Split Squat" },
+        { n: "Single-Leg RDL", b: "Assisted Single-Leg RDL", i: "Single-Leg RDL", a: "Slow RDL (3s down)", tip: "Hinge at hips. Feel hamstring stretch. Balance challenge.", vid: "6G6bJ2bs2JA", vt: "Athlean-X: Single Leg RDL" },
+        { n: "Jump Squat", b: "Squat to calf raise", i: "Jump Squat", a: "Jump Squat + pause", tip: "Land softly through ankle, knee, hip. Full depth every rep.", vid: "CVaEhXotL7M", vt: "Athlean-X: Jump Squat" },
+        { n: "Wall Sit", b: "Wall Sit 30s", i: "Wall Sit 60s", a: "Wall Sit + band knees", tip: "Thighs parallel. Pure quad isometric. Don't slide up.", vid: "y-wV4Venusw", vt: "Athlean-X: Wall Sit" },
+        { n: "Glute Bridge", b: "Two-Leg Bridge", i: "Single-Leg Bridge", a: "Single-Leg + 2s hold", tip: "Drive hips up, squeeze hard at top.", vid: "OUgsJ8-Vi0E", vt: "Athlean-X: Glute Bridge" },
+        { n: "Pistol Squat", b: "Assisted Pistol", i: "Box Pistol Squat", a: "Full Pistol Squat", tip: "The ultimate milestone. Start assisted. Takes months.", vid: "vq5-vdgJc0I", vt: "Athlean-X: Pistol Squat" },
+      ],
+      core: [
+        { n: "Plank", b: "Knee Plank 30s", i: "Plank 60s", a: "Plank + shoulder taps", tip: "Hollow body — squeeze glutes AND abs. Don't sag.", vid: "pSHjTRCQxIw", vt: "Athlean-X: Perfect Plank" },
+        { n: "Hollow Body Hold", b: "Bent-Knee Hollow", i: "Hollow Body Hold", a: "Hollow Body Rock", tip: "Lower back STAYS pressed to floor.", vid: "LlDNef_Ztsc", vt: "Athlean-X: Hollow Body" },
+        { n: "V-Up", b: "Bent-Knee V-Up", i: "V-Up", a: "Weighted V-Up", tip: "Controlled. No momentum. Meet hands at top.", vid: "iP2fjvG0g3w", vt: "Athlean-X: V-Up" },
+        { n: "Dead Bug", b: "One limb at a time", i: "Opposite arm + leg", a: "Dead Bug + band", tip: "Lower back flat to floor the ENTIRE time.", vid: "4XLEnwUr1d8", vt: "Athlean-X: Dead Bug" },
+        { n: "Mountain Climber", b: "Slow Mountain Climber", i: "Mountain Climber", a: "Cross-Body Climber", tip: "Hips level. Core stays braced.", vid: "nmwgirgXLYM", vt: "Athlean-X: Mountain Climber" },
+      ]
+    };
 
-const ICONS={chest:'◈',back:'◉',shoulders:'◆',biceps:'◇',triceps:'◑',legs:'◐',core:'◎'};
+    const ICONS = { chest: '◈', back: '◉', shoulders: '◆', biceps: '◇', triceps: '◑', legs: '◐', core: '◎' };
 
-function openModal(muscle,idx){
-  const e=EX[muscle][idx];
-  document.getElementById('m-muscle').textContent=muscle.toUpperCase();
-  document.getElementById('m-title').textContent=e.n;
-  document.getElementById('m-tip').textContent=e.tip;
-  document.getElementById('m-beg').textContent=e.b;
-  document.getElementById('m-int').textContent=e.i;
-  document.getElementById('m-adv').textContent=e.a;
-  const va=document.getElementById('m-video');
-  if(e.vid){
-    va.innerHTML=`<a class="yt-thumb" href="https://www.youtube.com/watch?v=${e.vid}" target="_blank" rel="noopener">
+    function openModal(muscle, idx) {
+      const e = EX[muscle][idx];
+      document.getElementById('m-muscle').textContent = muscle.toUpperCase();
+      document.getElementById('m-title').textContent = e.n;
+      document.getElementById('m-tip').textContent = e.tip;
+      document.getElementById('m-beg').textContent = e.b;
+      document.getElementById('m-int').textContent = e.i;
+      document.getElementById('m-adv').textContent = e.a;
+      const va = document.getElementById('m-video');
+      if (e.vid) {
+        va.innerHTML = `<a class="yt-thumb" href="https://www.youtube.com/watch?v=${e.vid}" target="_blank" rel="noopener">
       <img src="https://img.youtube.com/vi/${e.vid}/hqdefault.jpg" alt="${e.vt}" onerror="this.parentElement.style.display='none'">
       <div class="yt-overlay"><div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="yt-lbl">${e.vt}</div></div>
     </a>`;
-  } else {
-    va.innerHTML=`<div style="background:var(--surf);border-radius:var(--border-radius-md);padding:14px;text-align:center;margin-bottom:12px;font-size:13px;color:var(--muted)">Search "${e.n} Athlean-X" on YouTube</div>`;
-  }
-  const mw=document.getElementById('modal-wrap');
-  mw.classList.add('open');
-  mw.scrollIntoView({behavior:'smooth',block:'start'});
-}
+      } else {
+        va.innerHTML = `<div style="background:var(--surf);border-radius:var(--border-radius-md);padding:14px;text-align:center;margin-bottom:12px;font-size:13px;color:var(--muted)">Search "${e.n} Athlean-X" on YouTube</div>`;
+      }
+      const mw = document.getElementById('modal-wrap');
+      mw.classList.add('open');
+      mw.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-function closeModal(){
-  document.getElementById('modal-wrap').classList.remove('open');
-  document.getElementById('m-video').innerHTML='';
-}
+    function closeModal() {
+      document.getElementById('modal-wrap').classList.remove('open');
+      document.getElementById('m-video').innerHTML = '';
+    }
 
-function renderLibrary(){
-  const list=document.getElementById('muscle-list');
-  Object.entries(EX).forEach(([muscle,exs])=>{
-    const sec=document.createElement('div');sec.className='muscle-section';
-    sec.innerHTML=`<div class="muscle-hdr">${ICONS[muscle]} ${muscle.charAt(0).toUpperCase()+muscle.slice(1)}</div>`+
-      exs.map((e,i)=>`<div class="ex-row" onclick="openModal('${muscle}',${i})">
-        <div><div class="ex-name">${e.vid?'<span class="vdot"></span>':''} ${e.n}</div>
+    function renderLibrary() {
+      const list = document.getElementById('muscle-list');
+      Object.entries(EX).forEach(([muscle, exs]) => {
+        const sec = document.createElement('div'); sec.className = 'muscle-section';
+        sec.innerHTML = `<div class="muscle-hdr">${ICONS[muscle]} ${muscle.charAt(0).toUpperCase() + muscle.slice(1)}</div>` +
+          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i})">
+        <div><div class="ex-name">${e.vid ? '<span class="vdot"></span>' : ''} ${e.n}</div>
         <div class="mods"><span class="mod mod-b">Beginner</span><span class="mod mod-i">Inter.</span><span class="mod mod-a">Advanced</span></div></div>
         <div class="ex-arrow">›</div>
       </div>`).join('');
-    list.appendChild(sec);
-  });
-}
+        list.appendChild(sec);
+      });
+    }
 
-const FB_DAYS=[
-  {label:"Day A",focus:"Push",exercises:[
-    {ex:"Push-Up",detail:"5s eccentric",sets:"3×10–15",rest:"60s",m:"chest",i:0},
-    {ex:"Pike Push-Up",detail:"Shoulders",sets:"3×8–12",rest:"60s",m:"shoulders",i:0},
-    {ex:"Diamond Push-Up",detail:"Triceps",sets:"3×8–10",rest:"60s",m:"triceps",i:1},
-    {ex:"Band Lateral Raise",detail:"Slow 3s down",sets:"3×15",rest:"45s",m:"shoulders",i:1},
-    {ex:"Bulgarian Split Squat",detail:"Each leg",sets:"3×8 ea",rest:"75s",m:"legs",i:1},
-    {ex:"Glute Bridge",detail:"Single-leg",sets:"3×12 ea",rest:"45s",m:"legs",i:5},
-    {ex:"Plank",detail:"Hollow body",sets:"3×45s",rest:"30s",m:"core",i:0},
-    {ex:"Dead Bug",detail:"Opposite arm+leg",sets:"2×10 ea",rest:"30s",m:"core",i:3},
-  ]},
-  {label:"Day B",focus:"Pull",exercises:[
-    {ex:"Band Row",detail:"Bent-over, full ROM",sets:"4×12",rest:"60s",m:"back",i:1},
-    {ex:"Band Pull-Apart",detail:"Rear delts",sets:"3×20",rest:"45s",m:"back",i:4},
-    {ex:"Superman Hold",detail:"3s hold each rep",sets:"3×10",rest:"45s",m:"back",i:0},
-    {ex:"Band Curl",detail:"21s technique",sets:"3×21",rest:"60s",m:"biceps",i:0},
-    {ex:"Band Hammer Curl",detail:"Alternating",sets:"3×12 ea",rest:"45s",m:"biceps",i:1},
-    {ex:"Squat",detail:"Pause 2s at bottom",sets:"4×15",rest:"60s",m:"legs",i:0},
-    {ex:"Single-Leg RDL",detail:"Balance + hamstring",sets:"3×8 ea",rest:"60s",m:"legs",i:2},
-    {ex:"Hollow Body Hold",detail:"45s max",sets:"3×45s",rest:"30s",m:"core",i:1},
-  ]},
-  {label:"Day C",focus:"Full Body + Power",exercises:[
-    {ex:"Jump Squat",detail:"Explosive, soft landing",sets:"3×10",rest:"60s",m:"legs",i:3},
-    {ex:"Hindu Push-Up",detail:"Flowing reps",sets:"3×10",rest:"60s",m:"shoulders",i:4},
-    {ex:"Band Pushdown",detail:"Pause at extension",sets:"3×12",rest:"60s",m:"triceps",i:2},
-    {ex:"Reverse Snow Angel",detail:"Slow and controlled",sets:"3×12",rest:"45s",m:"back",i:3},
-    {ex:"Doorframe Row",detail:"Straight body",sets:"3×12",rest:"60s",m:"back",i:2},
-    {ex:"Wall Sit",detail:"60s hold",sets:"3×60s",rest:"45s",m:"legs",i:4},
-    {ex:"Mountain Climber",detail:"Cross-body",sets:"3×20 ea",rest:"30s",m:"core",i:4},
-    {ex:"V-Up",detail:"Controlled",sets:"3×12",rest:"30s",m:"core",i:2},
-  ]},
-];
+    const FB_DAYS = [
+      {
+        label: "Day A", focus: "Push", exercises: [
+          { ex: "Push-Up", detail: "5s eccentric", sets: "3×10–15", rest: "60s", m: "chest", i: 0 },
+          { ex: "Pike Push-Up", detail: "Shoulders", sets: "3×8–12", rest: "60s", m: "shoulders", i: 0 },
+          { ex: "Diamond Push-Up", detail: "Triceps", sets: "3×8–10", rest: "60s", m: "triceps", i: 1 },
+          { ex: "Band Lateral Raise", detail: "Slow 3s down", sets: "3×15", rest: "45s", m: "shoulders", i: 1 },
+          { ex: "Bulgarian Split Squat", detail: "Each leg", sets: "3×8 ea", rest: "75s", m: "legs", i: 1 },
+          { ex: "Glute Bridge", detail: "Single-leg", sets: "3×12 ea", rest: "45s", m: "legs", i: 5 },
+          { ex: "Plank", detail: "Hollow body", sets: "3×45s", rest: "30s", m: "core", i: 0 },
+          { ex: "Dead Bug", detail: "Opposite arm+leg", sets: "2×10 ea", rest: "30s", m: "core", i: 3 },
+        ]
+      },
+      {
+        label: "Day B", focus: "Pull", exercises: [
+          { ex: "Band Row", detail: "Bent-over, full ROM", sets: "4×12", rest: "60s", m: "back", i: 1 },
+          { ex: "Band Pull-Apart", detail: "Rear delts", sets: "3×20", rest: "45s", m: "back", i: 4 },
+          { ex: "Superman Hold", detail: "3s hold each rep", sets: "3×10", rest: "45s", m: "back", i: 0 },
+          { ex: "Band Curl", detail: "21s technique", sets: "3×21", rest: "60s", m: "biceps", i: 0 },
+          { ex: "Band Hammer Curl", detail: "Alternating", sets: "3×12 ea", rest: "45s", m: "biceps", i: 1 },
+          { ex: "Squat", detail: "Pause 2s at bottom", sets: "4×15", rest: "60s", m: "legs", i: 0 },
+          { ex: "Single-Leg RDL", detail: "Balance + hamstring", sets: "3×8 ea", rest: "60s", m: "legs", i: 2 },
+          { ex: "Hollow Body Hold", detail: "45s max", sets: "3×45s", rest: "30s", m: "core", i: 1 },
+        ]
+      },
+      {
+        label: "Day C", focus: "Full Body + Power", exercises: [
+          { ex: "Jump Squat", detail: "Explosive, soft landing", sets: "3×10", rest: "60s", m: "legs", i: 3 },
+          { ex: "Hindu Push-Up", detail: "Flowing reps", sets: "3×10", rest: "60s", m: "shoulders", i: 4 },
+          { ex: "Band Pushdown", detail: "Pause at extension", sets: "3×12", rest: "60s", m: "triceps", i: 2 },
+          { ex: "Reverse Snow Angel", detail: "Slow and controlled", sets: "3×12", rest: "45s", m: "back", i: 3 },
+          { ex: "Doorframe Row", detail: "Straight body", sets: "3×12", rest: "60s", m: "back", i: 2 },
+          { ex: "Wall Sit", detail: "60s hold", sets: "3×60s", rest: "45s", m: "legs", i: 4 },
+          { ex: "Mountain Climber", detail: "Cross-body", sets: "3×20 ea", rest: "30s", m: "core", i: 4 },
+          { ex: "V-Up", detail: "Controlled", sets: "3×12", rest: "30s", m: "core", i: 2 },
+        ]
+      },
+    ];
 
-const SP_DAYS=[
-  {label:"Day 1",focus:"Push",exercises:[
-    {ex:"Push-Up",detail:"5s eccentric",sets:"4×10",rest:"60s",m:"chest",i:0},
-    {ex:"Wide Push-Up",detail:"Chest width",sets:"3×12",rest:"60s",m:"chest",i:1},
-    {ex:"Decline Push-Up",detail:"Upper chest",sets:"3×10",rest:"60s",m:"chest",i:2},
-    {ex:"Pike Push-Up",detail:"Shoulder press",sets:"4×10",rest:"60s",m:"shoulders",i:0},
-    {ex:"Band Lateral Raise",detail:"3s eccentric",sets:"3×15",rest:"45s",m:"shoulders",i:1},
-    {ex:"Diamond Push-Up",detail:"Pause at bottom",sets:"3×10",rest:"60s",m:"triceps",i:1},
-    {ex:"Overhead Extension",detail:"5s eccentric",sets:"3×12",rest:"60s",m:"triceps",i:4},
-  ]},
-  {label:"Day 2",focus:"Pull",exercises:[
-    {ex:"Band Row",detail:"1.5 rep style",sets:"4×10",rest:"60s",m:"back",i:1},
-    {ex:"Band Pull-Apart",detail:"Straight arms",sets:"4×20",rest:"45s",m:"back",i:4},
-    {ex:"Superman Hold",detail:"5s hold",sets:"3×8",rest:"45s",m:"back",i:0},
-    {ex:"Reverse Snow Angel",detail:"Slow tempo",sets:"3×12",rest:"45s",m:"back",i:3},
-    {ex:"Band Curl",detail:"Full ROM, squeeze top",sets:"4×12",rest:"60s",m:"biceps",i:0},
-    {ex:"Band Hammer Curl",detail:"Alternating",sets:"3×12 ea",rest:"45s",m:"biceps",i:1},
-    {ex:"Isometric Band Hold",detail:"60s at 90°",sets:"2×60s",rest:"60s",m:"biceps",i:2},
-  ]},
-  {label:"Day 3",focus:"Legs",exercises:[
-    {ex:"Bulgarian Split Squat",detail:"4s eccentric",sets:"4×8 ea",rest:"75s",m:"legs",i:1},
-    {ex:"Squat",detail:"Pause 3s at bottom",sets:"3×12",rest:"60s",m:"legs",i:0},
-    {ex:"Single-Leg RDL",detail:"3s down",sets:"3×10 ea",rest:"60s",m:"legs",i:2},
-    {ex:"Jump Squat",detail:"Explosive",sets:"3×10",rest:"60s",m:"legs",i:3},
-    {ex:"Wall Sit",detail:"Isometric 60s",sets:"3×60s",rest:"45s",m:"legs",i:4},
-    {ex:"Glute Bridge",detail:"Single-leg, 2s hold",sets:"3×12 ea",rest:"45s",m:"legs",i:5},
-    {ex:"Pistol Squat",detail:"Assisted / box",sets:"3×5 ea",rest:"90s",m:"legs",i:6},
-  ]},
-  {label:"Day 4",focus:"Arms + Core",exercises:[
-    {ex:"Band Curl",detail:"21s technique",sets:"3×21",rest:"75s",m:"biceps",i:0},
-    {ex:"Concentration Curl",detail:"4s eccentric",sets:"3×10 ea",rest:"60s",m:"biceps",i:3},
-    {ex:"Diamond Push-Up",detail:"Pause at midpoint",sets:"4×10",rest:"60s",m:"triceps",i:1},
-    {ex:"Overhead Extension",detail:"5s eccentric",sets:"3×12",rest:"60s",m:"triceps",i:4},
-    {ex:"Plank",detail:"Hollow body",sets:"3×60s",rest:"30s",m:"core",i:0},
-    {ex:"V-Up",detail:"Controlled",sets:"3×15",rest:"30s",m:"core",i:2},
-    {ex:"Hollow Body Hold",detail:"Full ROM rock",sets:"3×20",rest:"30s",m:"core",i:1},
-  ]},
-];
+    const SP_DAYS = [
+      {
+        label: "Day 1", focus: "Push", exercises: [
+          { ex: "Push-Up", detail: "5s eccentric", sets: "4×10", rest: "60s", m: "chest", i: 0 },
+          { ex: "Wide Push-Up", detail: "Chest width", sets: "3×12", rest: "60s", m: "chest", i: 1 },
+          { ex: "Decline Push-Up", detail: "Upper chest", sets: "3×10", rest: "60s", m: "chest", i: 2 },
+          { ex: "Pike Push-Up", detail: "Shoulder press", sets: "4×10", rest: "60s", m: "shoulders", i: 0 },
+          { ex: "Band Lateral Raise", detail: "3s eccentric", sets: "3×15", rest: "45s", m: "shoulders", i: 1 },
+          { ex: "Diamond Push-Up", detail: "Pause at bottom", sets: "3×10", rest: "60s", m: "triceps", i: 1 },
+          { ex: "Overhead Extension", detail: "5s eccentric", sets: "3×12", rest: "60s", m: "triceps", i: 4 },
+        ]
+      },
+      {
+        label: "Day 2", focus: "Pull", exercises: [
+          { ex: "Band Row", detail: "1.5 rep style", sets: "4×10", rest: "60s", m: "back", i: 1 },
+          { ex: "Band Pull-Apart", detail: "Straight arms", sets: "4×20", rest: "45s", m: "back", i: 4 },
+          { ex: "Superman Hold", detail: "5s hold", sets: "3×8", rest: "45s", m: "back", i: 0 },
+          { ex: "Reverse Snow Angel", detail: "Slow tempo", sets: "3×12", rest: "45s", m: "back", i: 3 },
+          { ex: "Band Curl", detail: "Full ROM, squeeze top", sets: "4×12", rest: "60s", m: "biceps", i: 0 },
+          { ex: "Band Hammer Curl", detail: "Alternating", sets: "3×12 ea", rest: "45s", m: "biceps", i: 1 },
+          { ex: "Isometric Band Hold", detail: "60s at 90°", sets: "2×60s", rest: "60s", m: "biceps", i: 2 },
+        ]
+      },
+      {
+        label: "Day 3", focus: "Legs", exercises: [
+          { ex: "Bulgarian Split Squat", detail: "4s eccentric", sets: "4×8 ea", rest: "75s", m: "legs", i: 1 },
+          { ex: "Squat", detail: "Pause 3s at bottom", sets: "3×12", rest: "60s", m: "legs", i: 0 },
+          { ex: "Single-Leg RDL", detail: "3s down", sets: "3×10 ea", rest: "60s", m: "legs", i: 2 },
+          { ex: "Jump Squat", detail: "Explosive", sets: "3×10", rest: "60s", m: "legs", i: 3 },
+          { ex: "Wall Sit", detail: "Isometric 60s", sets: "3×60s", rest: "45s", m: "legs", i: 4 },
+          { ex: "Glute Bridge", detail: "Single-leg, 2s hold", sets: "3×12 ea", rest: "45s", m: "legs", i: 5 },
+          { ex: "Pistol Squat", detail: "Assisted / box", sets: "3×5 ea", rest: "90s", m: "legs", i: 6 },
+        ]
+      },
+      {
+        label: "Day 4", focus: "Arms + Core", exercises: [
+          { ex: "Band Curl", detail: "21s technique", sets: "3×21", rest: "75s", m: "biceps", i: 0 },
+          { ex: "Concentration Curl", detail: "4s eccentric", sets: "3×10 ea", rest: "60s", m: "biceps", i: 3 },
+          { ex: "Diamond Push-Up", detail: "Pause at midpoint", sets: "4×10", rest: "60s", m: "triceps", i: 1 },
+          { ex: "Overhead Extension", detail: "5s eccentric", sets: "3×12", rest: "60s", m: "triceps", i: 4 },
+          { ex: "Plank", detail: "Hollow body", sets: "3×60s", rest: "30s", m: "core", i: 0 },
+          { ex: "V-Up", detail: "Controlled", sets: "3×15", rest: "30s", m: "core", i: 2 },
+          { ex: "Hollow Body Hold", detail: "Full ROM rock", sets: "3×20", rest: "30s", m: "core", i: 1 },
+        ]
+      },
+    ];
 
-function renderPlan(days,containerId){
-  const c=document.getElementById(containerId);
-  days.forEach(day=>{
-    const el=document.createElement('div');el.className='day-card';
-    el.innerHTML=`<div class="day-hdr"><div class="day-label">${day.label}</div><div class="day-focus">${day.focus}</div></div>`+
-    day.exercises.map(e=>`<div class="w-row" onclick="openModal('${e.m}',${e.i})">
+    function renderPlan(days, containerId) {
+      const c = document.getElementById(containerId);
+      days.forEach(day => {
+        const el = document.createElement('div'); el.className = 'day-card';
+        el.innerHTML = `<div class="day-hdr"><div class="day-label">${day.label}</div><div class="day-focus">${day.focus}</div></div>` +
+          day.exercises.map(e => `<div class="w-row" onclick="openModal('${e.m}',${e.i})">
       <div class="w-info"><div class="w-name">${e.ex}</div><div class="w-detail">${e.detail}</div></div>
       <div class="w-meta"><div class="w-sets">${e.sets}</div><div class="w-rest">${e.rest}</div></div>
     </div>`).join('');
-    c.appendChild(el);
-  });
-}
+        c.appendChild(el);
+      });
+    }
 
-function switchPlan(p){
-  document.getElementById('plan-fb').style.display=p==='fb'?'block':'none';
-  document.getElementById('plan-sp').style.display=p==='sp'?'block':'none';
-  const fb=document.getElementById('plan-fb-btn'),sp=document.getElementById('plan-sp-btn');
-  if(p==='fb'){fb.style.background='var(--red)';fb.style.borderColor='var(--red)';fb.style.color='#fff';sp.style.background='var(--card)';sp.style.color='var(--muted)';sp.style.borderColor='var(--bd)';}
-  else{sp.style.background='var(--red)';sp.style.borderColor='var(--red)';sp.style.color='#fff';fb.style.background='var(--card)';fb.style.color='var(--muted)';fb.style.borderColor='var(--bd)';}
-}
+    function switchPlan(p) {
+      document.getElementById('plan-fb').style.display = p === 'fb' ? 'block' : 'none';
+      document.getElementById('plan-sp').style.display = p === 'sp' ? 'block' : 'none';
+      const fb = document.getElementById('plan-fb-btn'), sp = document.getElementById('plan-sp-btn');
+      if (p === 'fb') { fb.style.background = 'var(--red)'; fb.style.borderColor = 'var(--red)'; fb.style.color = '#fff'; sp.style.background = 'var(--card)'; sp.style.color = 'var(--muted)'; sp.style.borderColor = 'var(--bd)'; }
+      else { sp.style.background = 'var(--red)'; sp.style.borderColor = 'var(--red)'; sp.style.color = '#fff'; fb.style.background = 'var(--card)'; fb.style.color = 'var(--muted)'; fb.style.borderColor = 'var(--bd)'; }
+    }
 
-const TECHS=[
-  {num:"5s",name:"Slow Eccentric",desc:"Lower for 5 full seconds. The eccentric phase causes the most muscle damage and growth.",ex:"Push-Up: 5 seconds down. Explode up. Do 10 reps this way."},
-  {num:"1.5×",name:"1.5 Reps",desc:"Full rep, halfway up, back down, full rep = 1 rep. Doubles time under tension at the hardest range.",ex:"Squat: Down, halfway up, back down, stand = 1 rep. Do 8."},
-  {num:"ISO",name:"Isometric Hold",desc:"Hold at the hardest point 2–5 seconds every rep. Maximum motor unit recruitment.",ex:"Band Curl: Hold at 90° for 3s every rep. Bicep cramps = winning."},
-  {num:"PR",name:"Pause Reps",desc:"Dead-stop at the bottom eliminates the stretch reflex. Pure muscle has to fire cold.",ex:"Squat: 3 seconds at the bottom. No bouncing out."},
-  {num:"21s",name:"21s Technique",desc:"7 bottom-half reps, 7 top-half, 7 full = 21 total. Hits every part of the muscle.",ex:"Band Curl: 7 partials low / 7 high / 7 full = one brutal set."},
-  {num:"MDS",name:"Mechanical Drop Set",desc:"Hardest variation to failure, immediately drop to easier, no rest. Triple failure in one set.",ex:"Archer → standard → Knee Push-Up. One continuous set."},
-];
+    const TECHS = [
+      { num: "5s", name: "Slow Eccentric", desc: "Lower for 5 full seconds. The eccentric phase causes the most muscle damage and growth.", ex: "Push-Up: 5 seconds down. Explode up. Do 10 reps this way." },
+      { num: "1.5×", name: "1.5 Reps", desc: "Full rep, halfway up, back down, full rep = 1 rep. Doubles time under tension at the hardest range.", ex: "Squat: Down, halfway up, back down, stand = 1 rep. Do 8." },
+      { num: "ISO", name: "Isometric Hold", desc: "Hold at the hardest point 2–5 seconds every rep. Maximum motor unit recruitment.", ex: "Band Curl: Hold at 90° for 3s every rep. Bicep cramps = winning." },
+      { num: "PR", name: "Pause Reps", desc: "Dead-stop at the bottom eliminates the stretch reflex. Pure muscle has to fire cold.", ex: "Squat: 3 seconds at the bottom. No bouncing out." },
+      { num: "21s", name: "21s Technique", desc: "7 bottom-half reps, 7 top-half, 7 full = 21 total. Hits every part of the muscle.", ex: "Band Curl: 7 partials low / 7 high / 7 full = one brutal set." },
+      { num: "MDS", name: "Mechanical Drop Set", desc: "Hardest variation to failure, immediately drop to easier, no rest. Triple failure in one set.", ex: "Archer → standard → Knee Push-Up. One continuous set." },
+    ];
 
-function renderTechs(){
-  const l=document.getElementById('tech-list');
-  TECHS.forEach(t=>{
-    const el=document.createElement('div');el.className='tech-card';
-    el.innerHTML=`<div style="display:flex;align-items:baseline;gap:6px;margin-bottom:2px"><span class="tech-num">${t.num}</span><span class="tech-name">${t.name}</span></div>
+    function renderTechs() {
+      const l = document.getElementById('tech-list');
+      TECHS.forEach(t => {
+        const el = document.createElement('div'); el.className = 'tech-card';
+        el.innerHTML = `<div style="display:flex;align-items:baseline;gap:6px;margin-bottom:2px"><span class="tech-num">${t.num}</span><span class="tech-name">${t.name}</span></div>
     <p class="tech-desc">${t.desc}</p><div class="tech-ex">${t.ex}</div>`;
-    l.appendChild(el);
-  });
-}
+        l.appendChild(el);
+      });
+    }
 
-const CORE_EX=[
-  {name:"Dead Bug",time:"90s",tip:"Back flat to floor always",m:"core",i:3},
-  {name:"Hollow Body Hold",time:"45s",tip:"Lower back pressed down",m:"core",i:1},
-  {name:"Plank",time:"60s",tip:"Squeeze glutes + abs",m:"core",i:0},
-  {name:"V-Up",time:"×15",tip:"No momentum",m:"core",i:2},
-  {name:"Mountain Climber",time:"45s",tip:"Cross-body, hips level",m:"core",i:4},
-  {name:"Superman Hold",time:"×10",tip:"3s hold each rep",m:"back",i:0},
-  {name:"Hollow Body Rock",time:"30s",tip:"Maintain hollow shape",m:"core",i:1},
-  {name:"Glute Bridge",time:"×12 ea",tip:"2s hold at top",m:"legs",i:5},
-];
+    const CORE_EX = [
+      { name: "Dead Bug", time: "90s", tip: "Back flat to floor always", m: "core", i: 3 },
+      { name: "Hollow Body Hold", time: "45s", tip: "Lower back pressed down", m: "core", i: 1 },
+      { name: "Plank", time: "60s", tip: "Squeeze glutes + abs", m: "core", i: 0 },
+      { name: "V-Up", time: "×15", tip: "No momentum", m: "core", i: 2 },
+      { name: "Mountain Climber", time: "45s", tip: "Cross-body, hips level", m: "core", i: 4 },
+      { name: "Superman Hold", time: "×10", tip: "3s hold each rep", m: "back", i: 0 },
+      { name: "Hollow Body Rock", time: "30s", tip: "Maintain hollow shape", m: "core", i: 1 },
+      { name: "Glute Bridge", time: "×12 ea", tip: "2s hold at top", m: "legs", i: 5 },
+    ];
 
-function renderCore(){
-  const l=document.getElementById('core-list');
-  CORE_EX.forEach(e=>{
-    const el=document.createElement('div');el.className='core-row';
-    el.setAttribute('onclick',`openModal('${e.m}',${e.i})`);
-    el.innerHTML=`<div class="core-time">${e.time}</div><div class="core-info"><div class="core-name"><span class="vdot"></span>${e.name}</div><div class="core-tip">${e.tip}</div></div><div style="color:var(--muted);font-size:18px">›</div>`;
-    l.appendChild(el);
-  });
-}
+    function renderCore() {
+      const l = document.getElementById('core-list');
+      CORE_EX.forEach(e => {
+        const el = document.createElement('div'); el.className = 'core-row';
+        el.setAttribute('onclick', `openModal('${e.m}',${e.i})`);
+        el.innerHTML = `<div class="core-time">${e.time}</div><div class="core-info"><div class="core-name"><span class="vdot"></span>${e.name}</div><div class="core-tip">${e.tip}</div></div><div style="color:var(--muted);font-size:18px">›</div>`;
+        l.appendChild(el);
+      });
+    }
 
-const GEAR=[
-  {name:"Resistance Bands",price:"~$20–35 · You already have this!",uses:["Band rows — best back builder without a bar","Band curls — direct bicep work","Lateral raises — shoulder isolation","Tricep pushdowns","100+ variations unlocked"]},
-  {name:"Pull-Up Bar",price:"~$25–40 · Buy this next",uses:["Pull-ups / chin-ups — greatest upper body builder","Negative pull-ups for beginners","Works with bands for assisted reps","Unlocks the 10-pull-up milestone","Best $30 you can spend"]},
-  {name:"Gymnastic Rings",price:"~$30–45 · Serious progression",uses:["Ring push-ups — instant difficulty jump","Ring rows — scalable back pulling","Ring dips — full depth","Far more muscle activation than floor","Rings + bands = complete home gym"]},
-];
+    const GEAR = [
+      { name: "Resistance Bands", price: "~$20–35 · You already have this!", uses: ["Band rows — best back builder without a bar", "Band curls — direct bicep work", "Lateral raises — shoulder isolation", "Tricep pushdowns", "100+ variations unlocked"] },
+      { name: "Pull-Up Bar", price: "~$25–40 · Buy this next", uses: ["Pull-ups / chin-ups — greatest upper body builder", "Negative pull-ups for beginners", "Works with bands for assisted reps", "Unlocks the 10-pull-up milestone", "Best $30 you can spend"] },
+      { name: "Gymnastic Rings", price: "~$30–45 · Serious progression", uses: ["Ring push-ups — instant difficulty jump", "Ring rows — scalable back pulling", "Ring dips — full depth", "Far more muscle activation than floor", "Rings + bands = complete home gym"] },
+    ];
 
-function renderGear(){
-  const l=document.getElementById('gear-list');
-  GEAR.forEach(g=>{
-    const el=document.createElement('div');el.className='gear-card';
-    el.innerHTML=`<div class="gear-name">${g.name}</div><div class="gear-price">${g.price}</div><ul class="gear-uses">`+g.uses.map(u=>`<li>${u}</li>`).join('')+`</ul>`;
-    l.appendChild(el);
-  });
-}
+    function renderGear() {
+      const l = document.getElementById('gear-list');
+      GEAR.forEach(g => {
+        const el = document.createElement('div'); el.className = 'gear-card';
+        el.innerHTML = `<div class="gear-name">${g.name}</div><div class="gear-price">${g.price}</div><ul class="gear-uses">` + g.uses.map(u => `<li>${u}</li>`).join('') + `</ul>`;
+        l.appendChild(el);
+      });
+    }
 
-const MILESTONES=[
-  {num:"20",name:"Consecutive push-ups",why:"With full ROM + 2s pause at bottom.",level:"lv1",label:"6–8 wks"},
-  {num:"60s",name:"Plank hold",why:"Core foundation for everything.",level:"lv1",label:"4–6 wks"},
-  {num:"10",name:"Diamond push-ups",why:"Proves real tricep isolation strength.",level:"lv1",label:"8–12 wks"},
-  {num:"15",name:"Bulgarian split squats ea.",why:"Single-leg strength like 1.5× BW squat.",level:"lv2",label:"10–16 wks"},
-  {num:"10",name:"Pull-ups (after bar)",why:"Gold standard of upper body strength.",level:"lv2",label:"3–6 mo"},
-  {num:"5",name:"Archer push-ups",why:"One step from the one-arm push-up.",level:"lv2",label:"4–5 mo"},
-  {num:"1",name:"Pistol squat each leg",why:"Elite single-leg control and strength.",level:"lv3",label:"6–9 mo"},
-  {num:"30",name:"5s-eccentric push-ups",why:"Harder than most people's bench press.",level:"lv3",label:"5–7 mo"},
-];
+    const MILESTONES = [
+      { num: "20", name: "Consecutive push-ups", why: "With full ROM + 2s pause at bottom.", level: "lv1", label: "6–8 wks" },
+      { num: "60s", name: "Plank hold", why: "Core foundation for everything.", level: "lv1", label: "4–6 wks" },
+      { num: "10", name: "Diamond push-ups", why: "Proves real tricep isolation strength.", level: "lv1", label: "8–12 wks" },
+      { num: "15", name: "Bulgarian split squats ea.", why: "Single-leg strength like 1.5× BW squat.", level: "lv2", label: "10–16 wks" },
+      { num: "10", name: "Pull-ups (after bar)", why: "Gold standard of upper body strength.", level: "lv2", label: "3–6 mo" },
+      { num: "5", name: "Archer push-ups", why: "One step from the one-arm push-up.", level: "lv2", label: "4–5 mo" },
+      { num: "1", name: "Pistol squat each leg", why: "Elite single-leg control and strength.", level: "lv3", label: "6–9 mo" },
+      { num: "30", name: "5s-eccentric push-ups", why: "Harder than most people's bench press.", level: "lv3", label: "5–7 mo" },
+    ];
 
-function renderMilestones(){
-  const l=document.getElementById('ms-list');
-  MILESTONES.forEach(m=>{
-    const el=document.createElement('div');el.className='ms-card';
-    el.innerHTML=`<div class="ms-num">${m.num}</div><div class="ms-info"><div class="ms-name">${m.name}</div><div class="ms-why">${m.why}</div></div><div class="ms-tag ${m.level}">${m.label}</div>`;
-    l.appendChild(el);
-  });
-}
+    function renderMilestones() {
+      const l = document.getElementById('ms-list');
+      MILESTONES.forEach(m => {
+        const el = document.createElement('div'); el.className = 'ms-card';
+        el.innerHTML = `<div class="ms-num">${m.num}</div><div class="ms-info"><div class="ms-name">${m.name}</div><div class="ms-why">${m.why}</div></div><div class="ms-tag ${m.level}">${m.label}</div>`;
+        l.appendChild(el);
+      });
+    }
 
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-bar button').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  if(document.getElementById('modal-wrap').classList.contains('open'))closeModal();
-}
+    function showPage(id, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+      if (document.getElementById('modal-wrap').classList.contains('open')) closeModal();
+    }
 
-let timerInterval=null,timeLeft=0,totalTime=0,isWork=true,setsDone=0,currentSet=1,workTime=45,restTime=90;
-function setPreset(el,work,rest,name){
-  document.querySelectorAll('.t-preset').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');workTime=work;restTime=rest;
-  if(timerInterval){clearInterval(timerInterval);timerInterval=null;}
-  setsDone=0;currentSet=1;isWork=work>0;timeLeft=work>0?work:rest;totalTime=timeLeft;
-  document.getElementById('t-phase').textContent=work>0?'Work':'Rest';
-  document.getElementById('start-btn').textContent='Start';
-  document.getElementById('t-done').textContent='0';
-  document.getElementById('t-setnum').textContent='1';
-  document.getElementById('t-info').textContent=name+' preset ready';
-  updateDisplay();
-}
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
-function updateDisplay(){
-  document.getElementById('t-display').textContent=fmt(timeLeft);
-  document.getElementById('t-bar').style.width=Math.round(timeLeft/totalTime*100)+'%';
-  document.getElementById('t-bar').style.background=isWork?'var(--red)':'#1D9E75';
-}
-function tick(){
-  timeLeft--;updateDisplay();
-  if(timeLeft<=0){
-    clearInterval(timerInterval);timerInterval=null;
-    if(isWork&&workTime>0){isWork=false;timeLeft=restTime;totalTime=restTime;document.getElementById('t-phase').textContent='REST';setsDone++;document.getElementById('t-done').textContent=setsDone;}
-    else{isWork=workTime>0;timeLeft=isWork?workTime:restTime;totalTime=timeLeft;currentSet=Math.min(currentSet+1,4);document.getElementById('t-setnum').textContent=currentSet;document.getElementById('t-phase').textContent=isWork?'WORK':'REST';}
-    updateDisplay();timerInterval=setInterval(tick,1000);
-  }
-}
-function toggleTimer(){
-  if(timerInterval){clearInterval(timerInterval);timerInterval=null;document.getElementById('start-btn').textContent='Resume';return;}
-  document.getElementById('start-btn').textContent='Pause';timerInterval=setInterval(tick,1000);
-}
-function resetTimer(){
-  clearInterval(timerInterval);timerInterval=null;
-  isWork=workTime>0;timeLeft=isWork?workTime:restTime;totalTime=timeLeft;
-  setsDone=0;currentSet=1;
-  document.getElementById('t-phase').textContent='Ready';document.getElementById('start-btn').textContent='Start';
-  document.getElementById('t-done').textContent='0';document.getElementById('t-setnum').textContent='1';
-  updateDisplay();
-}
-function skipPhase(){
-  clearInterval(timerInterval);timerInterval=null;
-  if(isWork&&workTime>0){isWork=false;timeLeft=restTime;totalTime=restTime;document.getElementById('t-phase').textContent='REST';setsDone++;document.getElementById('t-done').textContent=setsDone;}
-  else{isWork=workTime>0;timeLeft=isWork?workTime:restTime;totalTime=timeLeft;currentSet=Math.min(currentSet+1,4);document.getElementById('t-setnum').textContent=currentSet;document.getElementById('t-phase').textContent=isWork?'WORK':'REST';}
-  updateDisplay();document.getElementById('start-btn').textContent='Start';
-}
+    let timerInterval = null, timeLeft = 0, totalTime = 0, isWork = true, setsDone = 0, currentSet = 1, workTime = 45, restTime = 90;
+    function setPreset(el, work, rest, name) {
+      document.querySelectorAll('.t-preset').forEach(p => p.classList.remove('active'));
+      el.classList.add('active'); workTime = work; restTime = rest;
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      setsDone = 0; currentSet = 1; isWork = work > 0; timeLeft = work > 0 ? work : rest; totalTime = timeLeft;
+      document.getElementById('t-phase').textContent = work > 0 ? 'Work' : 'Rest';
+      document.getElementById('start-btn').textContent = 'Start';
+      document.getElementById('t-done').textContent = '0';
+      document.getElementById('t-setnum').textContent = '1';
+      document.getElementById('t-info').textContent = name + ' preset ready';
+      updateDisplay();
+    }
+    function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+    function updateDisplay() {
+      document.getElementById('t-display').textContent = fmt(timeLeft);
+      document.getElementById('t-bar').style.width = Math.round(timeLeft / totalTime * 100) + '%';
+      document.getElementById('t-bar').style.background = isWork ? 'var(--red)' : '#1D9E75';
+    }
+    function tick() {
+      timeLeft--; updateDisplay();
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval); timerInterval = null;
+        if (isWork && workTime > 0) { isWork = false; timeLeft = restTime; totalTime = restTime; document.getElementById('t-phase').textContent = 'REST'; setsDone++; document.getElementById('t-done').textContent = setsDone; }
+        else { isWork = workTime > 0; timeLeft = isWork ? workTime : restTime; totalTime = timeLeft; currentSet = Math.min(currentSet + 1, 4); document.getElementById('t-setnum').textContent = currentSet; document.getElementById('t-phase').textContent = isWork ? 'WORK' : 'REST'; }
+        updateDisplay(); timerInterval = setInterval(tick, 1000);
+      }
+    }
+    function toggleTimer() {
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; document.getElementById('start-btn').textContent = 'Resume'; return; }
+      document.getElementById('start-btn').textContent = 'Pause'; timerInterval = setInterval(tick, 1000);
+    }
+    function resetTimer() {
+      clearInterval(timerInterval); timerInterval = null;
+      isWork = workTime > 0; timeLeft = isWork ? workTime : restTime; totalTime = timeLeft;
+      setsDone = 0; currentSet = 1;
+      document.getElementById('t-phase').textContent = 'Ready'; document.getElementById('start-btn').textContent = 'Start';
+      document.getElementById('t-done').textContent = '0'; document.getElementById('t-setnum').textContent = '1';
+      updateDisplay();
+    }
+    function skipPhase() {
+      clearInterval(timerInterval); timerInterval = null;
+      if (isWork && workTime > 0) { isWork = false; timeLeft = restTime; totalTime = restTime; document.getElementById('t-phase').textContent = 'REST'; setsDone++; document.getElementById('t-done').textContent = setsDone; }
+      else { isWork = workTime > 0; timeLeft = isWork ? workTime : restTime; totalTime = timeLeft; currentSet = Math.min(currentSet + 1, 4); document.getElementById('t-setnum').textContent = currentSet; document.getElementById('t-phase').textContent = isWork ? 'WORK' : 'REST'; }
+      updateDisplay(); document.getElementById('start-btn').textContent = 'Start';
+    }
 
-renderLibrary();renderPlan(FB_DAYS,'fb-days');renderPlan(SP_DAYS,'sp-days');
-renderTechs();renderCore();renderGear();renderMilestones();
-timeLeft=workTime;totalTime=workTime;updateDisplay();
-</script>
+    renderLibrary(); renderPlan(FB_DAYS, 'fb-days'); renderPlan(SP_DAYS, 'sp-days');
+    renderTechs(); renderCore(); renderGear(); renderMilestones();
+    timeLeft = workTime; totalTime = workTime; updateDisplay();
+  </script>
+</body>

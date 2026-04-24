@@ -4,20 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Alex Workout App</title>
-
   <link rel="stylesheet" href="styles.css">
-
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#E24B4A">
-
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Workout">
-
   <link rel="apple-touch-icon" href="icon-192.png">
-
 </head>
 
 <body>
@@ -38,46 +32,43 @@
     </div>
 
     <div id="modal-wrap" class="modal-wrap">
-      <div class="modal-backdrop">
-        <div class="modal-inner">
-          <div class="modal-hdr">
-            <div>
-              <div class="modal-muscle" id="m-muscle"></div>
-              <div class="modal-title" id="m-title"></div>
-            </div>
-            <button class="modal-close-btn" onclick="closeModal()">✕</button>
+      <div class="modal-inner">
+        <div class="modal-hdr">
+          <div>
+            <div class="modal-muscle" id="m-muscle"></div>
+            <div class="modal-title" id="m-title"></div>
           </div>
-          <div class="modal-body">
-            <div id="m-video"></div>
-            <div class="tip-box" id="m-tip"></div>
-            <div class="prog-rows">
-              <div class="prog-row"><span class="mod mod-b">Beginner</span><span class="prog-text" id="m-beg"></span>
-              </div>
-              <div class="prog-row"><span class="mod mod-i">Inter.</span><span class="prog-text" id="m-int"></span>
-              </div>
-              <div class="prog-row"><span class="mod mod-a">Advanced</span><span class="prog-text" id="m-adv"></span>
-              </div>
-            </div>
+          <button class="modal-close-btn" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="m-video"></div>
+          <div class="tip-box" id="m-tip"></div>
+          <div class="prog-rows">
+            <div class="prog-row"><span class="mod mod-b">Beginner</span><span class="prog-text" id="m-beg"></span></div>
+            <div class="prog-row"><span class="mod mod-i">Inter.</span><span class="prog-text" id="m-int"></span></div>
+            <div class="prog-row"><span class="mod mod-a">Advanced</span><span class="prog-text" id="m-adv"></span></div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- LIBRARY -->
     <div id="library" class="page active">
       <div class="ph">Exercise <span>Library</span></div>
-      <p class="sub">Red dot = YouTube tutorial. Tap any exercise to view.</p>
+      <p class="sub">Red dot = strength · Green dot = mobility. Tap any exercise to view.</p>
       <div class="muscle-list" id="muscle-list"></div>
+      <div class="ph" style="margin-top:8px">Mobility <span>Library</span></div>
+      <p class="sub">Tap any mobility drill to see technique and watch the tutorial.</p>
+      <div class="muscle-list" id="mob-library-list"></div>
     </div>
 
+    <!-- PLANS -->
     <div id="plans" class="page">
       <div class="ph">Training <span>Plans</span></div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:14px">
-        <button
-          style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--red);border-color:var(--red);color:#fff;cursor:pointer;min-height:44px"
-          id="plan-fb-btn" onclick="switchPlan('fb')">Full-Body 3×</button>
-        <button
-          style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px;border-radius:var(--border-radius-md);border:1px solid var(--bd);background:var(--card);color:var(--muted);cursor:pointer;min-height:44px"
-          id="plan-sp-btn" onclick="switchPlan('sp')">4-Day Split</button>
+      <div class="plan-toggle">
+        <button class="plan-btn active" id="btn-fb" onclick="switchPlan('fb')">Full-Body 3×</button>
+        <button class="plan-btn" id="btn-sp" onclick="switchPlan('sp')">4-Day Split</button>
+        <button class="plan-btn plan-btn-mob" id="btn-mob" onclick="switchPlan('mob')">Mobility</button>
       </div>
       <div id="plan-fb">
         <p class="sub">Mon / Wed / Fri · ~60 min. Tap any row for tutorial.</p>
@@ -87,8 +78,15 @@
         <p class="sub">Push / Pull / Legs / Arms+Core. Tap any row for tutorial.</p>
         <div id="sp-days"></div>
       </div>
+      <div id="plan-mob" style="display:none">
+        <div class="mob-intro">
+          <p><strong>10–20 min/day.</strong> Do mobility daily — morning, before training, or as a cooldown. Each day targets one body region. You'll notice less stiffness and better squat depth within 2–3 weeks.</p>
+        </div>
+        <div id="mob-days"></div>
+      </div>
     </div>
 
+    <!-- TOOLS -->
     <div id="tools" class="page">
       <div class="ph">Intensity <span>Techniques</span></div>
       <div class="tech-list" id="tech-list"></div>
@@ -109,14 +107,13 @@
       <div class="ms-list" id="ms-list"></div>
     </div>
 
+    <!-- TIMER -->
     <div id="timer" class="page">
       <div class="ph">Workout <span>Timer</span></div>
-      <div class="timer-wrap">
+      <div class="timer-card">
         <div class="t-phase" id="t-phase">Ready</div>
         <div class="t-display" id="t-display">00:00</div>
-        <div class="t-bar-wrap">
-          <div class="t-bar" id="t-bar" style="width:100%"></div>
-        </div>
+        <div class="t-bar-wrap"><div class="t-bar" id="t-bar" style="width:100%"></div></div>
         <div class="t-info" id="t-info">Select a preset below</div>
         <div class="t-presets">
           <div class="t-preset active" onclick="setPreset(this,45,90,'Hypertrophy')">45s work<br>90s rest</div>
@@ -129,13 +126,13 @@
           <button class="t-btn primary" id="start-btn" onclick="toggleTimer()">Start</button>
           <button class="t-btn" onclick="skipPhase()">Skip</button>
         </div>
-        <div class="t-stats">Set <span id="t-setnum">1</span> of 4 · Done: <span id="t-done"
-            style="font-weight:600;color:var(--red)">0</span></div>
+        <div class="t-stats">Set <span id="t-setnum">1</span> of 4 · Done: <span id="t-done">0</span></div>
       </div>
     </div>
   </div>
 
   <script>
+    // ── STRENGTH EXERCISES ───────────────────────────────────────────
     const EX = {
       chest: [
         { n: "Push-Up", b: "Knee Push-Up", i: "Standard Push-Up", a: "Archer Push-Up", tip: "Elbows at 45°, not flared. Core tight throughout.", vid: "IODxDxX7oi4", vt: "Athlean-X: Perfect Push-Up" },
@@ -190,24 +187,63 @@
       ]
     };
 
-    const ICONS = { chest: '◈', back: '◉', shoulders: '◆', biceps: '◇', triceps: '◑', legs: '◐', core: '◎' };
+    // ── MOBILITY EXERCISES ───────────────────────────────────────────
+    const MOB_EX = {
+      hips: [
+        { n: "90/90 Hip Stretch", b: "Supported 90/90 (hands on floor)", i: "90/90 Hip Stretch", a: "90/90 + Forward Fold", tip: "Both knees at 90°. Sit tall first, then hinge forward. Feel the deep hip rotators — not your knee.", vid: "aQdD5CerSi4", vt: "Mobility: 90/90 Hip Stretch" },
+        { n: "Hip Flexor Lunge Stretch", b: "Kneeling Hip Flexor", i: "Deep Lunge Hip Flexor", a: "Lunge + Overhead Reach", tip: "Tuck the pelvis under slightly — that's what actually stretches the hip flexor, not just dropping your knee.", vid: "YqF2bMzsKoI", vt: "Mobility: Hip Flexor Stretch" },
+        { n: "Pigeon Pose", b: "Figure-4 Stretch (on back)", i: "Pigeon Pose (supported)", a: "Full Pigeon + Forward Fold", tip: "Hinge forward from the hip. Relax into it for 60–90s — don't force it. Breathe.", vid: "24GCalHeM1c", vt: "Mobility: Pigeon Pose" },
+        { n: "World's Greatest Stretch", b: "Lunge + rotation (hands down)", i: "World's Greatest Stretch", a: "World's Greatest + overhead reach", tip: "One move covering hip flexor, thoracic spine, and hamstring. The single best daily drill.", vid: "7E4j1ZLyFjg", vt: "Mobility: World's Greatest Stretch" },
+      ],
+      thoracic: [
+        { n: "Cat-Cow", b: "Cat-Cow (5s each, very slow)", i: "Cat-Cow (flowing)", a: "Cat-Cow + neck extension", tip: "Full spinal articulation from tailbone all the way up. Not just your lower back.", vid: "kqnua4rHVVA", vt: "Mobility: Cat-Cow Stretch" },
+        { n: "Thread the Needle", b: "Thread the Needle (shallow rotation)", i: "Thread the Needle", a: "Thread the Needle + 3s hold at end range", tip: "Keep hips stacked over knees. The rotation comes only from the upper back.", vid: "hCi0M_TIVUQ", vt: "Mobility: Thread the Needle" },
+        { n: "T-Spine Rotation (seated)", b: "Seated rotation, hands on head", i: "T-Spine Rotation", a: "Seated rotation + band resistance", tip: "Keep your lower back still. Only the thoracic spine rotates — lock out the lumbar.", vid: "hCi0M_TIVUQ", vt: "Mobility: T-Spine Rotation" },
+        { n: "Thoracic Foam Roll", b: "Foam roll mid-back (supported)", i: "Thoracic Foam Roll", a: "Foam Roll + arms overhead reach", tip: "Roll mid-back to upper back only. Stop at the bottom of the shoulder blades — never lumbar.", vid: "g3PQNJYEOkQ", vt: "Mobility: Thoracic Spine Rolling" },
+      ],
+      shoulders: [
+        { n: "Doorframe Chest Stretch", b: "Doorframe stretch (arm at 90°)", i: "Doorframe stretch (arm at 120°)", a: "Doorframe stretch + forward lean", tip: "Two angles: 90° hits pec minor, 120° hits pec major. Do both sides, both angles.", vid: "UPo7fWxpCeM", vt: "Mobility: Chest Stretch" },
+        { n: "Band Shoulder Dislocate", b: "Wide-grip band dislocate", i: "Band Shoulder Dislocate", a: "Narrower grip dislocate", tip: "Arms stay straight the entire arc. If you can't, widen your grip — don't cheat the movement.", vid: "6Jm0keFpamo", vt: "Mobility: Band Shoulder Dislocate" },
+        { n: "Wall Slides", b: "Wall slides (elbows at 90°)", i: "Wall Slides (full range)", a: "Wall Slides + band pull-apart", tip: "Keep your entire back and elbows flush against the wall. Don't let them peel off — that's the whole point.", vid: "xsMEBYrpkJY", vt: "Mobility: Wall Slides" },
+        { n: "Sleeper Stretch", b: "Sleeper stretch (gentle pressure)", i: "Sleeper Stretch", a: "Sleeper stretch + 30s hold", tip: "Targets internal shoulder rotation — the most commonly restricted movement. Lie on side, gently press forearm down.", vid: "z_ZdG0_7mfE", vt: "Mobility: Sleeper Stretch" },
+      ],
+      hamstrings: [
+        { n: "Standing Forward Fold", b: "Bent-knee forward fold", i: "Standing Forward Fold", a: "Forward fold + neck nods", tip: "Hinge from the hips, not the lower back. Let gravity do the work — don't yank.", vid: "v9JodC6MrlA", vt: "Mobility: Forward Fold" },
+        { n: "Supine Hamstring Stretch", b: "Supine stretch (band assist)", i: "Supine Hamstring Stretch", a: "Supine + ankle dorsiflexion", tip: "Keep the non-working leg flat on the floor. Flex the foot for a deeper stretch along the calf too.", vid: "gCwhFMvJBxg", vt: "Mobility: Supine Hamstring Stretch" },
+        { n: "Downward Dog", b: "Bent-knee downward dog", i: "Downward Dog", a: "Downward Dog + single-leg reach", tip: "Push the floor away. Alternate bending knees to warm the hamstrings before going full straight-leg.", vid: "j97SSGsnCAQ", vt: "Mobility: Downward Dog" },
+      ],
+      ankles: [
+        { n: "Ankle CARs", b: "Seated ankle circles", i: "Standing ankle CARs", a: "Single-leg ankle CARs", tip: "Slow, deliberate full circles. Try to make the biggest circle possible — use your full range.", vid: "l42HdLSmGnE", vt: "Mobility: Ankle CARs" },
+        { n: "Kneeling Ankle Stretch", b: "Kneeling ankle rock (slow)", i: "Kneeling ankle stretch", a: "Kneeling ankle stretch + 3s holds at end range", tip: "Knee tracks over your pinky toe. If your heel rises off the floor, you've gone too far.", vid: "GNpzH5HsusI", vt: "Mobility: Ankle Dorsiflexion" },
+        { n: "Calf Stretch (wall)", b: "Wall calf stretch (straight leg)", i: "Wall calf stretch (bent knee)", a: "Weighted calf stretch", tip: "Bent-knee version targets the soleus — often tighter than the gastrocnemius in people with stiff ankles.", vid: "EVN3bJT_3dg", vt: "Mobility: Calf Stretch" },
+      ],
+    };
 
-    function openModal(muscle, idx) {
-      const e = EX[muscle][idx];
-      document.getElementById('m-muscle').textContent = muscle.toUpperCase();
+    const ICONS = { chest: '◈', back: '◉', shoulders: '◆', biceps: '◇', triceps: '◑', legs: '◐', core: '◎' };
+    const MOB_ICONS = { hips: '◐', thoracic: '◆', shoulders: '◇', hamstrings: '◈', ankles: '◉' };
+
+    // ── MODAL ────────────────────────────────────────────────────────
+    function openModal(muscle, idx, isMob) {
+      const src = isMob ? MOB_EX : EX;
+      const e = src[muscle][idx];
+      const mm = document.getElementById('m-muscle');
+      mm.textContent = (isMob ? 'MOBILITY · ' : '') + muscle.toUpperCase();
+      mm.className = 'modal-muscle' + (isMob ? ' mob' : '');
       document.getElementById('m-title').textContent = e.n;
-      document.getElementById('m-tip').textContent = e.tip;
+      const tb = document.getElementById('m-tip');
+      tb.textContent = e.tip;
+      tb.className = 'tip-box' + (isMob ? ' mob' : '');
       document.getElementById('m-beg').textContent = e.b;
       document.getElementById('m-int').textContent = e.i;
       document.getElementById('m-adv').textContent = e.a;
       const va = document.getElementById('m-video');
       if (e.vid) {
         va.innerHTML = `<a class="yt-thumb" href="https://www.youtube.com/watch?v=${e.vid}" target="_blank" rel="noopener">
-      <img src="https://img.youtube.com/vi/${e.vid}/hqdefault.jpg" alt="${e.vt}" onerror="this.parentElement.style.display='none'">
-      <div class="yt-overlay"><div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="yt-lbl">${e.vt}</div></div>
-    </a>`;
+          <img src="https://img.youtube.com/vi/${e.vid}/hqdefault.jpg" alt="${e.vt}" onerror="this.parentElement.style.display='none'">
+          <div class="yt-overlay"><div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="yt-lbl">${e.vt}</div></div>
+        </a>`;
       } else {
-        va.innerHTML = `<div style="background:var(--surf);border-radius:var(--border-radius-md);padding:14px;text-align:center;margin-bottom:12px;font-size:13px;color:var(--muted)">Search "${e.n} Athlean-X" on YouTube</div>`;
+        va.innerHTML = `<div style="background:var(--surf);border-radius:var(--border-radius-md);padding:14px;text-align:center;margin-bottom:12px;font-size:13px;color:var(--muted)">Search "${e.n}" on YouTube</div>`;
       }
       const mw = document.getElementById('modal-wrap');
       mw.classList.add('open');
@@ -219,20 +255,34 @@
       document.getElementById('m-video').innerHTML = '';
     }
 
+    // ── LIBRARY ──────────────────────────────────────────────────────
     function renderLibrary() {
       const list = document.getElementById('muscle-list');
       Object.entries(EX).forEach(([muscle, exs]) => {
         const sec = document.createElement('div'); sec.className = 'muscle-section';
         sec.innerHTML = `<div class="muscle-hdr">${ICONS[muscle]} ${muscle.charAt(0).toUpperCase() + muscle.slice(1)}</div>` +
-          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i})">
-        <div><div class="ex-name">${e.vid ? '<span class="vdot"></span>' : ''} ${e.n}</div>
-        <div class="mods"><span class="mod mod-b">Beginner</span><span class="mod mod-i">Inter.</span><span class="mod mod-a">Advanced</span></div></div>
-        <div class="ex-arrow">›</div>
-      </div>`).join('');
+          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i},false)">
+            <div class="ex-left"><div class="ex-name">${e.vid ? '<span class="vdot"></span>' : ''} ${e.n}</div>
+            <div class="mods"><span class="mod mod-b">Beginner</span><span class="mod mod-i">Inter.</span><span class="mod mod-a">Advanced</span></div></div>
+            <div class="ex-arrow">›</div>
+          </div>`).join('');
         list.appendChild(sec);
+      });
+
+      const mobList = document.getElementById('mob-library-list');
+      Object.entries(MOB_EX).forEach(([muscle, exs]) => {
+        const sec = document.createElement('div'); sec.className = 'muscle-section';
+        sec.innerHTML = `<div class="muscle-hdr mob-hdr">${MOB_ICONS[muscle]} ${muscle.charAt(0).toUpperCase() + muscle.slice(1)}</div>` +
+          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i},true)">
+            <div class="ex-left"><div class="ex-name">${e.vid ? '<span class="vdot-teal"></span>' : ''} ${e.n}</div>
+            <div class="mods"><span class="mod mod-b">Beginner</span><span class="mod mod-i">Inter.</span><span class="mod mod-a">Advanced</span></div></div>
+            <div class="ex-arrow">›</div>
+          </div>`).join('');
+        mobList.appendChild(sec);
       });
     }
 
+    // ── STRENGTH PLANS ───────────────────────────────────────────────
     const FB_DAYS = [
       {
         label: "Day A", focus: "Push", exercises: [
@@ -319,27 +369,87 @@
       },
     ];
 
-    function renderPlan(days, containerId) {
+    // ── MOBILITY PLAN ────────────────────────────────────────────────
+    const MOB_DAYS = [
+      {
+        label: "Day 1", focus: "Hips + Hip Flexors", duration: "~15 min", exercises: [
+          { ex: "90/90 Hip Stretch", detail: "60s each side, 2 rounds", sets: "2×60s ea", rest: "—", m: "hips", i: 0 },
+          { ex: "Hip Flexor Lunge Stretch", detail: "Hold 45s, feel front of hip", sets: "3×45s ea", rest: "—", m: "hips", i: 1 },
+          { ex: "Pigeon Pose", detail: "90s each side, breathe deeply", sets: "2×90s ea", rest: "—", m: "hips", i: 2 },
+          { ex: "World's Greatest Stretch", detail: "5 slow reps per side", sets: "3×5 ea", rest: "10s", m: "hips", i: 3 },
+        ]
+      },
+      {
+        label: "Day 2", focus: "Thoracic Spine", duration: "~12 min", exercises: [
+          { ex: "Cat-Cow", detail: "10 slow reps, 5s each direction", sets: "3×10", rest: "15s", m: "thoracic", i: 0 },
+          { ex: "Thread the Needle", detail: "Hold 30s end range each side", sets: "3×30s ea", rest: "—", m: "thoracic", i: 1 },
+          { ex: "T-Spine Rotation (seated)", detail: "10 reps each side", sets: "3×10 ea", rest: "15s", m: "thoracic", i: 2 },
+          { ex: "Thoracic Foam Roll", detail: "Slow roll, pause on tight spots", sets: "2×60s", rest: "—", m: "thoracic", i: 3 },
+        ]
+      },
+      {
+        label: "Day 3", focus: "Shoulders + Chest", duration: "~15 min", exercises: [
+          { ex: "Doorframe Chest Stretch", detail: "30s at 90°, 30s at 120° — each side", sets: "2×30s ea", rest: "—", m: "shoulders", i: 0 },
+          { ex: "Band Shoulder Dislocate", detail: "10 slow reps, full control", sets: "3×10", rest: "20s", m: "shoulders", i: 1 },
+          { ex: "Wall Slides", detail: "10 reps, keep everything on wall", sets: "3×10", rest: "15s", m: "shoulders", i: 2 },
+          { ex: "Sleeper Stretch", detail: "45s each side", sets: "2×45s ea", rest: "—", m: "shoulders", i: 3 },
+        ]
+      },
+      {
+        label: "Day 4", focus: "Hamstrings", duration: "~12 min", exercises: [
+          { ex: "Standing Forward Fold", detail: "45s hold, relax each breath", sets: "3×45s", rest: "—", m: "hamstrings", i: 0 },
+          { ex: "Downward Dog", detail: "Alternate bending knees, 60s", sets: "3×60s", rest: "—", m: "hamstrings", i: 2 },
+          { ex: "Supine Hamstring Stretch", detail: "45s each leg with band", sets: "2×45s ea", rest: "—", m: "hamstrings", i: 1 },
+        ]
+      },
+      {
+        label: "Day 5", focus: "Ankles + Calves", duration: "~10 min", exercises: [
+          { ex: "Ankle CARs", detail: "10 circles each direction, each ankle", sets: "2×10 ea", rest: "—", m: "ankles", i: 0 },
+          { ex: "Kneeling Ankle Stretch", detail: "10 reps each ankle", sets: "3×10 ea", rest: "10s", m: "ankles", i: 1 },
+          { ex: "Calf Stretch (wall)", detail: "30s straight + 30s bent knee, each side", sets: "2×30s ea", rest: "—", m: "ankles", i: 2 },
+        ]
+      },
+      {
+        label: "Day 6", focus: "Full Body Flow", duration: "~20 min", exercises: [
+          { ex: "World's Greatest Stretch", detail: "5 reps each side — full flow", sets: "2×5 ea", rest: "—", m: "hips", i: 3 },
+          { ex: "Cat-Cow", detail: "10 slow reps", sets: "2×10", rest: "—", m: "thoracic", i: 0 },
+          { ex: "Thread the Needle", detail: "30s each side", sets: "2×30s ea", rest: "—", m: "thoracic", i: 1 },
+          { ex: "Downward Dog", detail: "Hold 60s, breathe", sets: "2×60s", rest: "—", m: "hamstrings", i: 2 },
+          { ex: "90/90 Hip Stretch", detail: "60s each side", sets: "2×60s ea", rest: "—", m: "hips", i: 0 },
+          { ex: "Doorframe Chest Stretch", detail: "30s each side", sets: "2×30s ea", rest: "—", m: "shoulders", i: 0 },
+          { ex: "Ankle CARs", detail: "10 circles each direction", sets: "1×10 ea", rest: "—", m: "ankles", i: 0 },
+        ]
+      },
+    ];
+
+    // ── RENDER PLANS ─────────────────────────────────────────────────
+    function renderPlan(days, containerId, isMob) {
       const c = document.getElementById(containerId);
       days.forEach(day => {
         const el = document.createElement('div'); el.className = 'day-card';
-        el.innerHTML = `<div class="day-hdr"><div class="day-label">${day.label}</div><div class="day-focus">${day.focus}</div></div>` +
-          day.exercises.map(e => `<div class="w-row" onclick="openModal('${e.m}',${e.i})">
-      <div class="w-info"><div class="w-name">${e.ex}</div><div class="w-detail">${e.detail}</div></div>
-      <div class="w-meta"><div class="w-sets">${e.sets}</div><div class="w-rest">${e.rest}</div></div>
-    </div>`).join('');
+        const durBadge = day.duration ? `<span class="day-duration">${day.duration}</span>` : '';
+        el.innerHTML = `<div class="day-hdr">
+          <div><div class="day-label">${day.label}</div><div class="day-focus">${day.focus}</div></div>
+          ${durBadge}
+        </div>` +
+          day.exercises.map(e => `<div class="w-row" onclick="openModal('${e.m}',${e.i},${isMob ? 'true' : 'false'})">
+            <div class="w-info"><div class="w-name">${e.ex}</div><div class="w-detail">${e.detail}</div></div>
+            <div class="w-meta"><div class="w-sets${isMob ? ' mob' : ''}">${e.sets}</div><div class="w-rest">${e.rest}</div></div>
+          </div>`).join('');
         c.appendChild(el);
       });
     }
 
     function switchPlan(p) {
-      document.getElementById('plan-fb').style.display = p === 'fb' ? 'block' : 'none';
-      document.getElementById('plan-sp').style.display = p === 'sp' ? 'block' : 'none';
-      const fb = document.getElementById('plan-fb-btn'), sp = document.getElementById('plan-sp-btn');
-      if (p === 'fb') { fb.style.background = 'var(--red)'; fb.style.borderColor = 'var(--red)'; fb.style.color = '#fff'; sp.style.background = 'var(--card)'; sp.style.color = 'var(--muted)'; sp.style.borderColor = 'var(--bd)'; }
-      else { sp.style.background = 'var(--red)'; sp.style.borderColor = 'var(--red)'; sp.style.color = '#fff'; fb.style.background = 'var(--card)'; fb.style.color = 'var(--muted)'; fb.style.borderColor = 'var(--bd)'; }
+      ['fb', 'sp', 'mob'].forEach(id => {
+        document.getElementById('plan-' + id).style.display = p === id ? 'block' : 'none';
+      });
+      document.getElementById('btn-fb').className = 'plan-btn' + (p === 'fb' ? ' active' : '');
+      document.getElementById('btn-sp').className = 'plan-btn' + (p === 'sp' ? ' active' : '');
+      document.getElementById('btn-mob').className = 'plan-btn plan-btn-mob' + (p === 'mob' ? ' active-mob' : '');
     }
 
+    // ── TOOLS ────────────────────────────────────────────────────────
     const TECHS = [
       { num: "5s", name: "Slow Eccentric", desc: "Lower for 5 full seconds. The eccentric phase causes the most muscle damage and growth.", ex: "Push-Up: 5 seconds down. Explode up. Do 10 reps this way." },
       { num: "1.5×", name: "1.5 Reps", desc: "Full rep, halfway up, back down, full rep = 1 rep. Doubles time under tension at the hardest range.", ex: "Squat: Down, halfway up, back down, stand = 1 rep. Do 8." },
@@ -374,7 +484,7 @@
       const l = document.getElementById('core-list');
       CORE_EX.forEach(e => {
         const el = document.createElement('div'); el.className = 'core-row';
-        el.setAttribute('onclick', `openModal('${e.m}',${e.i})`);
+        el.setAttribute('onclick', `openModal('${e.m}',${e.i},false)`);
         el.innerHTML = `<div class="core-time">${e.time}</div><div class="core-info"><div class="core-name"><span class="vdot"></span>${e.name}</div><div class="core-tip">${e.tip}</div></div><div style="color:var(--muted);font-size:18px">›</div>`;
         l.appendChild(el);
       });
@@ -415,6 +525,7 @@
       });
     }
 
+    // ── PAGE NAV ─────────────────────────────────────────────────────
     function showPage(id, btn) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
@@ -423,6 +534,7 @@
       if (document.getElementById('modal-wrap').classList.contains('open')) closeModal();
     }
 
+    // ── TIMER ────────────────────────────────────────────────────────
     let timerInterval = null, timeLeft = 0, totalTime = 0, isWork = true, setsDone = 0, currentSet = 1, workTime = 45, restTime = 90;
     function setPreset(el, work, rest, name) {
       document.querySelectorAll('.t-preset').forEach(p => p.classList.remove('active'));
@@ -470,7 +582,11 @@
       updateDisplay(); document.getElementById('start-btn').textContent = 'Start';
     }
 
-    renderLibrary(); renderPlan(FB_DAYS, 'fb-days'); renderPlan(SP_DAYS, 'sp-days');
+    // ── INIT ─────────────────────────────────────────────────────────
+    renderLibrary();
+    renderPlan(FB_DAYS, 'fb-days', false);
+    renderPlan(SP_DAYS, 'sp-days', false);
+    renderPlan(MOB_DAYS, 'mob-days', true);
     renderTechs(); renderCore(); renderGear(); renderMilestones();
     timeLeft = workTime; totalTime = workTime; updateDisplay();
   </script>
@@ -480,3 +596,4 @@
     }
   </script>
 </body>
+</html>

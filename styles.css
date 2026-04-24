@@ -850,4 +850,85 @@ html {
     color: #fff
 }
 
+
+/* ── MOBILITY ADDITIONS ─────────────────────────────────────── */
+
+/* teal accent colour */
+:root { --teal: #0F6E56; }
+
+/* plan toggle: 3-column when mobility tab exists */
+.plan-toggle {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 12px
+}
+
+/* mobility plan button — teal instead of red */
+.plan-btn-mob {
+    color: var(--teal);
+    border-color: var(--teal)
+}
+
+.plan-btn-mob.active-mob {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff
+}
+
+/* mobility intro banner */
+.mob-intro {
+    background: #E1F5EE;
+    border-left: 3px solid var(--teal);
+    border-radius: var(--border-radius-lg);
+    padding: 14px;
+    margin-bottom: 14px
+}
+
+.mob-intro p {
+    font-size: 13px;
+    color: #085041;
+    line-height: 1.6
+}
+
+/* mobility library section header */
+.muscle-hdr.mob-hdr { color: var(--teal) }
+
+/* green dot for mobility exercises */
+.vdot-teal {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0
+}
+
+/* duration badge on day cards */
+.day-hdr {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between
+}
+
+.day-duration {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal);
+    background: #E1F5EE;
+    padding: 3px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px
+}
+
+/* mobility sets colour in plan rows */
+.w-sets.mob { color: var(--teal) }
+
+/* modal: mobility accent on muscle label */
+.modal-muscle.mob { color: var(--teal) }
+
+/* tip box: mobility accent */
+.tip-box.mob { border-left-color: var(--teal) }
+
 </style>

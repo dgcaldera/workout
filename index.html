@@ -18,10 +18,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <div class="wrap">
     <div class="hero">
-      <div class="hero-tag">Workout Program</div>
-      <h1>Zero Equipment.<br><span>Real Muscle.</span></h1>
-      <p>Elastic band · slim build · beginner · muscle building</p>
-      <div class="hero-badge">▶ Tap any exercise for YouTube tutorial</div>
+      <div class="hero-tag">Full-Equipment Program</div>
+      <h1>Machine to Barbell.<br><span>Built the Right Way.</span></h1>
+      <p>Full gym access · beginner to barbells · goal: build muscle, not chase numbers</p>
+      <div class="hero-badge">▶ Tap any exercise for equipment tiers + form video</div>
+      <div class="hero-badge" style="margin-top:6px">Block 1 · Foundation &amp; Technique · Weeks 1–5</div>
     </div>
 
     <div class="tab-bar">
@@ -44,9 +45,9 @@
           <div id="m-video"></div>
           <div class="tip-box" id="m-tip"></div>
           <div class="prog-rows">
-            <div class="prog-row"><span class="mod mod-b">Beginner</span><span class="prog-text" id="m-beg"></span></div>
-            <div class="prog-row"><span class="mod mod-i">Inter.</span><span class="prog-text" id="m-int"></span></div>
-            <div class="prog-row"><span class="mod mod-a">Advanced</span><span class="prog-text" id="m-adv"></span></div>
+            <div class="prog-row"><span class="mod mod-b">Machine</span><span class="prog-text" id="m-beg"></span></div>
+            <div class="prog-row"><span class="mod mod-i">Dumbbell</span><span class="prog-text" id="m-int"></span></div>
+            <div class="prog-row"><span class="mod mod-a">Barbell</span><span class="prog-text" id="m-adv"></span></div>
           </div>
         </div>
       </div>
@@ -55,71 +56,64 @@
     <!-- LIBRARY -->
     <div id="library" class="page active">
       <div class="ph">Exercise <span>Library</span></div>
-      <p class="sub">Red dot = strength · Green dot = mobility. Tap any exercise to view.</p>
+      <p class="sub">Green = machine/guided, Blue = dumbbell/free weight, Red = barbell/advanced load. Tap any exercise to see the full progression and a form video.</p>
       <div class="muscle-list" id="muscle-list"></div>
-      <div class="ph" style="margin-top:8px">Mobility <span>Library</span></div>
-      <p class="sub">Tap any mobility drill to see technique and watch the tutorial.</p>
-      <div class="muscle-list" id="mob-library-list"></div>
     </div>
 
     <!-- PLANS -->
     <div id="plans" class="page">
       <div class="ph">Training <span>Plans</span></div>
-      <div class="plan-toggle">
-        <button class="plan-btn active" id="btn-fb" onclick="switchPlan('fb')">Full-Body 3×</button>
-        <button class="plan-btn" id="btn-sp" onclick="switchPlan('sp')">4-Day Split</button>
-        <button class="plan-btn plan-btn-mob" id="btn-mob" onclick="switchPlan('mob')">Mobility</button>
+      <div class="plan-toggle" style="grid-template-columns:repeat(2,1fr)">
+        <button class="plan-btn active" id="btn-fb" onclick="switchPlan('fb')">5-Day Full-Body</button>
+        <button class="plan-btn" id="btn-ppl" onclick="switchPlan('ppl')">Push/Pull/Legs</button>
       </div>
       <div id="plan-fb">
-        <p class="sub">Mon / Wed / Fri · ~60 min. Tap any row for tutorial.</p>
+        <p class="sub"><strong>Active plan.</strong> ~55 min sessions, 5x/week, templates A→B→C→A→B. Tap any row for the full exercise breakdown.</p>
         <div id="fb-days"></div>
       </div>
-      <div id="plan-sp" style="display:none">
-        <p class="sub">Push / Pull / Legs / Arms+Core. Tap any row for tutorial.</p>
-        <div id="sp-days"></div>
-      </div>
-      <div id="plan-mob" style="display:none">
-        <div class="mob-intro">
-          <p><strong>10–20 min/day.</strong> Do mobility daily — morning, before training, or as a cooldown. Each day targets one body region. You'll notice less stiffness and better squat depth within 2–3 weeks.</p>
-        </div>
-        <div id="mob-days"></div>
+      <div id="plan-ppl" style="display:none">
+        <p class="sub">For later — once training is consistent and you want more volume per muscle. 6 days/week, each muscle hit twice.</p>
+        <div id="ppl-days"></div>
       </div>
     </div>
 
     <!-- TOOLS -->
     <div id="tools" class="page">
-      <div class="ph">Intensity <span>Techniques</span></div>
-      <div class="tech-list" id="tech-list"></div>
-      <div class="ph">Daily Core <span>10 Min</span></div>
-      <p class="sub">Every day. Tap for tutorial.</p>
-      <div class="core-list" id="core-list"></div>
-      <div class="jeff-box" style="margin-bottom:14px">
-        <div class="jeff-lbl">Jeff's Rule</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">Abs are revealed in the kitchen. As a slim person
-          you're halfway there. Eat 200–300 cal surplus, 1.8g protein/kg bodyweight, hit this circuit daily — real
-          definition in 8–10 weeks.</p>
+      <div class="jeff-box">
+        <div class="jeff-lbl">Coach's Rules For You</div>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">No 1-rep-max testing, ever, at your age — strength is built through clean reps at moderate-to-hard effort. Every new movement gets a light warm-up set first. Weight jumps are small on purpose (2.5–5 lb / 1–2.5 kg at a time). If a lift below is flagged for a spotter or rack safety, don't load it heavy alone. Sleep and food matter more than any set/rep scheme at your age — the program only works if you recover.</p>
       </div>
-      <div class="ph">Gear <span>Upgrades</span></div>
-      <p class="sub">You have the band — that's #1 done.</p>
-      <div class="gear-list" id="gear-list"></div>
-      <div class="ph">Strength <span>Milestones</span></div>
-      <p class="sub">Track monthly. You'll progress fast.</p>
+
+      <div class="ph">Load <span>Progression</span></div>
+      <p class="sub">How to add weight over time, in order.</p>
+      <div class="gear-list" id="load-list"></div>
+
+      <div class="ph">Intensity <span>Techniques</span></div>
+      <p class="sub">Tools for later in Block 1 and beyond — not your first two weeks.</p>
+      <div class="tech-list" id="tech-list"></div>
+
+      <div class="ph">Spotter &amp; <span>Rack Safety</span></div>
+      <p class="sub">Tap any row to jump to that exercise's full progression.</p>
+      <div class="core-list" id="safety-list"></div>
+
+      <div class="ph">Progression <span>Benchmarks</span></div>
+      <p class="sub">No 1RMs — rep-based milestones that prove real strength and readiness to progress.</p>
       <div class="ms-list" id="ms-list"></div>
     </div>
 
     <!-- TIMER -->
     <div id="timer" class="page">
-      <div class="ph">Workout <span>Timer</span></div>
+      <div class="ph">Rest <span>Timer</span></div>
       <div class="timer-card">
         <div class="t-phase" id="t-phase">Ready</div>
         <div class="t-display" id="t-display">00:00</div>
         <div class="t-bar-wrap"><div class="t-bar" id="t-bar" style="width:100%"></div></div>
         <div class="t-info" id="t-info">Select a preset below</div>
         <div class="t-presets">
-          <div class="t-preset active" onclick="setPreset(this,45,90,'Hypertrophy')">45s work<br>90s rest</div>
-          <div class="t-preset" onclick="setPreset(this,60,60,'Strength')">60s work<br>60s rest</div>
-          <div class="t-preset" onclick="setPreset(this,30,30,'HIIT')">30s work<br>30s rest</div>
-          <div class="t-preset" onclick="setPreset(this,0,90,'Rest Only')">Rest only<br>90s</div>
+          <div class="t-preset active" onclick="setPreset(this,0,60,'Isolation')">Isolation<br>60s rest</div>
+          <div class="t-preset" onclick="setPreset(this,0,90,'Compound')">Compound<br>90s rest</div>
+          <div class="t-preset" onclick="setPreset(this,0,150,'Heavy Set')">Heavy Set<br>150s rest</div>
+          <div class="t-preset" onclick="setPreset(this,0,30,'Superset')">Superset<br>30s rest</div>
         </div>
         <div class="t-btns">
           <button class="t-btn" onclick="resetTimer()">Reset</button>
@@ -132,119 +126,82 @@
   </div>
 
   <script>
-    // ── STRENGTH EXERCISES ───────────────────────────────────────────
+    // ── EXERCISE LIBRARY ─────────────────────────────────────────────
+    // b = Machine/guided, i = Dumbbell/free weight, a = Barbell/advanced load
     const EX = {
       chest: [
-        { n: "Push-Up", b: "Knee Push-Up", i: "Standard Push-Up", a: "Archer Push-Up", tip: "Elbows at 45°, not flared. Core tight throughout.", vid: "IODxDxX7oi4", vt: "Athlean-X: Perfect Push-Up" },
-        { n: "Wide Push-Up", b: "Incline Wide Push-Up", i: "Wide Push-Up", a: "Wide Deficit Push-Up", tip: "Wider grip hits outer chest more.", vid: "6dZ71O7BzVQ", vt: "Athlean-X: Push-Up Variations" },
-        { n: "Diamond Push-Up", b: "Diamond Knee Push-Up", i: "Diamond Push-Up", a: "Diamond Deficit Push-Up", tip: "Elbows tucked tight. Huge tricep + inner chest.", vid: "J0DXl4pr-3E", vt: "Athlean-X: Diamond Push-Up" },
-        { n: "Decline Push-Up", b: "Incline Push-Up", i: "Decline Push-Up", a: "Pike to Decline", tip: "Feet on chair — upper chest focus. Most neglected angle.", vid: "SKPab2YC8BE", vt: "Athlean-X: Decline Push-Up" },
-        { n: "Pseudo Planche", b: "Forward Lean Push-Up", i: "Pseudo Planche Push-Up", a: "Tuck Planche Hold", tip: "Hands by hips, lean forward. Incredible chest + delt hit.", vid: "i-gSmqe9tNw", vt: "Athlean-X: Pseudo Planche" },
+        { n: "Bench Press", b: "Chest Press Machine", i: "Flat Dumbbell Bench Press", a: "Barbell Bench Press — use a spotter or safety pins", tip: "Shoulder blades pinned back and down, feet flat, bar/dumbbells to mid-chest. Machine first to learn the groove risk-free." },
+        { n: "Incline Press", b: "Incline Chest Press Machine", i: "Incline Dumbbell Press", a: "Barbell Incline Bench Press — spotter recommended", tip: "30–45° incline. Targets upper chest — the area that makes a flat-bench-only chest look unfinished." },
+        { n: "Chest Fly", b: "Pec Deck Machine", i: "Dumbbell Fly", a: "Cable Crossover (low-to-high)", tip: "Slight elbow bend held constant. Stretch at the bottom, squeeze — don't slam — at the top." },
+        { n: "Push-Up", b: "Incline Push-Up (hands on bench)", i: "Standard Push-Up", a: "Weighted / Deficit Push-Up", tip: "Same movement pattern as bench press — zero equipment, great warm-up or finisher." },
+        { n: "Dip (Chest-Leaning)", b: "Assisted Dip Machine", i: "Bodyweight Dip (lean forward)", a: "Weighted Dip", tip: "Lean forward, elbows flare slightly. Stay on the machine until you can do 8+ strict bodyweight dips." },
       ],
       back: [
-        { n: "Superman Hold", b: "Superman Pulses", i: "Full Superman (3s hold)", a: "Band-Resisted Superman", tip: "Squeeze glutes AND back at top.", vid: "ZNVWTVdJW5s", vt: "Athlean-X: Superman" },
-        { n: "Band Row", b: "Seated Band Row", i: "Bent-Over Band Row", a: "Single-Arm Band Row", tip: "Primary back builder with your band. Retract scapula first.", vid: "lHuGxZZ09nY", vt: "Athlean-X: Band Back Workout" },
-        { n: "Doorframe Row", b: "Bent-Knee Row", i: "Straight-Body Row", a: "Feet-Elevated Row", tip: "Use any doorframe or table edge. Pull chest to surface.", vid: "r8NzhNe9Res", vt: "Athlean-X: No Bar Row" },
-        { n: "Reverse Snow Angel", b: "Slow Floor Angel", i: "Tempo Snow Angel", a: "Band-Resisted Fly", tip: "Prone, arms trace full arc. Pure rear delt work.", vid: "b3e9rENJGCE", vt: "Athlean-X: Rear Delt" },
-        { n: "Band Pull-Apart", b: "Wide Grip", i: "Shoulder-Width", a: "Overhead Pull-Apart", tip: "Arms straight. Feel rear delts — not traps.", vid: "3OYSIWaJJk4", vt: "Athlean-X: Band Pull-Apart" },
+        { n: "Lat Pulldown", b: "Lat Pulldown (wide, light)", i: "Lat Pulldown (working weight)", a: "Weighted Pull-Up", tip: "Pull elbows down and back, chest up. This is your pull-up builder — master this before chasing pull-ups." },
+        { n: "Seated Row", b: "Seated Row Machine", i: "Seated Cable Row", a: "Single-Arm Cable Row", tip: "Chest tall, pull to belly button, squeeze shoulder blades — don't lean back to cheat the pull." },
+        { n: "One-Arm Row", b: "Chest-Supported Row Machine", i: "One-Arm Dumbbell Row", a: "Single-Arm Barbell / T-Bar Row", tip: "Flat back, pull elbow past your hip. Great for feeling one lat work at a time." },
+        { n: "Bent-Over Row", b: "Chest-Supported Row Machine", i: "Dumbbell Bent-Over Row", a: "Barbell Bent-Over Row", tip: "Hinge to ~45°, flat back the whole set. Only after your hip hinge is solid from RDLs." },
+        { n: "Pull-Up", b: "Assisted Pull-Up Machine", i: "Lat Pulldown (heavy)", a: "Strict Bodyweight Pull-Up", tip: "Dial the assist down 5–10lb every couple weeks as you get stronger." },
+        { n: "Straight-Arm Pulldown", b: "Straight-Arm Pulldown Machine", i: "Cable Straight-Arm Pulldown", a: "Single-Arm Straight-Arm Pulldown", tip: "Arms stay almost straight, pull down and back in an arc. Isolates lats without biceps taking over." },
       ],
       shoulders: [
-        { n: "Pike Push-Up", b: "Elevated Pike", i: "Pike Push-Up", a: "Wall Headstand Push-Up", tip: "Hips high. Head toward floor. The bodyweight overhead press.", vid: "x7_I5SUAd00", vt: "Athlean-X: Pike Push-Up" },
-        { n: "Band Lateral Raise", b: "Two-Hand Lateral", i: "Band Lateral Raise", a: "5s Eccentric Lateral", tip: "Anchor under foot. Raise to shoulder height only.", vid: "jsjmzVMs_Kk", vt: "Athlean-X: Band Laterals" },
-        { n: "Band Front Raise", b: "Two-Hand Front", i: "Alternating Front Raise", a: "Pause-Rep Front Raise", tip: "Stop at shoulder height. No swing.", vid: "bcVKR_IPz4U", vt: "Athlean-X: Band Front Raise" },
-        { n: "Shoulder Tap Plank", b: "Knee Plank Tap", i: "Plank Shoulder Tap", a: "Pike Position Tap", tip: "Keep hips level. Anti-rotation core too.", vid: "QOCn3_iOAro", vt: "Athlean-X: Shoulder Tap" },
-        { n: "Hindu Push-Up", b: "Modified Hindu", i: "Hindu Push-Up", a: "Hindu + Hold at Top", tip: "Flowing dive movement. Great for mobility too.", vid: "nBLy1IGtSJ8", vt: "Athlean-X: Hindu Push-Up" },
+        { n: "Overhead Press", b: "Machine Shoulder Press", i: "Dumbbell Shoulder Press (seated)", a: "Barbell Overhead Press (standing)", tip: "Press straight up, ribs down, don't arch your lower back to compensate. Machine or dumbbells first — always." },
+        { n: "Lateral Raise", b: "Cable Lateral Raise (light)", i: "Dumbbell Lateral Raise", a: "Single-Arm Cable Lateral Raise", tip: "Lead with your elbows, raise to shoulder height only. Light weight, strict form — punishes ego." },
+        { n: "Rear Delt Fly", b: "Reverse Pec Deck Machine", i: "Dumbbell Rear Delt Fly", a: "Cable Rear Delt Fly", tip: "Hinge forward, raise arms out to the sides. The most neglected muscle in beginner programs." },
+        { n: "Front Raise", b: "Cable Front Raise (light)", i: "Dumbbell Front Raise", a: "Barbell Front Raise", tip: "Raise to eye level, controlled — no momentum from your hips." },
       ],
       biceps: [
-        { n: "Band Curl", b: "Two-Hand Band Curl", i: "Single-Arm Band Curl", a: "Band Curl 21s", tip: "Anchor under foot. No swinging.", vid: "3g-1J2KkX_8", vt: "Athlean-X: Band Curl" },
-        { n: "Band Hammer Curl", b: "Two-Hand Hammer", i: "Alternating Hammer", a: "Cross-Body Hammer", tip: "Neutral grip. Builds brachialis that pushes bicep peak up.", vid: "SniJo-6t7Gk", vt: "Athlean-X: Band Hammer Curl" },
-        { n: "Isometric Band Hold", b: "30s at 90°", i: "45s at 90°", a: "60s hold + pause reps", tip: "Hold the curl position at 90°. Bicep cramp = working.", vid: "9IWVWId_HiI", vt: "Athlean-X: Isometric Curl" },
-        { n: "Concentration Curl", b: "Light band on knee", i: "Band Concentration Curl", a: "4s eccentric + pause", tip: "Elbow braced on inner thigh. Full ROM. Hits the peak.", vid: "uej9usJAIUw", vt: "Athlean-X: Concentration Curl" },
-        { n: "Negative Chin-Up", b: "Jump up, 5s lower", i: "Negative (8s lower)", a: "Full Chin-Up", tip: "Best bicep exercise. Worth getting a pull-up bar for.", vid: "brhRXlOhsAM", vt: "Athlean-X: Chin-Up Tutorial" },
+        { n: "Curl", b: "Machine Preacher Curl", i: "Dumbbell Curl", a: "Barbell Curl", tip: "Elbows pinned to your sides, no swinging. Light movement anyway — a safe first barbell lift." },
+        { n: "Cable Curl", b: "Cable Curl (light)", i: "Cable Curl (working weight)", a: "Barbell Cable Curl (rope/bar attachment)", tip: "Constant tension through the whole range — the cable never lets the bicep rest at the bottom." },
+        { n: "Hammer Curl", b: "Cable Rope Hammer Curl", i: "Dumbbell Hammer Curl", a: "Barbell Hammer Curl (EZ-bar, neutral)", tip: "Neutral grip, builds the forearm/brachialis that makes your arm look bigger from the side." },
+        { n: "Concentration Curl", b: "Machine Curl", i: "Dumbbell Concentration Curl", a: "Single-Arm Cable Concentration Curl", tip: "Elbow braced on your inner thigh. Full range of motion, hits the peak." },
       ],
       triceps: [
-        { n: "Tricep Dip", b: "Chair Dip (feet down)", i: "Chair Dip (feet out)", a: "Weighted Dip (backpack)", tip: "Use a chair. Dip until upper arms are parallel to floor.", vid: "6kALZikXxLc", vt: "Athlean-X: Tricep Dip" },
-        { n: "Diamond Push-Up", b: "Diamond Knee Push-Up", i: "Diamond Push-Up", a: "Diamond Deficit", tip: "Elbows tight to ribs. Most effective bodyweight tricep exercise.", vid: "J0DnG1_S92I", vt: "Athlean-X: Diamond Push-Up" },
-        { n: "Band Pushdown", b: "Two-Hand Pushdown", i: "Single-Arm Pushdown", a: "Pause at extension (2s)", tip: "Anchor band overhead in doorframe. Lock upper arm.", vid: "xW8L2POShSA", vt: "Athlean-X: Band Pushdown" },
-        { n: "Diamond ISO Hold", b: "Hold at bottom 5s", i: "Hold at midpoint 5s", a: "Alternating pause reps", tip: "Hold the lowest point of diamond push-up. Brutal.", vid: "xr3RyUIgXJE", vt: "Athlean-X: Tricep Isometric" },
-        { n: "Overhead Extension", b: "Two-hand overhead", i: "Single-arm overhead", a: "5s eccentric overhead", tip: "Full stretch hits the long head — biggest part of tricep.", vid: "Yi_zNoIsNcc", vt: "Athlean-X: Overhead Extension" },
+        { n: "Pushdown", b: "Machine Tricep Extension", i: "Cable Pushdown (rope)", a: "Cable Pushdown (bar, heavy)", tip: "Elbows locked at your sides, only the forearm moves. Your best beginner tricep isolation move." },
+        { n: "Overhead Extension", b: "Machine Overhead Extension", i: "Dumbbell Overhead Extension", a: "Barbell / EZ-Bar Overhead Extension", tip: "Full stretch behind your head hits the long head — the part that adds the most size." },
+        { n: "Close-Grip Press", b: "Machine Chest Press (narrow grip)", i: "Dumbbell Close-Grip Press", a: "Barbell Close-Grip Bench Press", tip: "Hands just inside shoulder width — a compound tricep builder. Machine first to learn the groove." },
+        { n: "Dip (Tricep-Focused)", b: "Assisted Dip Machine (upright)", i: "Bodyweight Dip (upright)", a: "Weighted Dip", tip: "Stay upright rather than leaning forward, to bias triceps over chest." },
       ],
-      legs: [
-        { n: "Squat", b: "Box Squat (to chair)", i: "Bodyweight Squat", a: "Pause Squat (3s bottom)", tip: "Chest up, knees track toes. Thighs parallel minimum.", vid: "aclHkVaku9U", vt: "Athlean-X: Perfect Squat" },
-        { n: "Bulgarian Split Squat", b: "Rear-Foot Elevated Lunge", i: "Bulgarian Split Squat", a: "Bulgarian + 4s eccentric", tip: "Most brutal bodyweight leg exercise. Rear foot on chair.", vid: "2C-uNgKwPLE", vt: "Athlean-X: Bulgarian Split Squat" },
-        { n: "Single-Leg RDL", b: "Assisted Single-Leg RDL", i: "Single-Leg RDL", a: "Slow RDL (3s down)", tip: "Hinge at hips. Feel hamstring stretch. Balance challenge.", vid: "MsE_T9nAsSE", vt: "Athlean-X: Single Leg RDL" },
-        { n: "Jump Squat", b: "Squat to calf raise", i: "Jump Squat", a: "Jump Squat + pause", tip: "Land softly through ankle, knee, hip. Full depth every rep.", vid: "CVaEhXotL7M", vt: "Athlean-X: Jump Squat" },
-        { n: "Wall Sit", b: "Wall Sit 30s", i: "Wall Sit 60s", a: "Wall Sit + band knees", tip: "Thighs parallel. Pure quad isometric. Don't slide up.", vid: "y-wV4Venusw", vt: "Athlean-X: Wall Sit" },
-        { n: "Glute Bridge", b: "Two-Leg Bridge", i: "Single-Leg Bridge", a: "Single-Leg + 2s hold", tip: "Drive hips up, squeeze hard at top.", vid: "OUgsJ8-Vi0E", vt: "Athlean-X: Glute Bridge" },
-        { n: "Pistol Squat", b: "Assisted Pistol", i: "Box Pistol Squat", a: "Full Pistol Squat", tip: "The ultimate milestone. Start assisted. Takes months.", vid: "vq5-vdgJc0I", vt: "Athlean-X: Pistol Squat" },
+      quads: [
+        { n: "Squat Pattern", b: "Leg Press", i: "Dumbbell Goblet Squat", a: "Barbell Back Squat — set rack safety pins", tip: "Feet shoulder width, knees track over toes. Leg press is your entry point to squatting patterns." },
+        { n: "Leg Extension", b: "Leg Extension Machine (light)", i: "Leg Extension Machine (working weight)", a: "Single-Leg Leg Extension", tip: "Controlled up, controlled down — isolates the quads with zero balance demand." },
+        { n: "Split Squat", b: "Smith Machine Split Squat", i: "Dumbbell Split Squat", a: "Barbell Bulgarian Split Squat", tip: "Rear foot elevated, front knee tracks over toes. Great single-leg strength builder." },
+        { n: "Front Squat Pattern", b: "Leg Press (high foot placement)", i: "Dumbbell Front Squat (goblet-style)", a: "Barbell Front Squat", tip: "More upright torso than a back squat, hits the quads even harder." },
+      ],
+      hamsglutes: [
+        { n: "Leg Curl", b: "Leg Curl Machine (light)", i: "Leg Curl Machine (working weight)", a: "Single-Leg Leg Curl", tip: "Curl your heels toward your glutes, control the negative — this is where the growth happens." },
+        { n: "Hip Hinge (RDL)", b: "Machine Hip Thrust / Cable Pull-Through", i: "Dumbbell Romanian Deadlift", a: "Barbell Romanian Deadlift", tip: "Soft knees, push your hips back, weight stays close to your legs. This IS the hip hinge — learn it here first." },
+        { n: "Hip Thrust", b: "Hip Thrust Machine", i: "Dumbbell Hip Thrust", a: "Barbell Hip Thrust", tip: "Shoulders on a bench, drive hips up, squeeze glutes hard — don't hyperextend your lower back." },
+        { n: "Walking Lunge", b: "Smith Machine Lunge", i: "Dumbbell Walking Lunge", a: "Barbell Walking Lunge", tip: "Knee tracks over toes, torso upright. Great unilateral leg and balance builder." },
+      ],
+      calves: [
+        { n: "Standing Calf Raise", b: "Standing Calf Raise Machine", i: "Dumbbell Standing Calf Raise", a: "Barbell Standing Calf Raise", tip: "Full stretch at the bottom, pause at the top. Calves respond to strict form and high reps, not heavy weight." },
+        { n: "Seated Calf Raise", b: "Seated Calf Raise Machine", i: "Dumbbell Seated Calf Raise", a: "Barbell Seated Calf Raise", tip: "Targets the soleus, the muscle under the main calf — often neglected." },
       ],
       core: [
-        { n: "Plank", b: "Knee Plank 30s", i: "Plank 60s", a: "Plank + shoulder taps", tip: "Hollow body — squeeze glutes AND abs. Don't sag.", vid: "pSHjTRCQxIw", vt: "Athlean-X: Perfect Plank" },
-        { n: "Hollow Body Hold", b: "Bent-Knee Hollow", i: "Hollow Body Hold", a: "Hollow Body Rock", tip: "Lower back STAYS pressed to floor.", vid: "LlDNef_Ztsc", vt: "Athlean-X: Hollow Body" },
-        { n: "V-Up", b: "Bent-Knee V-Up", i: "V-Up", a: "Weighted V-Up", tip: "Controlled. No momentum. Meet hands at top.", vid: "iP2fjvG0g3w", vt: "Athlean-X: V-Up" },
-        { n: "Dead Bug", b: "One limb at a time", i: "Opposite arm + leg", a: "Dead Bug + band", tip: "Lower back flat to floor the ENTIRE time.", vid: "4XLEnwUr1d8", vt: "Athlean-X: Dead Bug" },
-        { n: "Mountain Climber", b: "Slow Mountain Climber", i: "Mountain Climber", a: "Cross-Body Climber", tip: "Hips level. Core stays braced.", vid: "nmwgirgXLYM", vt: "Athlean-X: Mountain Climber" },
+        { n: "Crunch", b: "Machine Ab Crunch", i: "Cable Crunch (kneeling)", a: "Weighted Cable Crunch (heavy)", tip: "Curl your ribs toward your hips — not just bending at the shoulders. Loadable once bodyweight is easy." },
+        { n: "Knee Raise", b: "Captain's Chair Machine", i: "Hanging Knee Raise", a: "Hanging Straight-Leg Raise", tip: "Curl your pelvis up at the top rather than just swinging your legs." },
+        { n: "Plank", b: "Knee Plank", i: "Standard Plank", a: "Weighted / Shoulder-Tap Plank", tip: "Hollow body — squeeze glutes and abs, don't let your hips sag. Your daily core foundation." },
       ]
     };
 
-    // ── MOBILITY EXERCISES ───────────────────────────────────────────
-    const MOB_EX = {
-      hips: [
-        { n: "90/90 Hip Stretch", b: "Supported 90/90 (hands on floor)", i: "90/90 Hip Stretch", a: "90/90 + Forward Fold", tip: "Both knees at 90°. Sit tall first, then hinge forward. Feel the deep hip rotators — not your knee.", vid: "t4Zz6-aG8Iw", vt: "Mobility: 90/90 Hip Stretch" },
-        { n: "Hip Flexor Lunge Stretch", b: "Kneeling Hip Flexor", i: "Deep Lunge Hip Flexor", a: "Lunge + Overhead Reach", tip: "Tuck the pelvis under slightly — that's what actually stretches the hip flexor, not just dropping your knee.", vid: "tsGPYSQbZx4", vt: "Mobility: Hip Flexor Stretch" },
-        { n: "Pigeon Pose", b: "Figure-4 Stretch (on back)", i: "Pigeon Pose (supported)", a: "Full Pigeon + Forward Fold", tip: "Hinge forward from the hip. Relax into it for 60–90s — don't force it. Breathe.", vid: "0_zPqA65Nok", vt: "Mobility: Pigeon Pose" },
-        { n: "World's Greatest Stretch", b: "Lunge + rotation (hands down)", i: "World's Greatest Stretch", a: "World's Greatest + overhead reach", tip: "One move covering hip flexor, thoracic spine, and hamstring. The single best daily drill.", vid: "CiWQ2IvY34", vt: "Mobility: World's Greatest Stretch" },
-      ],
-      thoracic: [
-        { n: "Cat-Cow", b: "Cat-Cow (5s each, very slow)", i: "Cat-Cow (flowing)", a: "Cat-Cow + neck extension", tip: "Full spinal articulation from tailbone all the way up. Not just your lower back.", vid: "kqnua4rHVVA", vt: "Mobility: Cat-Cow Stretch" },
-        { n: "Thread the Needle", b: "Thread the Needle (shallow rotation)", i: "Thread the Needle", a: "Thread the Needle + 3s hold at end range", tip: "Keep hips stacked over knees. The rotation comes only from the upper back.", vid: "MfUx9FCOb1E", vt: "Mobility: Thread the Needle" },
-        { n: "T-Spine Rotation (seated)", b: "Seated rotation, hands on head", i: "T-Spine Rotation", a: "Seated rotation + band resistance", tip: "Keep your lower back still. Only the thoracic spine rotates — lock out the lumbar.", vid: "pLerj04KsHw", vt: "Mobility: T-Spine Rotation" },
-        { n: "Thoracic Foam Roll", b: "Foam roll mid-back (supported)", i: "Thoracic Foam Roll", a: "Foam Roll + arms overhead reach", tip: "Roll mid-back to upper back only. Stop at the bottom of the shoulder blades — never lumbar.", vid: "cqd2USvPuCA", vt: "Mobility: Thoracic Spine Rolling" },
-      ],
-      shoulders: [
-        { n: "Doorframe Chest Stretch", b: "Doorframe stretch (arm at 90°)", i: "Doorframe stretch (arm at 120°)", a: "Doorframe stretch + forward lean", tip: "Two angles: 90° hits pec minor, 120° hits pec major. Do both sides, both angles.", vid: "B9uY01NoqBg", vt: "Mobility: Chest Stretch" },
-        { n: "Band Shoulder Dislocate", b: "Wide-grip band dislocate", i: "Band Shoulder Dislocate", a: "Narrower grip dislocate", tip: "Arms stay straight the entire arc. If you can't, widen your grip — don't cheat the movement.", vid: "th1CUY49IzY", vt: "Mobility: Band Shoulder Dislocate" },
-        { n: "Wall Slides", b: "Wall slides (elbows at 90°)", i: "Wall Slides (full range)", a: "Wall Slides + band pull-apart", tip: "Keep your entire back and elbows flush against the wall. Don't let them peel off — that's the whole point.", vid: "YqNASYjJoLU", vt: "Mobility: Wall Slides" },
-        { n: "Sleeper Stretch", b: "Sleeper stretch (gentle pressure)", i: "Sleeper Stretch", a: "Sleeper stretch + 30s hold", tip: "Targets internal shoulder rotation — the most commonly restricted movement. Lie on side, gently press forearm down.", vid: "FODQxJh5PeI", vt: "Mobility: Sleeper Stretch" },
-      ],
-      hamstrings: [
-        { n: "Standing Forward Fold", b: "Bent-knee forward fold", i: "Standing Forward Fold", a: "Forward fold + neck nods", tip: "Hinge from the hips, not the lower back. Let gravity do the work — don't yank.", vid: "0KzyEgkq7zw", vt: "Mobility: Forward Fold" },
-        { n: "Supine Hamstring Stretch", b: "Supine stretch (band assist)", i: "Supine Hamstring Stretch", a: "Supine + ankle dorsiflexion", tip: "Keep the non-working leg flat on the floor. Flex the foot for a deeper stretch along the calf too.", vid: "QL8FK8CsGc8", vt: "Mobility: Supine Hamstring Stretch" },
-        { n: "Downward Dog", b: "Bent-knee downward dog", i: "Downward Dog", a: "Downward Dog + single-leg reach", tip: "Push the floor away. Alternate bending knees to warm the hamstrings before going full straight-leg.", vid: "j97SSGsnCAQ", vt: "Mobility: Downward Dog" },
-      ],
-      ankles: [
-        { n: "Ankle CARs", b: "Seated ankle circles", i: "Standing ankle CARs", a: "Single-leg ankle CARs", tip: "Slow, deliberate full circles. Try to make the biggest circle possible — use your full range.", vid: "vIDJiMShg4o", vt: "Mobility: Ankle CARs" },
-        { n: "Kneeling Ankle Stretch", b: "Kneeling ankle rock (slow)", i: "Kneeling ankle stretch", a: "Kneeling ankle stretch + 3s holds at end range", tip: "Knee tracks over your pinky toe. If your heel rises off the floor, you've gone too far.", vid: "2cuYI6s3Qlo", vt: "Mobility: Ankle Dorsiflexion" },
-        { n: "Calf Stretch (wall)", b: "Wall calf stretch (straight leg)", i: "Wall calf stretch (bent knee)", a: "Weighted calf stretch", tip: "Bent-knee version targets the soleus — often tighter than the gastrocnemius in people with stiff ankles.", vid: "f1HzSAuB-Vw", vt: "Mobility: Calf Stretch" },
-      ],
-    };
-
-    const ICONS = { chest: '◈', back: '◉', shoulders: '◆', biceps: '◇', triceps: '◑', legs: '◐', core: '◎' };
-    const MOB_ICONS = { hips: '◐', thoracic: '◆', shoulders: '◇', hamstrings: '◈', ankles: '◉' };
+    const ICONS = { chest: '◈', back: '◉', shoulders: '◆', biceps: '◇', triceps: '◑', quads: '◐', hamsglutes: '◒', calves: '◓', core: '◎' };
+    const GROUP_NAME = { chest: 'Chest', back: 'Back', shoulders: 'Shoulders', biceps: 'Biceps', triceps: 'Triceps', quads: 'Quads', hamsglutes: 'Hamstrings & Glutes', calves: 'Calves', core: 'Core' };
 
     // ── MODAL ────────────────────────────────────────────────────────
-    function openModal(muscle, idx, isMob) {
-      const src = isMob ? MOB_EX : EX;
-      const e = src[muscle][idx];
+    function openModal(muscle, idx) {
+      const e = EX[muscle][idx];
       const mm = document.getElementById('m-muscle');
-      mm.textContent = (isMob ? 'MOBILITY · ' : '') + muscle.toUpperCase();
-      mm.className = 'modal-muscle' + (isMob ? ' mob' : '');
+      mm.textContent = GROUP_NAME[muscle].toUpperCase();
+      mm.className = 'modal-muscle';
       document.getElementById('m-title').textContent = e.n;
-      const tb = document.getElementById('m-tip');
-      tb.textContent = e.tip;
-      tb.className = 'tip-box' + (isMob ? ' mob' : '');
+      document.getElementById('m-tip').textContent = e.tip;
+      document.getElementById('m-tip').className = 'tip-box';
       document.getElementById('m-beg').textContent = e.b;
       document.getElementById('m-int').textContent = e.i;
       document.getElementById('m-adv').textContent = e.a;
       const va = document.getElementById('m-video');
-      if (e.vid) {
-        va.innerHTML = `<a class="yt-thumb" href="https://www.youtube.com/watch?v=${e.vid}" target="_blank" rel="noopener">
-          <img src="https://img.youtube.com/vi/${e.vid}/hqdefault.jpg" alt="${e.vt}" onerror="this.parentElement.style.display='none'">
-          <div class="yt-overlay"><div class="yt-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><div class="yt-lbl">${e.vt}</div></div>
-        </a>`;
-      } else {
-        va.innerHTML = `<div style="background:var(--surf);border-radius:var(--border-radius-md);padding:14px;text-align:center;margin-bottom:12px;font-size:13px;color:var(--muted)">Search "${e.n}" on YouTube</div>`;
-      }
+      va.innerHTML = `<a class="yt-thumb" style="display:block;background:var(--surf);border-radius:var(--border-radius-md);padding:14px;text-align:center;margin-bottom:12px;font-size:13px;color:var(--muted);text-decoration:none" href="https://www.youtube.com/results?search_query=${encodeURIComponent(e.n + ' form technique')}" target="_blank" rel="noopener">▶ Search "${e.n}" on YouTube</a>`;
       const mw = document.getElementById('modal-wrap');
       mw.classList.add('open');
       mw.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -260,170 +217,88 @@
       const list = document.getElementById('muscle-list');
       Object.entries(EX).forEach(([muscle, exs]) => {
         const sec = document.createElement('div'); sec.className = 'muscle-section';
-        sec.innerHTML = `<div class="muscle-hdr">${ICONS[muscle]} ${muscle.charAt(0).toUpperCase() + muscle.slice(1)}</div>` +
-          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i},false)">
-            <div class="ex-left"><div class="ex-name">${e.vid ? '<span class="vdot"></span>' : ''} ${e.n}</div>
-            <div class="mods"><span class="mod mod-b">Beginner</span><span class="mod mod-i">Inter.</span><span class="mod mod-a">Advanced</span></div></div>
+        sec.innerHTML = `<div class="muscle-hdr">${ICONS[muscle]} ${GROUP_NAME[muscle]}</div>` +
+          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i})">
+            <div class="ex-left"><div class="ex-name">${e.n}</div>
+            <div class="mods"><span class="mod mod-b">Machine</span><span class="mod mod-i">Dumbbell</span><span class="mod mod-a">Barbell</span></div></div>
             <div class="ex-arrow">›</div>
           </div>`).join('');
         list.appendChild(sec);
       });
-
-      const mobList = document.getElementById('mob-library-list');
-      Object.entries(MOB_EX).forEach(([muscle, exs]) => {
-        const sec = document.createElement('div'); sec.className = 'muscle-section';
-        sec.innerHTML = `<div class="muscle-hdr mob-hdr">${MOB_ICONS[muscle]} ${muscle.charAt(0).toUpperCase() + muscle.slice(1)}</div>` +
-          exs.map((e, i) => `<div class="ex-row" onclick="openModal('${muscle}',${i},true)">
-            <div class="ex-left"><div class="ex-name">${e.vid ? '<span class="vdot-teal"></span>' : ''} ${e.n}</div>
-            <div class="mods"><span class="mod mod-b">Beginner</span><span class="mod mod-i">Inter.</span><span class="mod mod-a">Advanced</span></div></div>
-            <div class="ex-arrow">›</div>
-          </div>`).join('');
-        mobList.appendChild(sec);
-      });
     }
 
-    // ── STRENGTH PLANS ───────────────────────────────────────────────
+    // ── PLANS ────────────────────────────────────────────────────────
     const FB_DAYS = [
       {
-        label: "Day A", focus: "Push", exercises: [
-          { ex: "Push-Up", detail: "5s eccentric", sets: "3×10–15", rest: "60s", m: "chest", i: 0 },
-          { ex: "Pike Push-Up", detail: "Shoulders", sets: "3×8–12", rest: "60s", m: "shoulders", i: 0 },
-          { ex: "Diamond Push-Up", detail: "Triceps", sets: "3×8–10", rest: "60s", m: "triceps", i: 1 },
-          { ex: "Band Lateral Raise", detail: "Slow 3s down", sets: "3×15", rest: "45s", m: "shoulders", i: 1 },
-          { ex: "Bulgarian Split Squat", detail: "Each leg", sets: "3×8 ea", rest: "75s", m: "legs", i: 1 },
-          { ex: "Glute Bridge", detail: "Single-leg", sets: "3×12 ea", rest: "45s", m: "legs", i: 5 },
-          { ex: "Plank", detail: "Hollow body", sets: "3×45s", rest: "30s", m: "core", i: 0 },
-          { ex: "Dead Bug", detail: "Opposite arm+leg", sets: "2×10 ea", rest: "30s", m: "core", i: 3 },
+        label: "Template A", focus: "Full Body — Push Emphasis", duration: "~55 min", exercises: [
+          { ex: "Chest Press Machine", detail: "Warm-up set, then work sets", sets: "3×10–12", rest: "60s", m: "chest", i: 0 },
+          { ex: "Leg Press", detail: "Full range, controlled tempo", sets: "3×10–12", rest: "90s", m: "quads", i: 0 },
+          { ex: "Seated Row Machine", detail: "Squeeze shoulder blades at the end", sets: "3×10–12", rest: "60s", m: "back", i: 1 },
+          { ex: "Machine Shoulder Press", detail: "Fixed path, learn the groove", sets: "2×10–12", rest: "60s", m: "shoulders", i: 0 },
+          { ex: "Leg Curl Machine", detail: "Slow negative", sets: "2×12–15", rest: "45s", m: "hamsglutes", i: 0 },
+          { ex: "Cable Curl", detail: "Constant tension", sets: "2×12–15", rest: "45s", m: "biceps", i: 1 },
+          { ex: "Plank", detail: "Hollow body position", sets: "3×30–45s", rest: "30s", m: "core", i: 2 },
         ]
       },
       {
-        label: "Day B", focus: "Pull", exercises: [
-          { ex: "Band Row", detail: "Bent-over, full ROM", sets: "4×12", rest: "60s", m: "back", i: 1 },
-          { ex: "Band Pull-Apart", detail: "Rear delts", sets: "3×20", rest: "45s", m: "back", i: 4 },
-          { ex: "Superman Hold", detail: "3s hold each rep", sets: "3×10", rest: "45s", m: "back", i: 0 },
-          { ex: "Band Curl", detail: "21s technique", sets: "3×21", rest: "60s", m: "biceps", i: 0 },
-          { ex: "Band Hammer Curl", detail: "Alternating", sets: "3×12 ea", rest: "45s", m: "biceps", i: 1 },
-          { ex: "Squat", detail: "Pause 2s at bottom", sets: "4×15", rest: "60s", m: "legs", i: 0 },
-          { ex: "Single-Leg RDL", detail: "Balance + hamstring", sets: "3×8 ea", rest: "60s", m: "legs", i: 2 },
-          { ex: "Hollow Body Hold", detail: "45s max", sets: "3×45s", rest: "30s", m: "core", i: 1 },
+        label: "Template B", focus: "Full Body — Pull Emphasis", duration: "~55 min", exercises: [
+          { ex: "Lat Pulldown", detail: "Elbows down and back", sets: "3×10–12", rest: "60s", m: "back", i: 0 },
+          { ex: "Dumbbell Goblet Squat", detail: "Squat between your knees", sets: "3×10–12", rest: "90s", m: "quads", i: 0 },
+          { ex: "Machine Hip Thrust", detail: "Learn the hip hinge pattern", sets: "3×10–12", rest: "60s", m: "hamsglutes", i: 1 },
+          { ex: "One-Arm Dumbbell Row", detail: "Flat back, each side", sets: "2×10–12 ea", rest: "60s", m: "back", i: 2 },
+          { ex: "Dumbbell Lateral Raise", detail: "Light weight, strict form", sets: "2×12–15", rest: "45s", m: "shoulders", i: 1 },
+          { ex: "Cable Pushdown", detail: "Elbows locked at sides", sets: "2×12–15", rest: "45s", m: "triceps", i: 0 },
+          { ex: "Hanging Knee Raise", detail: "Curl pelvis up at the top", sets: "3×10–12", rest: "30s", m: "core", i: 1 },
         ]
       },
       {
-        label: "Day C", focus: "Full Body + Power", exercises: [
-          { ex: "Jump Squat", detail: "Explosive, soft landing", sets: "3×10", rest: "60s", m: "legs", i: 3 },
-          { ex: "Hindu Push-Up", detail: "Flowing reps", sets: "3×10", rest: "60s", m: "shoulders", i: 4 },
-          { ex: "Band Pushdown", detail: "Pause at extension", sets: "3×12", rest: "60s", m: "triceps", i: 2 },
-          { ex: "Reverse Snow Angel", detail: "Slow and controlled", sets: "3×12", rest: "45s", m: "back", i: 3 },
-          { ex: "Doorframe Row", detail: "Straight body", sets: "3×12", rest: "60s", m: "back", i: 2 },
-          { ex: "Wall Sit", detail: "60s hold", sets: "3×60s", rest: "45s", m: "legs", i: 4 },
-          { ex: "Mountain Climber", detail: "Cross-body", sets: "3×20 ea", rest: "30s", m: "core", i: 4 },
-          { ex: "V-Up", detail: "Controlled", sets: "3×12", rest: "30s", m: "core", i: 2 },
+        label: "Template C", focus: "Full Body — Legs + Arms", duration: "~55 min", exercises: [
+          { ex: "Leg Extension Machine", detail: "Controlled up and down", sets: "3×12–15", rest: "45s", m: "quads", i: 1 },
+          { ex: "Dumbbell Romanian Deadlift", detail: "Soft knees, push hips back", sets: "3×10–12", rest: "60s", m: "hamsglutes", i: 1 },
+          { ex: "Pec Deck / Dumbbell Fly", detail: "Stretch at bottom, squeeze at top", sets: "2×12–15", rest: "45s", m: "chest", i: 2 },
+          { ex: "Seated Row Machine", detail: "Different angle than Template A", sets: "2×10–12", rest: "60s", m: "back", i: 1 },
+          { ex: "Dumbbell Curl", detail: "Full stretch, full squeeze", sets: "2×12–15", rest: "45s", m: "biceps", i: 0 },
+          { ex: "Dumbbell Overhead Extension", detail: "Full stretch behind head", sets: "2×12–15", rest: "45s", m: "triceps", i: 1 },
+          { ex: "Standing Calf Raise Machine", detail: "Pause at the top", sets: "3×15–20", rest: "30s", m: "calves", i: 0 },
         ]
       },
     ];
 
-    const SP_DAYS = [
+    const PPL_DAYS = [
       {
-        label: "Day 1", focus: "Push", exercises: [
-          { ex: "Push-Up", detail: "5s eccentric", sets: "4×10", rest: "60s", m: "chest", i: 0 },
-          { ex: "Wide Push-Up", detail: "Chest width", sets: "3×12", rest: "60s", m: "chest", i: 1 },
-          { ex: "Decline Push-Up", detail: "Upper chest", sets: "3×10", rest: "60s", m: "chest", i: 2 },
-          { ex: "Pike Push-Up", detail: "Shoulder press", sets: "4×10", rest: "60s", m: "shoulders", i: 0 },
-          { ex: "Band Lateral Raise", detail: "3s eccentric", sets: "3×15", rest: "45s", m: "shoulders", i: 1 },
-          { ex: "Diamond Push-Up", detail: "Pause at bottom", sets: "3×10", rest: "60s", m: "triceps", i: 1 },
-          { ex: "Overhead Extension", detail: "5s eccentric", sets: "3×12", rest: "60s", m: "triceps", i: 4 },
+        label: "Push", focus: "Chest, Shoulders, Triceps · x2/week", duration: "~60 min", exercises: [
+          { ex: "Bench Press", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "chest", i: 0 },
+          { ex: "Incline Press", detail: "Upper chest focus", sets: "3×10–12", rest: "75s", m: "chest", i: 1 },
+          { ex: "Overhead Press", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "shoulders", i: 0 },
+          { ex: "Lateral Raise", detail: "Light weight, strict form", sets: "3×12–15", rest: "45s", m: "shoulders", i: 1 },
+          { ex: "Pushdown", detail: "Elbows locked at sides", sets: "3×12–15", rest: "45s", m: "triceps", i: 0 },
+          { ex: "Overhead Extension", detail: "Full stretch", sets: "2×12–15", rest: "45s", m: "triceps", i: 1 },
         ]
       },
       {
-        label: "Day 2", focus: "Pull", exercises: [
-          { ex: "Band Row", detail: "1.5 rep style", sets: "4×10", rest: "60s", m: "back", i: 1 },
-          { ex: "Band Pull-Apart", detail: "Straight arms", sets: "4×20", rest: "45s", m: "back", i: 4 },
-          { ex: "Superman Hold", detail: "5s hold", sets: "3×8", rest: "45s", m: "back", i: 0 },
-          { ex: "Reverse Snow Angel", detail: "Slow tempo", sets: "3×12", rest: "45s", m: "back", i: 3 },
-          { ex: "Band Curl", detail: "Full ROM, squeeze top", sets: "4×12", rest: "60s", m: "biceps", i: 0 },
-          { ex: "Band Hammer Curl", detail: "Alternating", sets: "3×12 ea", rest: "45s", m: "biceps", i: 1 },
-          { ex: "Isometric Band Hold", detail: "60s at 90°", sets: "2×60s", rest: "60s", m: "biceps", i: 2 },
+        label: "Pull", focus: "Back, Rear Delts, Biceps · x2/week", duration: "~60 min", exercises: [
+          { ex: "Pull-Up", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "back", i: 4 },
+          { ex: "Seated Row", detail: "Squeeze at the end", sets: "3×10–12", rest: "75s", m: "back", i: 1 },
+          { ex: "One-Arm Row", detail: "Each side", sets: "2×10–12 ea", rest: "60s", m: "back", i: 2 },
+          { ex: "Rear Delt Fly", detail: "Don't skip this one", sets: "3×12–15", rest: "45s", m: "shoulders", i: 2 },
+          { ex: "Curl", detail: "Progress tiers per exercise entry", sets: "3×10–12", rest: "60s", m: "biceps", i: 0 },
+          { ex: "Hammer Curl", detail: "Neutral grip", sets: "2×12–15", rest: "45s", m: "biceps", i: 2 },
         ]
       },
       {
-        label: "Day 3", focus: "Legs", exercises: [
-          { ex: "Bulgarian Split Squat", detail: "4s eccentric", sets: "4×8 ea", rest: "75s", m: "legs", i: 1 },
-          { ex: "Squat", detail: "Pause 3s at bottom", sets: "3×12", rest: "60s", m: "legs", i: 0 },
-          { ex: "Single-Leg RDL", detail: "3s down", sets: "3×10 ea", rest: "60s", m: "legs", i: 2 },
-          { ex: "Jump Squat", detail: "Explosive", sets: "3×10", rest: "60s", m: "legs", i: 3 },
-          { ex: "Wall Sit", detail: "Isometric 60s", sets: "3×60s", rest: "45s", m: "legs", i: 4 },
-          { ex: "Glute Bridge", detail: "Single-leg, 2s hold", sets: "3×12 ea", rest: "45s", m: "legs", i: 5 },
-          { ex: "Pistol Squat", detail: "Assisted / box", sets: "3×5 ea", rest: "90s", m: "legs", i: 6 },
-        ]
-      },
-      {
-        label: "Day 4", focus: "Arms + Core", exercises: [
-          { ex: "Band Curl", detail: "21s technique", sets: "3×21", rest: "75s", m: "biceps", i: 0 },
-          { ex: "Concentration Curl", detail: "4s eccentric", sets: "3×10 ea", rest: "60s", m: "biceps", i: 3 },
-          { ex: "Diamond Push-Up", detail: "Pause at midpoint", sets: "4×10", rest: "60s", m: "triceps", i: 1 },
-          { ex: "Overhead Extension", detail: "5s eccentric", sets: "3×12", rest: "60s", m: "triceps", i: 4 },
-          { ex: "Plank", detail: "Hollow body", sets: "3×60s", rest: "30s", m: "core", i: 0 },
-          { ex: "V-Up", detail: "Controlled", sets: "3×15", rest: "30s", m: "core", i: 2 },
-          { ex: "Hollow Body Hold", detail: "Full ROM rock", sets: "3×20", rest: "30s", m: "core", i: 1 },
+        label: "Legs", focus: "Quads, Hamstrings, Glutes, Calves · x2/week", duration: "~60 min", exercises: [
+          { ex: "Squat Pattern", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "quads", i: 0 },
+          { ex: "Hip Hinge (RDL)", detail: "Progress tiers per exercise entry", sets: "3×10–12", rest: "90s", m: "hamsglutes", i: 1 },
+          { ex: "Leg Extension", detail: "Controlled", sets: "2×12–15", rest: "45s", m: "quads", i: 1 },
+          { ex: "Leg Curl", detail: "Slow negative", sets: "2×12–15", rest: "45s", m: "hamsglutes", i: 0 },
+          { ex: "Walking Lunge", detail: "Knee tracks over toes", sets: "2×10–12 ea", rest: "60s", m: "hamsglutes", i: 3 },
+          { ex: "Standing Calf Raise", detail: "Pause at the top", sets: "3×15–20", rest: "30s", m: "calves", i: 0 },
+          { ex: "Plank", detail: "Core finisher", sets: "3×30–45s", rest: "30s", m: "core", i: 2 },
         ]
       },
     ];
 
-    // ── MOBILITY PLAN ────────────────────────────────────────────────
-    const MOB_DAYS = [
-      {
-        label: "Day 1", focus: "Hips + Hip Flexors", duration: "~15 min", exercises: [
-          { ex: "90/90 Hip Stretch", detail: "60s each side, 2 rounds", sets: "2×60s ea", rest: "—", m: "hips", i: 0 },
-          { ex: "Hip Flexor Lunge Stretch", detail: "Hold 45s, feel front of hip", sets: "3×45s ea", rest: "—", m: "hips", i: 1 },
-          { ex: "Pigeon Pose", detail: "90s each side, breathe deeply", sets: "2×90s ea", rest: "—", m: "hips", i: 2 },
-          { ex: "World's Greatest Stretch", detail: "5 slow reps per side", sets: "3×5 ea", rest: "10s", m: "hips", i: 3 },
-        ]
-      },
-      {
-        label: "Day 2", focus: "Thoracic Spine", duration: "~12 min", exercises: [
-          { ex: "Cat-Cow", detail: "10 slow reps, 5s each direction", sets: "3×10", rest: "15s", m: "thoracic", i: 0 },
-          { ex: "Thread the Needle", detail: "Hold 30s end range each side", sets: "3×30s ea", rest: "—", m: "thoracic", i: 1 },
-          { ex: "T-Spine Rotation (seated)", detail: "10 reps each side", sets: "3×10 ea", rest: "15s", m: "thoracic", i: 2 },
-          { ex: "Thoracic Foam Roll", detail: "Slow roll, pause on tight spots", sets: "2×60s", rest: "—", m: "thoracic", i: 3 },
-        ]
-      },
-      {
-        label: "Day 3", focus: "Shoulders + Chest", duration: "~15 min", exercises: [
-          { ex: "Doorframe Chest Stretch", detail: "30s at 90°, 30s at 120° — each side", sets: "2×30s ea", rest: "—", m: "shoulders", i: 0 },
-          { ex: "Band Shoulder Dislocate", detail: "10 slow reps, full control", sets: "3×10", rest: "20s", m: "shoulders", i: 1 },
-          { ex: "Wall Slides", detail: "10 reps, keep everything on wall", sets: "3×10", rest: "15s", m: "shoulders", i: 2 },
-          { ex: "Sleeper Stretch", detail: "45s each side", sets: "2×45s ea", rest: "—", m: "shoulders", i: 3 },
-        ]
-      },
-      {
-        label: "Day 4", focus: "Hamstrings", duration: "~12 min", exercises: [
-          { ex: "Standing Forward Fold", detail: "45s hold, relax each breath", sets: "3×45s", rest: "—", m: "hamstrings", i: 0 },
-          { ex: "Downward Dog", detail: "Alternate bending knees, 60s", sets: "3×60s", rest: "—", m: "hamstrings", i: 2 },
-          { ex: "Supine Hamstring Stretch", detail: "45s each leg with band", sets: "2×45s ea", rest: "—", m: "hamstrings", i: 1 },
-        ]
-      },
-      {
-        label: "Day 5", focus: "Ankles + Calves", duration: "~10 min", exercises: [
-          { ex: "Ankle CARs", detail: "10 circles each direction, each ankle", sets: "2×10 ea", rest: "—", m: "ankles", i: 0 },
-          { ex: "Kneeling Ankle Stretch", detail: "10 reps each ankle", sets: "3×10 ea", rest: "10s", m: "ankles", i: 1 },
-          { ex: "Calf Stretch (wall)", detail: "30s straight + 30s bent knee, each side", sets: "2×30s ea", rest: "—", m: "ankles", i: 2 },
-        ]
-      },
-      {
-        label: "Day 6", focus: "Full Body Flow", duration: "~20 min", exercises: [
-          { ex: "World's Greatest Stretch", detail: "5 reps each side — full flow", sets: "2×5 ea", rest: "—", m: "hips", i: 3 },
-          { ex: "Cat-Cow", detail: "10 slow reps", sets: "2×10", rest: "—", m: "thoracic", i: 0 },
-          { ex: "Thread the Needle", detail: "30s each side", sets: "2×30s ea", rest: "—", m: "thoracic", i: 1 },
-          { ex: "Downward Dog", detail: "Hold 60s, breathe", sets: "2×60s", rest: "—", m: "hamstrings", i: 2 },
-          { ex: "90/90 Hip Stretch", detail: "60s each side", sets: "2×60s ea", rest: "—", m: "hips", i: 0 },
-          { ex: "Doorframe Chest Stretch", detail: "30s each side", sets: "2×30s ea", rest: "—", m: "shoulders", i: 0 },
-          { ex: "Ankle CARs", detail: "10 circles each direction", sets: "1×10 ea", rest: "—", m: "ankles", i: 0 },
-        ]
-      },
-    ];
-
-    // ── RENDER PLANS ─────────────────────────────────────────────────
-    function renderPlan(days, containerId, isMob) {
+    function renderPlan(days, containerId) {
       const c = document.getElementById(containerId);
       days.forEach(day => {
         const el = document.createElement('div'); el.className = 'day-card';
@@ -432,33 +307,44 @@
           <div><div class="day-label">${day.label}</div><div class="day-focus">${day.focus}</div></div>
           ${durBadge}
         </div>` +
-          day.exercises.map(e => `<div class="w-row" onclick="openModal('${e.m}',${e.i},${isMob ? 'true' : 'false'})">
+          day.exercises.map(e => `<div class="w-row" onclick="openModal('${e.m}',${e.i})">
             <div class="w-info"><div class="w-name">${e.ex}</div><div class="w-detail">${e.detail}</div></div>
-            <div class="w-meta"><div class="w-sets${isMob ? ' mob' : ''}">${e.sets}</div><div class="w-rest">${e.rest}</div></div>
+            <div class="w-meta"><div class="w-sets">${e.sets}</div><div class="w-rest">${e.rest}</div></div>
           </div>`).join('');
         c.appendChild(el);
       });
     }
 
     function switchPlan(p) {
-      ['fb', 'sp', 'mob'].forEach(id => {
-        document.getElementById('plan-' + id).style.display = p === id ? 'block' : 'none';
-      });
+      document.getElementById('plan-fb').style.display = p === 'fb' ? 'block' : 'none';
+      document.getElementById('plan-ppl').style.display = p === 'ppl' ? 'block' : 'none';
       document.getElementById('btn-fb').className = 'plan-btn' + (p === 'fb' ? ' active' : '');
-      document.getElementById('btn-sp').className = 'plan-btn' + (p === 'sp' ? ' active' : '');
-      document.getElementById('btn-mob').className = 'plan-btn plan-btn-mob' + (p === 'mob' ? ' active-mob' : '');
+      document.getElementById('btn-ppl').className = 'plan-btn' + (p === 'ppl' ? ' active' : '');
     }
 
-    // ── TOOLS ────────────────────────────────────────────────────────
-    const TECHS = [
-      { num: "5s", name: "Slow Eccentric", desc: "Lower for 5 full seconds. The eccentric phase causes the most muscle damage and growth.", ex: "Push-Up: 5 seconds down. Explode up. Do 10 reps this way." },
-      { num: "1.5×", name: "1.5 Reps", desc: "Full rep, halfway up, back down, full rep = 1 rep. Doubles time under tension at the hardest range.", ex: "Squat: Down, halfway up, back down, stand = 1 rep. Do 8." },
-      { num: "ISO", name: "Isometric Hold", desc: "Hold at the hardest point 2–5 seconds every rep. Maximum motor unit recruitment.", ex: "Band Curl: Hold at 90° for 3s every rep. Bicep cramps = winning." },
-      { num: "PR", name: "Pause Reps", desc: "Dead-stop at the bottom eliminates the stretch reflex. Pure muscle has to fire cold.", ex: "Squat: 3 seconds at the bottom. No bouncing out." },
-      { num: "21s", name: "21s Technique", desc: "7 bottom-half reps, 7 top-half, 7 full = 21 total. Hits every part of the muscle.", ex: "Band Curl: 7 partials low / 7 high / 7 full = one brutal set." },
-      { num: "MDS", name: "Mechanical Drop Set", desc: "Hardest variation to failure, immediately drop to easier, no rest. Triple failure in one set.", ex: "Archer → standard → Knee Push-Up. One continuous set." },
+    // ── TOOLS: LOAD PROGRESSION (reuses gear-card) ─────────────────
+    const LOAD = [
+      { name: "Phase 1 · Linear Progression", price: "Now, through the first few months", uses: ["Hit the top of your rep range on every set with clean form → add weight next session", "Upper body: +2.5–5 lb (1–2.5 kg). Lower body: +5–10 lb (2.5–5 kg)", "Missed reps or form broke down? Repeat the same weight next time"] },
+      { name: "Phase 2 · Double Progression", price: "Once linear jumps stall 2 sessions in a row", uses: ["Pick a rep range, e.g. 8–12", "Stay at the same weight until you hit 12 reps on all working sets", "Then add weight and drop back down to 8 reps, build up again"] },
+      { name: "Phase 3 · RPE-Based Training", price: "Later, once you have real training experience", uses: ["Train most sets around RPE 7–8 (2–3 reps left in the tank)", "Save true near-failure effort for your last set of an exercise only", "No grinding every set to failure"] },
     ];
+    function renderLoad() {
+      const l = document.getElementById('load-list');
+      LOAD.forEach(g => {
+        const el = document.createElement('div'); el.className = 'gear-card';
+        el.innerHTML = `<div class="gear-name">${g.name}</div><div class="gear-price">${g.price}</div><ul class="gear-uses">` + g.uses.map(u => `<li>${u}</li>`).join('') + `</ul>`;
+        l.appendChild(el);
+      });
+    }
 
+    // ── TOOLS: INTENSITY TECHNIQUES ─────────────────────────────────
+    const TECHS = [
+      { num: "3–5s", name: "Slow Eccentric", desc: "Lower the weight for 3–5 full seconds, lift normally. The lowering phase drives the most muscle growth. Practice on machines and dumbbells before trying it on a barbell top-tier lift.", ex: "Dumbbell Bench Press: 4s down, controlled up, ~10–15% lighter than usual." },
+      { num: "SS", name: "Superset", desc: "Two exercises back to back, no rest between. Great for time efficiency.", ex: "Lat Pulldown straight into Seated Row — no rest, then rest normally before repeating." },
+      { num: "RP", name: "Rest-Pause", desc: "Take a set close to failure, rest 15–20 seconds, squeeze out a few more reps at the same weight.", ex: "Leg Extension: 12 reps, rest 15s, then 4–6 more reps same weight." },
+      { num: "DS", name: "Drop Set", desc: "Take a set to near failure, reduce weight ~20–30%, keep going with no rest. Save for isolation moves — not barbell squat, bench, or deadlift patterns at your stage.", ex: "Cable Pushdown: near failure, drop the pin, immediately continue." },
+      { num: "MDS", name: "Mechanical Drop Set", desc: "Same muscle, switch to an easier variation with no rest — not just lighter weight.", ex: "Incline Dumbbell Press to near failure → immediately flat Dumbbell Press, same weight." },
+    ];
     function renderTechs() {
       const l = document.getElementById('tech-list');
       TECHS.forEach(t => {
@@ -469,53 +355,33 @@
       });
     }
 
-    const CORE_EX = [
-      { name: "Dead Bug", time: "90s", tip: "Back flat to floor always", m: "core", i: 3 },
-      { name: "Hollow Body Hold", time: "45s", tip: "Lower back pressed down", m: "core", i: 1 },
-      { name: "Plank", time: "60s", tip: "Squeeze glutes + abs", m: "core", i: 0 },
-      { name: "V-Up", time: "×15", tip: "No momentum", m: "core", i: 2 },
-      { name: "Mountain Climber", time: "45s", tip: "Cross-body, hips level", m: "core", i: 4 },
-      { name: "Superman Hold", time: "×10", tip: "3s hold each rep", m: "back", i: 0 },
-      { name: "Hollow Body Rock", time: "30s", tip: "Maintain hollow shape", m: "core", i: 1 },
-      { name: "Glute Bridge", time: "×12 ea", tip: "2s hold at top", m: "legs", i: 5 },
+    // ── TOOLS: SPOTTER / RACK SAFETY (reuses core-row) ──────────────
+    const SAFETY = [
+      { name: "Barbell Back Squat", time: "RACK", tip: "Set safety pins in the rack at the bottom of your squat depth, every single time.", m: "quads", i: 0 },
+      { name: "Barbell Bench Press", time: "SPOT", tip: "Never bench heavy alone — use a spotter or safety pins.", m: "chest", i: 0 },
+      { name: "Barbell Overhead Press", time: "BRACE", tip: "Full-body standing lift — master dumbbell bracing before this tier.", m: "shoulders", i: 0 },
+      { name: "Barbell RDL / Row", time: "FORM", tip: "Needs a rock-solid hip hinge — build it with dumbbells first.", m: "hamsglutes", i: 1 },
     ];
-
-    function renderCore() {
-      const l = document.getElementById('core-list');
-      CORE_EX.forEach(e => {
+    function renderSafety() {
+      const l = document.getElementById('safety-list');
+      SAFETY.forEach(e => {
         const el = document.createElement('div'); el.className = 'core-row';
-        el.setAttribute('onclick', `openModal('${e.m}',${e.i},false)`);
-        el.innerHTML = `<div class="core-time">${e.time}</div><div class="core-info"><div class="core-name"><span class="vdot"></span>${e.name}</div><div class="core-tip">${e.tip}</div></div><div style="color:var(--muted);font-size:18px">›</div>`;
+        el.setAttribute('onclick', `openModal('${e.m}',${e.i})`);
+        el.innerHTML = `<div class="core-time">${e.time}</div><div class="core-info"><div class="core-name">${e.name}</div><div class="core-tip">${e.tip}</div></div><div style="color:var(--muted);font-size:18px">›</div>`;
         l.appendChild(el);
       });
     }
 
-    const GEAR = [
-      { name: "Resistance Bands", price: "~$20–35 · You already have this!", uses: ["Band rows — best back builder without a bar", "Band curls — direct bicep work", "Lateral raises — shoulder isolation", "Tricep pushdowns", "100+ variations unlocked"] },
-      { name: "Pull-Up Bar", price: "~$25–40 · Buy this next", uses: ["Pull-ups / chin-ups — greatest upper body builder", "Negative pull-ups for beginners", "Works with bands for assisted reps", "Unlocks the 10-pull-up milestone", "Best $30 you can spend"] },
-      { name: "Gymnastic Rings", price: "~$30–45 · Serious progression", uses: ["Ring push-ups — instant difficulty jump", "Ring rows — scalable back pulling", "Ring dips — full depth", "Far more muscle activation than floor", "Rings + bands = complete home gym"] },
-    ];
-
-    function renderGear() {
-      const l = document.getElementById('gear-list');
-      GEAR.forEach(g => {
-        const el = document.createElement('div'); el.className = 'gear-card';
-        el.innerHTML = `<div class="gear-name">${g.name}</div><div class="gear-price">${g.price}</div><ul class="gear-uses">` + g.uses.map(u => `<li>${u}</li>`).join('') + `</ul>`;
-        l.appendChild(el);
-      });
-    }
-
+    // ── TOOLS: PROGRESSION BENCHMARKS ────────────────────────────────
     const MILESTONES = [
-      { num: "20", name: "Consecutive push-ups", why: "With full ROM + 2s pause at bottom.", level: "lv1", label: "6–8 wks" },
-      { num: "60s", name: "Plank hold", why: "Core foundation for everything.", level: "lv1", label: "4–6 wks" },
-      { num: "10", name: "Diamond push-ups", why: "Proves real tricep isolation strength.", level: "lv1", label: "8–12 wks" },
-      { num: "15", name: "Bulgarian split squats ea.", why: "Single-leg strength like 1.5× BW squat.", level: "lv2", label: "10–16 wks" },
-      { num: "10", name: "Pull-ups (after bar)", why: "Gold standard of upper body strength.", level: "lv2", label: "3–6 mo" },
-      { num: "5", name: "Archer push-ups", why: "One step from the one-arm push-up.", level: "lv2", label: "4–5 mo" },
-      { num: "1", name: "Pistol squat each leg", why: "Elite single-leg control and strength.", level: "lv3", label: "6–9 mo" },
-      { num: "30", name: "5s-eccentric push-ups", why: "Harder than most people's bench press.", level: "lv3", label: "5–7 mo" },
+      { num: "20", name: "Bodyweight squat, full depth", why: "Clean pattern before adding real load.", level: "lv1", label: "Weeks 1–3" },
+      { num: "18", name: "Push-ups, clean reps", why: "Green light to push chest press loads harder.", level: "lv1", label: "Weeks 1–4" },
+      { num: "90s", name: "Plank, hollow body", why: "Core control needed before hinge/squat loading.", level: "lv1", label: "Weeks 1–4" },
+      { num: "12", name: "Goblet squat, moderate dumbbell", why: "Green light for the barbell back squat progression.", level: "lv2", label: "Month 2–3" },
+      { num: "12", name: "Dumbbell RDL, flat back every rep", why: "Green light for the barbell RDL progression.", level: "lv2", label: "Month 2–3" },
+      { num: "1", name: "Strict pull-up, lightest assist", why: "Real bodyweight pulling strength milestone.", level: "lv2", label: "Month 3–5" },
+      { num: "BW×5", name: "Bench press at bodyweight, 5 reps", why: "Rep benchmark, not a 1RM — always spotted.", level: "lv3", label: "Month 6+" },
     ];
-
     function renderMilestones() {
       const l = document.getElementById('ms-list');
       MILESTONES.forEach(m => {
@@ -535,7 +401,7 @@
     }
 
     // ── TIMER ────────────────────────────────────────────────────────
-    let timerInterval = null, timeLeft = 0, totalTime = 0, isWork = true, setsDone = 0, currentSet = 1, workTime = 45, restTime = 90;
+    let timerInterval = null, timeLeft = 0, totalTime = 0, isWork = true, setsDone = 0, currentSet = 1, workTime = 0, restTime = 60;
     function setPreset(el, work, rest, name) {
       document.querySelectorAll('.t-preset').forEach(p => p.classList.remove('active'));
       el.classList.add('active'); workTime = work; restTime = rest;
@@ -545,7 +411,7 @@
       document.getElementById('start-btn').textContent = 'Start';
       document.getElementById('t-done').textContent = '0';
       document.getElementById('t-setnum').textContent = '1';
-      document.getElementById('t-info').textContent = name + ' preset ready';
+      document.getElementById('t-info').textContent = name + ' rest ready';
       updateDisplay();
     }
     function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
@@ -559,7 +425,7 @@
       if (timeLeft <= 0) {
         clearInterval(timerInterval); timerInterval = null;
         if (isWork && workTime > 0) { isWork = false; timeLeft = restTime; totalTime = restTime; document.getElementById('t-phase').textContent = 'REST'; setsDone++; document.getElementById('t-done').textContent = setsDone; }
-        else { isWork = workTime > 0; timeLeft = isWork ? workTime : restTime; totalTime = timeLeft; currentSet = Math.min(currentSet + 1, 4); document.getElementById('t-setnum').textContent = currentSet; document.getElementById('t-phase').textContent = isWork ? 'WORK' : 'REST'; }
+        else { isWork = workTime > 0; timeLeft = isWork ? workTime : restTime; totalTime = timeLeft; currentSet = Math.min(currentSet + 1, 4); document.getElementById('t-setnum').textContent = currentSet; document.getElementById('t-phase').textContent = isWork ? 'WORK' : 'REST'; setsDone++; document.getElementById('t-done').textContent = setsDone; }
         updateDisplay(); timerInterval = setInterval(tick, 1000);
       }
     }
@@ -584,11 +450,10 @@
 
     // ── INIT ─────────────────────────────────────────────────────────
     renderLibrary();
-    renderPlan(FB_DAYS, 'fb-days', false);
-    renderPlan(SP_DAYS, 'sp-days', false);
-    renderPlan(MOB_DAYS, 'mob-days', true);
-    renderTechs(); renderCore(); renderGear(); renderMilestones();
-    timeLeft = workTime; totalTime = workTime; updateDisplay();
+    renderPlan(FB_DAYS, 'fb-days');
+    renderPlan(PPL_DAYS, 'ppl-days');
+    renderLoad(); renderTechs(); renderSafety(); renderMilestones();
+    timeLeft = restTime; totalTime = restTime; updateDisplay();
   </script>
   <script>
     if ("serviceWorker" in navigator) {

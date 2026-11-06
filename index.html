@@ -19,10 +19,10 @@
   <div class="wrap">
     <div class="hero">
       <div class="hero-tag">Full-Equipment Program</div>
-      <h1>Machine to Barbell.<br><span>Built the Right Way.</span></h1>
-      <p>Full gym access · beginner to barbells · goal: build muscle, not chase numbers</p>
+      <h1>Push · Pull · Legs.<br><span>Upper · Lower.</span></h1>
+      <p>5 days/week · back &amp; shoulders priority · light barbell work introduced · build muscle, not ego</p>
       <div class="hero-badge">▶ Tap any exercise for equipment tiers + form video</div>
-      <div class="hero-badge" style="margin-top:6px">Block 1 · Foundation &amp; Technique · Weeks 1–5</div>
+      <div class="hero-badge" style="margin-top:6px">Block 2 · Weeks 1–5 · starts Nov 2026</div>
     </div>
 
     <div class="tab-bar">
@@ -64,16 +64,16 @@
     <div id="plans" class="page">
       <div class="ph">Training <span>Plans</span></div>
       <div class="plan-toggle" style="grid-template-columns:repeat(2,1fr)">
-        <button class="plan-btn active" id="btn-fb" onclick="switchPlan('fb')">5-Day Full-Body</button>
-        <button class="plan-btn" id="btn-ppl" onclick="switchPlan('ppl')">Push/Pull/Legs</button>
+        <button class="plan-btn active" id="btn-hyb" onclick="switchPlan('hyb')">Block 2 · 5-Day</button>
+        <button class="plan-btn" id="btn-fb" onclick="switchPlan('fb')">Block 1 · Archive</button>
       </div>
-      <div id="plan-fb">
-        <p class="sub"><strong>Active plan.</strong> ~55 min sessions, 5x/week, templates A→B→C→A→B. Tap any row for the full exercise breakdown.</p>
+      <div id="plan-hyb">
+        <p class="sub"><strong>Active plan.</strong> Mon Push · Tue Pull · Wed Legs · Thu Upper · Fri Lower · Sat/Sun rest. Back and shoulders get extra weekly volume. Tap any row for the full exercise breakdown.</p>
+        <div id="hyb-days"></div>
+      </div>
+      <div id="plan-fb" style="display:none">
+        <p class="sub">Your Block 1 full-body routine, kept for reference. Use it if you need a lower-volume fallback week.</p>
         <div id="fb-days"></div>
-      </div>
-      <div id="plan-ppl" style="display:none">
-        <p class="sub">For later — once training is consistent and you want more volume per muscle. 6 days/week, each muscle hit twice.</p>
-        <div id="ppl-days"></div>
       </div>
     </div>
 
@@ -81,23 +81,27 @@
     <div id="tools" class="page">
       <div class="jeff-box">
         <div class="jeff-lbl">Coach's Rules For You</div>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7">No 1-rep-max testing, ever, at your age — strength is built through clean reps at moderate-to-hard effort. Every new movement gets a light warm-up set first. Weight jumps are small on purpose (2.5–5 lb / 1–2.5 kg at a time). If a lift below is flagged for a spotter or rack safety, don't load it heavy alone. Sleep and food matter more than any set/rep scheme at your age — the program only works if you recover.</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7">No 1-rep-max testing, ever, at your age — strength is built through clean reps at moderate-to-hard effort. Every new or heavier movement gets a light warm-up set first. Barbell lifts stay conservative: small jumps (2.5–5 lb / 1–2.5 kg), rack safety pins or a spotter on squat and bench, and you only move up when every rep of every set is clean. Sleep and food matter more than any set/rep scheme — the program only works if you recover.</p>
       </div>
+
+      <div class="ph">Block 2 <span>Roadmap</span></div>
+      <p class="sub">How to run the 5 weeks, week by week.</p>
+      <div class="gear-list" id="road-list"></div>
 
       <div class="ph">Load <span>Progression</span></div>
       <p class="sub">How to add weight over time, in order.</p>
       <div class="gear-list" id="load-list"></div>
 
       <div class="ph">Intensity <span>Techniques</span></div>
-      <p class="sub">Tools for later in Block 1 and beyond — not your first two weeks.</p>
+      <p class="sub">Use sparingly — on isolation exercises in weeks 3–4 only.</p>
       <div class="tech-list" id="tech-list"></div>
 
       <div class="ph">Spotter &amp; <span>Rack Safety</span></div>
       <p class="sub">Tap any row to jump to that exercise's full progression.</p>
       <div class="core-list" id="safety-list"></div>
 
-      <div class="ph">Progression <span>Benchmarks</span></div>
-      <p class="sub">No 1RMs — rep-based milestones that prove real strength and readiness to progress.</p>
+      <div class="ph">Block 2 <span>Benchmarks</span></div>
+      <p class="sub">No 1RMs — clean-rep milestones that show you're ready for the next block.</p>
       <div class="ms-list" id="ms-list"></div>
     </div>
 
@@ -128,6 +132,7 @@
   <script>
     // ── EXERCISE LIBRARY ─────────────────────────────────────────────
     // b = Machine/guided, i = Dumbbell/free weight, a = Barbell/advanced load
+    // NOTE: new entries are always appended so existing m/i references stay valid.
     const EX = {
       chest: [
         { n: "Bench Press", b: "Chest Press Machine", i: "Flat Dumbbell Bench Press", a: "Barbell Bench Press — use a spotter or safety pins", tip: "Shoulder blades pinned back and down, feet flat, bar/dumbbells to mid-chest. Machine first to learn the groove risk-free." },
@@ -140,15 +145,17 @@
         { n: "Lat Pulldown", b: "Lat Pulldown (wide, light)", i: "Lat Pulldown (working weight)", a: "Weighted Pull-Up", tip: "Pull elbows down and back, chest up. This is your pull-up builder — master this before chasing pull-ups." },
         { n: "Seated Row", b: "Seated Row Machine", i: "Seated Cable Row", a: "Single-Arm Cable Row", tip: "Chest tall, pull to belly button, squeeze shoulder blades — don't lean back to cheat the pull." },
         { n: "One-Arm Row", b: "Chest-Supported Row Machine", i: "One-Arm Dumbbell Row", a: "Single-Arm Barbell / T-Bar Row", tip: "Flat back, pull elbow past your hip. Great for feeling one lat work at a time." },
-        { n: "Bent-Over Row", b: "Chest-Supported Row Machine", i: "Dumbbell Bent-Over Row", a: "Barbell Bent-Over Row", tip: "Hinge to ~45°, flat back the whole set. Only after your hip hinge is solid from RDLs." },
+        { n: "Bent-Over Row", b: "Chest-Supported Row Machine", i: "Dumbbell Bent-Over Row", a: "Barbell Bent-Over Row — light, flat back every rep", tip: "Hinge to ~45°, flat back the whole set. Keep it light; if your lower back rounds or takes over, drop to the chest-supported machine." },
         { n: "Pull-Up", b: "Assisted Pull-Up Machine", i: "Lat Pulldown (heavy)", a: "Strict Bodyweight Pull-Up", tip: "Dial the assist down 5–10lb every couple weeks as you get stronger." },
         { n: "Straight-Arm Pulldown", b: "Straight-Arm Pulldown Machine", i: "Cable Straight-Arm Pulldown", a: "Single-Arm Straight-Arm Pulldown", tip: "Arms stay almost straight, pull down and back in an arc. Isolates lats without biceps taking over." },
+        { n: "Shrug", b: "Machine Shrug", i: "Dumbbell Shrug", a: "Barbell Shrug", tip: "Lift straight up toward your ears, pause 1s at the top. No rolling the shoulders. Builds the upper-back shelf that frames your shoulders." },
       ],
       shoulders: [
         { n: "Overhead Press", b: "Machine Shoulder Press", i: "Dumbbell Shoulder Press (seated)", a: "Barbell Overhead Press (standing)", tip: "Press straight up, ribs down, don't arch your lower back to compensate. Machine or dumbbells first — always." },
-        { n: "Lateral Raise", b: "Cable Lateral Raise (light)", i: "Dumbbell Lateral Raise", a: "Single-Arm Cable Lateral Raise", tip: "Lead with your elbows, raise to shoulder height only. Light weight, strict form — punishes ego." },
-        { n: "Rear Delt Fly", b: "Reverse Pec Deck Machine", i: "Dumbbell Rear Delt Fly", a: "Cable Rear Delt Fly", tip: "Hinge forward, raise arms out to the sides. The most neglected muscle in beginner programs." },
-        { n: "Front Raise", b: "Cable Front Raise (light)", i: "Dumbbell Front Raise", a: "Barbell Front Raise", tip: "Raise to eye level, controlled — no momentum from your hips." },
+        { n: "Lateral Raise", b: "Cable Lateral Raise (light)", i: "Dumbbell Lateral Raise", a: "Single-Arm Cable Lateral Raise", tip: "Lead with your elbows, raise to shoulder height only. Light weight, strict form — the key move for wider-looking shoulders." },
+        { n: "Rear Delt Fly", b: "Reverse Pec Deck Machine", i: "Dumbbell Rear Delt Fly", a: "Cable Rear Delt Fly", tip: "Hinge forward, raise arms out to the sides. Pairs with lateral raises for 3D shoulders and better posture." },
+        { n: "Front Raise", b: "Cable Front Raise (light)", i: "Dumbbell Front Raise", a: "Barbell Front Raise", tip: "Raise to eye level, controlled — no momentum from your hips. Low priority; your presses already hit front delts." },
+        { n: "Face Pull", b: "Reverse Pec Deck (high handles)", i: "Cable Face Pull (rope, light)", a: "Cable Face Pull + external rotation", tip: "Rope at upper-chest height, pull toward your forehead with elbows high, rotate hands back at the end. Great for rear delts and shoulder health." },
       ],
       biceps: [
         { n: "Curl", b: "Machine Preacher Curl", i: "Dumbbell Curl", a: "Barbell Curl", tip: "Elbows pinned to your sides, no swinging. Light movement anyway — a safe first barbell lift." },
@@ -163,14 +170,14 @@
         { n: "Dip (Tricep-Focused)", b: "Assisted Dip Machine (upright)", i: "Bodyweight Dip (upright)", a: "Weighted Dip", tip: "Stay upright rather than leaning forward, to bias triceps over chest." },
       ],
       quads: [
-        { n: "Squat Pattern", b: "Leg Press", i: "Dumbbell Goblet Squat", a: "Barbell Back Squat — set rack safety pins", tip: "Feet shoulder width, knees track over toes. Leg press is your entry point to squatting patterns." },
+        { n: "Squat Pattern", b: "Leg Press", i: "Dumbbell Goblet Squat", a: "Barbell Back Squat — set rack safety pins", tip: "Feet shoulder width, knees track over toes. Leg press is your entry point; barbell squat stays light and always with safety pins set." },
         { n: "Leg Extension", b: "Leg Extension Machine (light)", i: "Leg Extension Machine (working weight)", a: "Single-Leg Leg Extension", tip: "Controlled up, controlled down — isolates the quads with zero balance demand." },
         { n: "Split Squat", b: "Smith Machine Split Squat", i: "Dumbbell Split Squat", a: "Barbell Bulgarian Split Squat", tip: "Rear foot elevated, front knee tracks over toes. Great single-leg strength builder." },
         { n: "Front Squat Pattern", b: "Leg Press (high foot placement)", i: "Dumbbell Front Squat (goblet-style)", a: "Barbell Front Squat", tip: "More upright torso than a back squat, hits the quads even harder." },
       ],
       hamsglutes: [
         { n: "Leg Curl", b: "Leg Curl Machine (light)", i: "Leg Curl Machine (working weight)", a: "Single-Leg Leg Curl", tip: "Curl your heels toward your glutes, control the negative — this is where the growth happens." },
-        { n: "Hip Hinge (RDL)", b: "Machine Hip Thrust / Cable Pull-Through", i: "Dumbbell Romanian Deadlift", a: "Barbell Romanian Deadlift", tip: "Soft knees, push your hips back, weight stays close to your legs. This IS the hip hinge — learn it here first." },
+        { n: "Hip Hinge (RDL)", b: "Machine Hip Thrust / Cable Pull-Through", i: "Dumbbell Romanian Deadlift", a: "Barbell Romanian Deadlift — light, flat back", tip: "Soft knees, push your hips back, weight stays close to your legs. Dumbbells until every rep is flat-backed, then go light on the bar." },
         { n: "Hip Thrust", b: "Hip Thrust Machine", i: "Dumbbell Hip Thrust", a: "Barbell Hip Thrust", tip: "Shoulders on a bench, drive hips up, squeeze glutes hard — don't hyperextend your lower back." },
         { n: "Walking Lunge", b: "Smith Machine Lunge", i: "Dumbbell Walking Lunge", a: "Barbell Walking Lunge", tip: "Knee tracks over toes, torso upright. Great unilateral leg and balance builder." },
       ],
@@ -227,7 +234,65 @@
       });
     }
 
-    // ── PLANS ────────────────────────────────────────────────────────
+    // ── BLOCK 2 PLAN: PUSH / PULL / LEGS / UPPER / LOWER ─────────────
+    const HYB_DAYS = [
+      {
+        label: "Mon · Push", focus: "Chest, Shoulders, Triceps", duration: "~60 min", exercises: [
+          { ex: "Dumbbell Bench Press", detail: "Barbell bench only with spotter/pins, once 10 clean DB reps", sets: "3×8–10", rest: "90s", m: "chest", i: 0 },
+          { ex: "Incline Dumbbell Press", detail: "Upper chest, 2s lower", sets: "3×10–12", rest: "75s", m: "chest", i: 1 },
+          { ex: "Seated Dumbbell Shoulder Press", detail: "Ribs down, no back arch", sets: "3×8–10", rest: "90s", m: "shoulders", i: 0 },
+          { ex: "Dumbbell Lateral Raise", detail: "PRIORITY: strict form, elbows lead", sets: "4×12–15", rest: "45s", m: "shoulders", i: 1 },
+          { ex: "Cable Pushdown", detail: "Elbows locked at sides", sets: "3×10–12", rest: "60s", m: "triceps", i: 0 },
+          { ex: "Overhead Extension", detail: "Full stretch behind head", sets: "2×12–15", rest: "45s", m: "triceps", i: 1 },
+        ]
+      },
+      {
+        label: "Tue · Pull", focus: "Back (priority), Rear Delts, Biceps", duration: "~65 min", exercises: [
+          { ex: "Assisted Pull-Up", detail: "Lower the assist when 3×10 is clean", sets: "4×6–10", rest: "90s", m: "back", i: 4 },
+          { ex: "Barbell Bent-Over Row (light)", detail: "Flat back every rep, or chest-supported machine", sets: "3×8–10", rest: "90s", m: "back", i: 3 },
+          { ex: "Seated Cable Row", detail: "Squeeze shoulder blades, 1s pause", sets: "3×10–12", rest: "75s", m: "back", i: 1 },
+          { ex: "Straight-Arm Pulldown", detail: "Feel the lats, arms nearly straight", sets: "2×12–15", rest: "60s", m: "back", i: 5 },
+          { ex: "Rear Delt Fly", detail: "Pairs with lateral raises for width", sets: "3×12–15", rest: "45s", m: "shoulders", i: 2 },
+          { ex: "Face Pull", detail: "Elbows high, rotate back at end", sets: "3×12–15", rest: "45s", m: "shoulders", i: 4 },
+          { ex: "Dumbbell Curl", detail: "Full stretch, no swinging", sets: "3×10–12", rest: "60s", m: "biceps", i: 0 },
+        ]
+      },
+      {
+        label: "Wed · Legs", focus: "Quads, Hamstrings, Glutes, Calves", duration: "~60 min", exercises: [
+          { ex: "Barbell Back Squat (light)", detail: "Safety pins set. Or Goblet Squat / Leg Press", sets: "4×8–10", rest: "120s", m: "quads", i: 0 },
+          { ex: "Dumbbell Romanian Deadlift", detail: "Flat back, hips back; light barbell later", sets: "3×8–10", rest: "90s", m: "hamsglutes", i: 1 },
+          { ex: "Dumbbell Split Squat", detail: "Each leg, front knee over toes", sets: "3×8–10 ea", rest: "75s", m: "quads", i: 2 },
+          { ex: "Leg Curl Machine", detail: "Slow 3s negative", sets: "3×10–12", rest: "60s", m: "hamsglutes", i: 0 },
+          { ex: "Leg Extension Machine", detail: "Controlled up and down", sets: "2×12–15", rest: "45s", m: "quads", i: 1 },
+          { ex: "Standing Calf Raise", detail: "Pause at the top", sets: "3×12–15", rest: "45s", m: "calves", i: 0 },
+          { ex: "Plank", detail: "Hollow body position", sets: "3×45–60s", rest: "30s", m: "core", i: 2 },
+        ]
+      },
+      {
+        label: "Thu · Upper", focus: "Back + Shoulders Emphasis", duration: "~65 min", exercises: [
+          { ex: "Lat Pulldown", detail: "Elbows down and back", sets: "3×10–12", rest: "75s", m: "back", i: 0 },
+          { ex: "Dumbbell Shoulder Press", detail: "Slightly higher reps than Monday", sets: "3×10–12", rest: "75s", m: "shoulders", i: 0 },
+          { ex: "Chest-Supported Row", detail: "Machine, takes the lower back out", sets: "3×10–12", rest: "75s", m: "back", i: 3 },
+          { ex: "Incline Dumbbell Press", detail: "Controlled, full stretch", sets: "2×10–12", rest: "60s", m: "chest", i: 1 },
+          { ex: "Dumbbell Lateral Raise", detail: "Lighter, higher reps than Monday", sets: "3×15–20", rest: "45s", m: "shoulders", i: 1 },
+          { ex: "Dumbbell Shrug", detail: "Pause 1s at the top", sets: "2×12–15", rest: "45s", m: "back", i: 6 },
+          { ex: "Cable Curl", detail: "Superset with pushdown, 30s between", sets: "2×12–15", rest: "30s", m: "biceps", i: 1 },
+          { ex: "Cable Pushdown", detail: "Superset with cable curl", sets: "2×12–15", rest: "60s", m: "triceps", i: 0 },
+        ]
+      },
+      {
+        label: "Fri · Lower", focus: "Glutes, Hamstrings, Quads", duration: "~55 min", exercises: [
+          { ex: "Leg Press", detail: "Full range, feet shoulder width", sets: "3×10–12", rest: "90s", m: "quads", i: 0 },
+          { ex: "Hip Thrust", detail: "Machine or dumbbell, squeeze at top", sets: "3×8–12", rest: "75s", m: "hamsglutes", i: 2 },
+          { ex: "Dumbbell Walking Lunge", detail: "Torso upright", sets: "2×10 ea", rest: "60s", m: "hamsglutes", i: 3 },
+          { ex: "Leg Curl Machine", detail: "Higher reps than Wednesday", sets: "3×12–15", rest: "45s", m: "hamsglutes", i: 0 },
+          { ex: "Seated Calf Raise", detail: "Full stretch, pause at top", sets: "3×12–20", rest: "45s", m: "calves", i: 1 },
+          { ex: "Hanging Knee Raise", detail: "Curl pelvis up at the top", sets: "3×10–12", rest: "30s", m: "core", i: 1 },
+        ]
+      },
+    ];
+
+    // ── BLOCK 1 ARCHIVE: FULL BODY ───────────────────────────────────
     const FB_DAYS = [
       {
         label: "Template A", focus: "Full Body — Push Emphasis", duration: "~55 min", exercises: [
@@ -264,40 +329,6 @@
       },
     ];
 
-    const PPL_DAYS = [
-      {
-        label: "Push", focus: "Chest, Shoulders, Triceps · x2/week", duration: "~60 min", exercises: [
-          { ex: "Bench Press", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "chest", i: 0 },
-          { ex: "Incline Press", detail: "Upper chest focus", sets: "3×10–12", rest: "75s", m: "chest", i: 1 },
-          { ex: "Overhead Press", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "shoulders", i: 0 },
-          { ex: "Lateral Raise", detail: "Light weight, strict form", sets: "3×12–15", rest: "45s", m: "shoulders", i: 1 },
-          { ex: "Pushdown", detail: "Elbows locked at sides", sets: "3×12–15", rest: "45s", m: "triceps", i: 0 },
-          { ex: "Overhead Extension", detail: "Full stretch", sets: "2×12–15", rest: "45s", m: "triceps", i: 1 },
-        ]
-      },
-      {
-        label: "Pull", focus: "Back, Rear Delts, Biceps · x2/week", duration: "~60 min", exercises: [
-          { ex: "Pull-Up", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "back", i: 4 },
-          { ex: "Seated Row", detail: "Squeeze at the end", sets: "3×10–12", rest: "75s", m: "back", i: 1 },
-          { ex: "One-Arm Row", detail: "Each side", sets: "2×10–12 ea", rest: "60s", m: "back", i: 2 },
-          { ex: "Rear Delt Fly", detail: "Don't skip this one", sets: "3×12–15", rest: "45s", m: "shoulders", i: 2 },
-          { ex: "Curl", detail: "Progress tiers per exercise entry", sets: "3×10–12", rest: "60s", m: "biceps", i: 0 },
-          { ex: "Hammer Curl", detail: "Neutral grip", sets: "2×12–15", rest: "45s", m: "biceps", i: 2 },
-        ]
-      },
-      {
-        label: "Legs", focus: "Quads, Hamstrings, Glutes, Calves · x2/week", duration: "~60 min", exercises: [
-          { ex: "Squat Pattern", detail: "Progress tiers per exercise entry", sets: "3×8–12", rest: "90s", m: "quads", i: 0 },
-          { ex: "Hip Hinge (RDL)", detail: "Progress tiers per exercise entry", sets: "3×10–12", rest: "90s", m: "hamsglutes", i: 1 },
-          { ex: "Leg Extension", detail: "Controlled", sets: "2×12–15", rest: "45s", m: "quads", i: 1 },
-          { ex: "Leg Curl", detail: "Slow negative", sets: "2×12–15", rest: "45s", m: "hamsglutes", i: 0 },
-          { ex: "Walking Lunge", detail: "Knee tracks over toes", sets: "2×10–12 ea", rest: "60s", m: "hamsglutes", i: 3 },
-          { ex: "Standing Calf Raise", detail: "Pause at the top", sets: "3×15–20", rest: "30s", m: "calves", i: 0 },
-          { ex: "Plank", detail: "Core finisher", sets: "3×30–45s", rest: "30s", m: "core", i: 2 },
-        ]
-      },
-    ];
-
     function renderPlan(days, containerId) {
       const c = document.getElementById(containerId);
       days.forEach(day => {
@@ -316,17 +347,34 @@
     }
 
     function switchPlan(p) {
+      document.getElementById('plan-hyb').style.display = p === 'hyb' ? 'block' : 'none';
       document.getElementById('plan-fb').style.display = p === 'fb' ? 'block' : 'none';
-      document.getElementById('plan-ppl').style.display = p === 'ppl' ? 'block' : 'none';
+      document.getElementById('btn-hyb').className = 'plan-btn' + (p === 'hyb' ? ' active' : '');
       document.getElementById('btn-fb').className = 'plan-btn' + (p === 'fb' ? ' active' : '');
-      document.getElementById('btn-ppl').className = 'plan-btn' + (p === 'ppl' ? ' active' : '');
     }
 
-    // ── TOOLS: LOAD PROGRESSION (reuses gear-card) ─────────────────
+    // ── TOOLS: BLOCK ROADMAP (reuses gear-card) ──────────────────────
+    const ROAD = [
+      { name: "Week 1 · Calibrate", price: "Find your working weights", uses: ["Pick weights you could lift 3 more reps with (RPE 7)", "Write down weight and reps for every exercise", "Barbell lifts: bar or very light only, perfect form"] },
+      { name: "Week 2 · Add Reps", price: "Same weights, more reps", uses: ["Keep last week's weights", "Add 1–2 reps per set inside the rep range", "Rest times as listed, no rushing"] },
+      { name: "Week 3 · Add Weight", price: "Small jumps only", uses: ["Hit the top of the range on all sets? Add 2.5–5 lb (1–2.5 kg)", "Drop back to the bottom of the range and build up again", "Optional: one drop set or rest-pause on a curl or pushdown"] },
+      { name: "Week 4 · Push", price: "Hardest week of the block", uses: ["Last set of each exercise at RPE 8–9 (1–2 reps left)", "Leave compounds clean, push only isolation moves close to failure", "Barbell squat and bench stay at RPE 8 max, with pins/spotter"] },
+      { name: "Week 5 · Deload", price: "Recover, then re-assess", uses: ["Same exercises, cut sets by about 40%", "Weights down about 10%, stay well short of failure", "Check the benchmarks below, then come back for Block 3"] },
+    ];
+    function renderRoad() {
+      const l = document.getElementById('road-list');
+      ROAD.forEach(g => {
+        const el = document.createElement('div'); el.className = 'gear-card';
+        el.innerHTML = `<div class="gear-name">${g.name}</div><div class="gear-price">${g.price}</div><ul class="gear-uses">` + g.uses.map(u => `<li>${u}</li>`).join('') + `</ul>`;
+        l.appendChild(el);
+      });
+    }
+
+    // ── TOOLS: LOAD PROGRESSION (reuses gear-card) ───────────────────
     const LOAD = [
-      { name: "Phase 1 · Linear Progression", price: "Now, through the first few months", uses: ["Hit the top of your rep range on every set with clean form → add weight next session", "Upper body: +2.5–5 lb (1–2.5 kg). Lower body: +5–10 lb (2.5–5 kg)", "Missed reps or form broke down? Repeat the same weight next time"] },
-      { name: "Phase 2 · Double Progression", price: "Once linear jumps stall 2 sessions in a row", uses: ["Pick a rep range, e.g. 8–12", "Stay at the same weight until you hit 12 reps on all working sets", "Then add weight and drop back down to 8 reps, build up again"] },
-      { name: "Phase 3 · RPE-Based Training", price: "Later, once you have real training experience", uses: ["Train most sets around RPE 7–8 (2–3 reps left in the tank)", "Save true near-failure effort for your last set of an exercise only", "No grinding every set to failure"] },
+      { name: "Double Progression · Default", price: "Use this for most lifts in Block 2", uses: ["Pick a rep range, e.g. 8–10", "Stay at the same weight until you hit the top of the range on every set", "Then add weight and restart at the bottom of the range"] },
+      { name: "Linear Jumps · Barbell Lifts", price: "Squat, bench, row, RDL", uses: ["Upper body: +2.5–5 lb (1–2.5 kg) per jump", "Lower body: +5–10 lb (2.5–5 kg) per jump", "Missed reps or form broke down? Repeat the same weight next time"] },
+      { name: "RPE Check · Every Session", price: "Keep effort moderate-to-hard", uses: ["Most sets at RPE 7–8 (2–3 reps left in the tank)", "Only the last set of an isolation exercise goes near failure", "No 1-rep-max tests, ever"] },
     ];
     function renderLoad() {
       const l = document.getElementById('load-list');
@@ -337,12 +385,12 @@
       });
     }
 
-    // ── TOOLS: INTENSITY TECHNIQUES ─────────────────────────────────
+    // ── TOOLS: INTENSITY TECHNIQUES ──────────────────────────────────
     const TECHS = [
-      { num: "3–5s", name: "Slow Eccentric", desc: "Lower the weight for 3–5 full seconds, lift normally. The lowering phase drives the most muscle growth. Practice on machines and dumbbells before trying it on a barbell top-tier lift.", ex: "Dumbbell Bench Press: 4s down, controlled up, ~10–15% lighter than usual." },
-      { num: "SS", name: "Superset", desc: "Two exercises back to back, no rest between. Great for time efficiency.", ex: "Lat Pulldown straight into Seated Row — no rest, then rest normally before repeating." },
-      { num: "RP", name: "Rest-Pause", desc: "Take a set close to failure, rest 15–20 seconds, squeeze out a few more reps at the same weight.", ex: "Leg Extension: 12 reps, rest 15s, then 4–6 more reps same weight." },
-      { num: "DS", name: "Drop Set", desc: "Take a set to near failure, reduce weight ~20–30%, keep going with no rest. Save for isolation moves — not barbell squat, bench, or deadlift patterns at your stage.", ex: "Cable Pushdown: near failure, drop the pin, immediately continue." },
+      { num: "3–5s", name: "Slow Eccentric", desc: "Lower the weight for 3–5 full seconds, lift normally. The lowering phase drives a lot of muscle growth. Try it on machines and dumbbells before any barbell lift.", ex: "Lat Pulldown: 4s up to the start position, controlled pull, ~10–15% lighter than usual." },
+      { num: "SS", name: "Superset", desc: "Two exercises back to back, no rest between. Great for time efficiency. Already built into Thursday's curl + pushdown.", ex: "Cable Curl straight into Cable Pushdown — 30s rest, then repeat." },
+      { num: "RP", name: "Rest-Pause", desc: "Take a set close to failure, rest 15–20 seconds, squeeze out a few more reps at the same weight. Isolation moves only.", ex: "Lateral Raise: 15 reps, rest 15s, then 4–6 more reps same weight." },
+      { num: "DS", name: "Drop Set", desc: "Take a set to near failure, reduce weight ~20–30%, keep going with no rest. Save for isolation moves — never barbell squat, bench, or row.", ex: "Cable Pushdown: near failure, drop the pin, immediately continue." },
       { num: "MDS", name: "Mechanical Drop Set", desc: "Same muscle, switch to an easier variation with no rest — not just lighter weight.", ex: "Incline Dumbbell Press to near failure → immediately flat Dumbbell Press, same weight." },
     ];
     function renderTechs() {
@@ -355,12 +403,13 @@
       });
     }
 
-    // ── TOOLS: SPOTTER / RACK SAFETY (reuses core-row) ──────────────
+    // ── TOOLS: SPOTTER / RACK SAFETY (reuses core-row) ───────────────
     const SAFETY = [
-      { name: "Barbell Back Squat", time: "RACK", tip: "Set safety pins in the rack at the bottom of your squat depth, every single time.", m: "quads", i: 0 },
+      { name: "Barbell Back Squat", time: "RACK", tip: "Set safety pins at the bottom of your squat depth, every single time. Keep it light.", m: "quads", i: 0 },
       { name: "Barbell Bench Press", time: "SPOT", tip: "Never bench heavy alone — use a spotter or safety pins.", m: "chest", i: 0 },
-      { name: "Barbell Overhead Press", time: "BRACE", tip: "Full-body standing lift — master dumbbell bracing before this tier.", m: "shoulders", i: 0 },
-      { name: "Barbell RDL / Row", time: "FORM", tip: "Needs a rock-solid hip hinge — build it with dumbbells first.", m: "hamsglutes", i: 1 },
+      { name: "Barbell Bent-Over Row", time: "FORM", tip: "Flat back every rep. If it rounds, switch to the chest-supported machine.", m: "back", i: 3 },
+      { name: "Barbell RDL", time: "FORM", tip: "Needs a rock-solid hip hinge — stay with dumbbells until it is.", m: "hamsglutes", i: 1 },
+      { name: "Overhead Press", time: "BRACE", tip: "Seated dumbbells first; brace your core and don't arch your lower back.", m: "shoulders", i: 0 },
     ];
     function renderSafety() {
       const l = document.getElementById('safety-list');
@@ -372,15 +421,15 @@
       });
     }
 
-    // ── TOOLS: PROGRESSION BENCHMARKS ────────────────────────────────
+    // ── TOOLS: BLOCK 2 BENCHMARKS ────────────────────────────────────
     const MILESTONES = [
-      { num: "20", name: "Bodyweight squat, full depth", why: "Clean pattern before adding real load.", level: "lv1", label: "Weeks 1–3" },
-      { num: "18", name: "Push-ups, clean reps", why: "Green light to push chest press loads harder.", level: "lv1", label: "Weeks 1–4" },
-      { num: "90s", name: "Plank, hollow body", why: "Core control needed before hinge/squat loading.", level: "lv1", label: "Weeks 1–4" },
-      { num: "12", name: "Goblet squat, moderate dumbbell", why: "Green light for the barbell back squat progression.", level: "lv2", label: "Month 2–3" },
-      { num: "12", name: "Dumbbell RDL, flat back every rep", why: "Green light for the barbell RDL progression.", level: "lv2", label: "Month 2–3" },
-      { num: "1", name: "Strict pull-up, lightest assist", why: "Real bodyweight pulling strength milestone.", level: "lv2", label: "Month 3–5" },
-      { num: "BW×5", name: "Bench press at bodyweight, 5 reps", why: "Rep benchmark, not a 1RM — always spotted.", level: "lv3", label: "Month 6+" },
+      { num: "10", name: "Barbell back squat, clean reps", why: "Full depth, pins set, light weight. Shows the pattern is solid.", level: "lv1", label: "Week 3–5" },
+      { num: "10", name: "Dumbbell shoulder press, strict reps", why: "No back arch, no leg drive. Back and shoulder priority check.", level: "lv1", label: "Week 3–5" },
+      { num: "15", name: "Face pulls, 1s pause each rep", why: "Proves rear delt and upper back control.", level: "lv1", label: "Week 2–4" },
+      { num: "10", name: "Barbell row, flat back every rep", why: "Green light to add weight to rows in Block 3.", level: "lv2", label: "Week 4–5" },
+      { num: "8", name: "Assisted pull-ups, lighter assist", why: "Lower the assist by 10–20 lb compared with Week 1.", level: "lv2", label: "Week 5" },
+      { num: "1", name: "Strict pull-up, no assist", why: "Carried over from Block 1, still the big pulling milestone.", level: "lv2", label: "Block 3+" },
+      { num: "BW×5", name: "Bench press at bodyweight, 5 reps", why: "Rep benchmark, not a 1RM. Always spotted.", level: "lv3", label: "Block 3+" },
     ];
     function renderMilestones() {
       const l = document.getElementById('ms-list');
@@ -450,9 +499,9 @@
 
     // ── INIT ─────────────────────────────────────────────────────────
     renderLibrary();
+    renderPlan(HYB_DAYS, 'hyb-days');
     renderPlan(FB_DAYS, 'fb-days');
-    renderPlan(PPL_DAYS, 'ppl-days');
-    renderLoad(); renderTechs(); renderSafety(); renderMilestones();
+    renderRoad(); renderLoad(); renderTechs(); renderSafety(); renderMilestones();
     timeLeft = restTime; totalTime = restTime; updateDisplay();
   </script>
   <script>
@@ -461,4 +510,5 @@
     }
   </script>
 </body>
+
 </html>
